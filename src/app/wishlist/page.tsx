@@ -12,22 +12,26 @@ export default function WishlistPage() {
   const wishlistProducts = getAllProducts().slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Header />
-      <main className="container mx-auto px-3 sm:px-4 py-4 sm:py-6">
-        <h1 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">My Wishlist ({wishlistProducts.length} items)</h1>
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-8 tracking-tight border-b border-white/10 pb-4">
+          My Wishlist <span className="text-[#FFD700]">({wishlistProducts.length} items)</span>
+        </h1>
 
         {wishlistProducts.length === 0 ? (
-          <div className="bg-white rounded-lg p-8 sm:p-12 text-center">
-            <IconHeart size={36} className="text-gray-300 mx-auto mb-3 sm:mb-4 sm:w-12 sm:h-12" />
-            <h2 className="text-base sm:text-lg font-semibold text-gray-800 mb-2">Your wishlist is empty</h2>
-            <p className="text-sm text-gray-500 mb-4">Save items you love</p>
-            <Link href="/product" className="inline-block bg-[#E63946] text-white px-5 sm:px-6 py-2 rounded-lg font-medium text-sm">
+          <div className="bg-[#0a0a0a] border border-white/10 rounded-sm p-12 text-center">
+            <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
+              <IconHeart size={40} className="text-gray-500" />
+            </div>
+            <h2 className="text-xl font-bold text-white mb-2">Your wishlist is empty</h2>
+            <p className="text-gray-400 mb-8">Save your favorite crackers here for later!</p>
+            <Link href="/product" className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-colors">
               Browse Products
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {wishlistProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

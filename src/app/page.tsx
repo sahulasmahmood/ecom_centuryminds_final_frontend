@@ -9,7 +9,7 @@ import Footer02 from '@/components/Footer02';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Header />
       <HeroSection />
       <PopularProducts />

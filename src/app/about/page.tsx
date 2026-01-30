@@ -10,95 +10,92 @@ export default function AboutPage() {
     <>
       <Header />
       
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-background">
         {/* Breadcrumb */}
-        <div className="bg-gray-50 border-b">
+        <div className="bg-[#0a0a0a] border-b border-white/5">
           <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
-              <Link href="/" className="text-[#e63946] hover:text-[#c1121f]">Home</Link>
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400">
+              <Link href="/" className="text-gray-400 hover:text-[#FFD700] transition-colors">Home</Link>
               <span>/</span>
-              <span className="text-gray-900">About Us</span>
+              <span className="text-white font-medium">About Us</span>
             </div>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-12">
-          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+        <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-12">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             {/* Left Content - About Text */}
             <div className="w-full lg:w-[76%]">
-              <div className="prose max-w-none">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">Welcome to Leats</h1>
+              <div className="prose prose-invert max-w-none">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 md:mb-8 tracking-tight">Welcome to SkySpark</h1>
                 
-                <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-4 sm:mb-6">
-                  Welcome to Leats, your trusted online destination for fresh groceries, organic produce, and everyday essentials. We are committed to bringing the finest quality products directly to your doorstep, making grocery shopping convenient, affordable, and enjoyable for families across India.
+                <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-6">
+                  Welcome to SkySpark, your premier destination for high-quality fireworks and crackers. We are dedicated to lighting up your celebrations with the safest, brightest, and most spectacular pyrotechnics available in the market.
                 </p>
 
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 mt-6 sm:mt-8">Our Story</h2>
-                <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-4 sm:mb-6">
-                  Founded with a passion for healthy living and sustainable practices, Leats started as a small local grocery store with a big vision. Today, we have grown into a comprehensive online marketplace that serves thousands of customers daily.
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#FFD700] mb-4 mt-8 uppercase tracking-wide">Our Story</h2>
+                <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-6">
+                  Born from a passion for festive traditions, SkySpark began as a small family business in Sivakasi, the firework capital of India. Today, we have evolved into a trusted online brand, bringing the joy of celebration directly to your doorstep with a commitment to quality and safety.
                 </p>
 
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 mt-6 sm:mt-8">What We Offer</h2>
-                <ul className="list-disc list-inside text-sm sm:text-base text-gray-700 leading-relaxed mb-4 sm:mb-6 space-y-1 sm:space-y-2">
-                  <li>Fresh Produce: Farm-fresh fruits and vegetables sourced from local farmers</li>
-                  <li>Dairy and Bakery: Fresh milk, paneer, bread, and baked goods delivered daily</li>
-                  <li>Staples: Atta, rice, dal and everything you need to stock your kitchen</li>
-                  <li>Cooking Essentials: Oil, ghee, masalas and spices for authentic Indian cooking</li>
-                  <li>Snacks and Beverages: Chips, biscuits, drinks and more for every taste</li>
-                  <li>Personal Care: Beauty and hygiene products for the whole family</li>
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#FFD700] mb-4 mt-8 uppercase tracking-wide">What We Offer</h2>
+                <ul className="list-disc list-inside text-base sm:text-lg text-gray-300 leading-relaxed mb-6 space-y-2 marker:text-[#FFD700]">
+                  <li><strong className="text-white">Premium Sky Shots:</strong> Professional-grade aerial displays for maximum impact.</li>
+                  <li><strong className="text-white">Sparklers & Flower Pots:</strong> Safe and vibrant classics for families.</li>
+                  <li><strong className="text-white">Sound Crackers:</strong> Traditional loud crackers for the authentic festive spirit.</li>
+                  <li><strong className="text-white">Gift Boxes:</strong> Curated assortments perfect for gifting during Diwali and New Year.</li>
+                  <li><strong className="text-white">Safety Gear:</strong> Essential safety accessories to ensure worry-free celebrations.</li>
                 </ul>
 
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 mt-6 sm:mt-8">10 Minute Delivery</h2>
-                <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-4 sm:mb-6">
-                  We understand that your time is precious. That is why we have built a network of dark stores across the city to ensure your groceries reach you in just 10 minutes.
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#FFD700] mb-4 mt-8 uppercase tracking-wide">Commitment to Safety</h2>
+                <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-6">
+                  Safety is our top priority. All our products undergo rigorous testing and adhere to the highest safety standards set by the Explosives Department. We promote responsible usage and provide detailed safety instructions with every purchase.
                 </p>
 
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 mt-6 sm:mt-8">Why Choose Leats?</h2>
-                <ul className="list-disc list-inside text-sm sm:text-base text-gray-700 leading-relaxed mb-4 sm:mb-6 space-y-1 sm:space-y-2">
-                  <li>10 Minute Delivery: Get your groceries delivered in minutes</li>
-                  <li>Best Prices: Har Din Sasta - everyday low prices</li>
-                  <li>Fresh Quality: Farm-fresh produce and quality products</li>
-                  <li>Wide Selection: Thousands of products across categories</li>
-                  <li>Easy Returns: Hassle-free returns and refunds</li>
-                  <li>24/7 Support: Our customer service team is always here to help</li>
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#FFD700] mb-4 mt-8 uppercase tracking-wide">Why Choose SkySpark?</h2>
+                <ul className="list-disc list-inside text-base sm:text-lg text-gray-300 leading-relaxed mb-6 space-y-2 marker:text-[#FFD700]">
+                  <li>Direct from Sivakasi: Authentic quality at factory prices.</li>
+                  <li>Wide Variety: The largest collection of crackers online.</li>
+                  <li>Fast Delivery: Secure and timely shipping across approved regions.</li>
+                  <li>Customer Support: Dedicated team to assist you with your orders.</li>
                 </ul>
               </div>
             </div>
 
             {/* Right Sidebar */}
             <div className="w-full lg:w-[24%]">
-              <div className="space-y-4 sm:space-y-6 lg:sticky lg:top-4">
+              <div className="space-y-6 lg:sticky lg:top-24">
                 {/* Search Bar */}
-                <div className="bg-white border rounded-lg p-3 sm:p-4">
+                <div className="bg-[#0a0a0a] border border-white/10 rounded-sm p-4">
                   <div className="relative">
                     <input 
                       type="text" 
                       placeholder="Search..." 
-                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-10 sm:pr-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e63946] text-sm text-gray-600"
+                      className="w-full px-4 py-3 pr-12 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] text-sm text-white placeholder-gray-600"
                     />
-                    <button className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#e63946]">
-                      <IconSearch size={18} className="sm:w-5 sm:h-5" />
+                    <button className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#FFD700] transition-colors">
+                      <IconSearch size={20} />
                     </button>
                   </div>
                 </div>
 
 
                 {/* Categories */}
-                <div className="bg-white border rounded-lg p-4 sm:p-6">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">Categories</h3>
-                  <div className="w-12 sm:w-16 h-1 bg-[#e63946] mb-4 sm:mb-6"></div>
+                <div className="bg-[#0a0a0a] border border-white/10 rounded-sm p-6">
+                  <h3 className="text-lg font-bold text-white mb-2 uppercase tracking-tight">Categories</h3>
+                  <div className="w-12 h-1 bg-[#FFD700] mb-6"></div>
                   
-                  <div className="space-y-2 sm:space-y-3">
+                  <div className="space-y-2">
                     {categories.map((category) => (
                       <Link 
                         key={category.id}
                         href={`/category/${category.slug}`} 
-                        className="flex items-center justify-between py-1.5 sm:py-2 hover:text-[#e63946] transition group"
+                        className="flex items-center justify-between py-2 group border-b border-white/5 last:border-0"
                       >
-                        <div className="flex items-center gap-2 sm:gap-3">
-                          <span className="text-xl sm:text-2xl">{category.icon}</span>
-                          <span className="text-sm sm:text-base text-gray-700 group-hover:text-[#e63946]">{category.name}</span>
+                        <div className="flex items-center gap-3">
+                          <span className="text-xl group-hover:scale-110 transition-transform">{category.icon}</span>
+                          <span className="text-sm font-medium text-gray-400 group-hover:text-white transition-colors">{category.name}</span>
                         </div>
                       </Link>
                     ))}
@@ -106,18 +103,19 @@ export default function AboutPage() {
                 </div>
 
                 {/* Advertisement */}
-                <div className="bg-gradient-to-br from-red-50 to-yellow-50 rounded-lg overflow-hidden p-4 sm:p-6">
-                  <p className="text-xs sm:text-sm text-gray-500 mb-1">Fresh Groceries</p>
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">
-                    Save up to<br />
-                    40% OFF<br />
-                    Daily
+                <div className="bg-[#111] border border-white/10 rounded-sm overflow-hidden p-6 relative group">
+                   <div className="absolute inset-0 bg-gradient-to-br from-[#FFD700]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <p className="text-xs font-bold text-[#FFD700] uppercase tracking-widest mb-2">Mega Sale</p>
+                  <h3 className="text-2xl font-bold text-white mb-4 leading-tight">
+                    Up to<br />
+                    <span className="text-4xl text-[#FFD700]">50% OFF</span><br />
+                    on Bundles
                   </h3>
                   <Link 
                     href="/product"
-                    className="bg-[#e63946] text-white px-4 sm:px-6 py-2 rounded-md hover:bg-[#c1121f] transition flex items-center gap-2 text-xs sm:text-sm font-medium w-fit"
+                    className="inline-flex items-center gap-2 bg-[#FFD700] text-black px-6 py-3 rounded-sm font-bold text-sm uppercase tracking-wide hover:bg-white transition-colors relative z-10"
                   >
-                    Shop now
+                    Shop Now
                     <span>→</span>
                   </Link>
                 </div>

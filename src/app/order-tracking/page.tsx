@@ -19,14 +19,14 @@ export default function OrderTrackingPage() {
     <>
       <Header />
       
-      <main className="min-h-screen bg-gray-50">
+      <main className="min-h-screen bg-background">
         {/* Breadcrumb */}
-        <div className="bg-white border-b">
+        <div className="bg-[#0a0a0a] border-b border-white/5">
           <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
-              <Link href="/" className="text-[#e63946] hover:text-[#c1121f]">Home</Link>
-              <span>/</span>
-              <span className="text-gray-900">Order Tracking</span>
+            <div className="flex items-center gap-2 text-xs sm:text-sm">
+              <Link href="/" className="text-gray-400 hover:text-[#FFD700] transition-colors">Home</Link>
+              <span className="text-gray-600">/</span>
+              <span className="text-white font-medium">Order Tracking</span>
             </div>
           </div>
         </div>
@@ -35,18 +35,18 @@ export default function OrderTrackingPage() {
         <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-16">
           <div className="max-w-md mx-auto">
             {/* Header */}
-            <div className="text-center mb-6 sm:mb-8">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">Order tracking</h1>
-              <p className="text-sm sm:text-base text-gray-600">Tracking your order status</p>
+            <div className="text-center mb-10">
+              <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Order Tracking</h1>
+              <p className="text-gray-400 text-sm sm:text-base">Enter your order details to track your package</p>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm p-4 sm:p-8">
-              <div className="space-y-4 sm:space-y-6">
+            <form onSubmit={handleSubmit} className="bg-[#0a0a0a] border border-white/10 rounded-sm p-8">
+              <div className="space-y-6">
                 {/* Order ID Field */}
                 <div>
-                  <label htmlFor="orderId" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
-                    Order ID <span className="text-red-500">*</span>
+                  <label htmlFor="orderId" className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+                    Order ID <span className="text-[#E31837]">*</span>
                   </label>
                   <input
                     type="text"
@@ -54,15 +54,15 @@ export default function OrderTrackingPage() {
                     value={orderId}
                     onChange={(e) => setOrderId(e.target.value)}
                     placeholder="Enter the order ID"
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#e63946] focus:border-transparent text-sm"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
                     required
                   />
                 </div>
 
                 {/* Email Field */}
                 <div>
-                  <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
-                    Email <span className="text-red-500">*</span>
+                  <label htmlFor="email" className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+                    Email <span className="text-[#E31837]">*</span>
                   </label>
                   <input
                     type="email"
@@ -70,7 +70,7 @@ export default function OrderTrackingPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#e63946] focus:border-transparent text-sm"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
                     required
                   />
                 </div>
@@ -78,9 +78,9 @@ export default function OrderTrackingPage() {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-[#e63946] text-white py-2.5 sm:py-3 rounded-md hover:bg-[#c1121f] transition font-medium text-sm sm:text-base"
+                  className="w-full bg-[#FFD700] text-black py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-colors text-sm"
                 >
-                  Find
+                  Track Order
                 </button>
               </div>
             </form>

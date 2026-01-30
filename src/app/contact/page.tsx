@@ -20,63 +20,65 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Header />
       
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
+      <div className="bg-[#0a0a0a] border-b border-white/5">
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
           <div className="flex items-center gap-2 text-xs sm:text-sm">
-            <Link href="/" className="text-[#E63946] hover:underline">Home</Link>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-800 font-medium">Contact Us</span>
+            <Link href="/" className="text-gray-400 hover:text-[#FFD700] transition-colors">Home</Link>
+            <span className="text-gray-600">/</span>
+            <span className="text-white font-medium">Contact Us</span>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-10">
-        <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-1 sm:mb-2">Get in Touch</h1>
-          <p className="text-sm sm:text-base text-gray-600">We are here to help you</p>
+      <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-12">
+        <div className="text-center mb-10">
+          <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Get in Touch</h1>
+          <p className="text-gray-400">We are here to help you light up your celebrations</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-10">
-          <div className="bg-white rounded-lg p-4 sm:p-6 text-center">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-              <IconPhone size={18} className="text-[#E63946] sm:w-[22px] sm:h-[22px]" />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+          <div className="bg-[#0a0a0a] border border-white/10 rounded-sm p-8 text-center hover:border-[#FFD700]/50 transition-colors group">
+            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#FFD700] transition-colors">
+              <IconPhone size={24} className="text-[#FFD700] group-hover:text-black transition-colors" />
             </div>
-            <h3 className="font-semibold text-gray-800 mb-1 text-sm sm:text-base">Call Us</h3>
-            <p className="text-gray-600 text-sm">1800-123-4567</p>
-            <p className="text-xs sm:text-sm text-gray-500">Mon-Sat, 8am-8pm</p>
+            <h3 className="font-bold text-white mb-2 uppercase tracking-wide">Call Us</h3>
+            <p className="text-gray-400 mb-1">1800-SKY-SPARK</p>
+            <p className="text-gray-500 text-xs">Mon-Sat, 9am-9pm</p>
           </div>
-          <div className="bg-white rounded-lg p-4 sm:p-6 text-center">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-              <IconMail size={18} className="text-[#E63946] sm:w-[22px] sm:h-[22px]" />
+          <div className="bg-[#0a0a0a] border border-white/10 rounded-sm p-8 text-center hover:border-[#FFD700]/50 transition-colors group">
+            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#FFD700] transition-colors">
+              <IconMail size={24} className="text-[#FFD700] group-hover:text-black transition-colors" />
             </div>
-            <h3 className="font-semibold text-gray-800 mb-1 text-sm sm:text-base">Email Us</h3>
-            <p className="text-gray-600 text-sm">support@leats.com</p>
-            <p className="text-xs sm:text-sm text-gray-500">We reply within 24 hrs</p>
+            <h3 className="font-bold text-white mb-2 uppercase tracking-wide">Email Us</h3>
+            <p className="text-gray-400 mb-1">support@skyspark.com</p>
+            <p className="text-gray-500 text-xs">We reply within 24 hrs</p>
           </div>
-          <div className="bg-white rounded-lg p-4 sm:p-6 text-center">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-              <IconMapPin size={18} className="text-[#E63946] sm:w-[22px] sm:h-[22px]" />
+          <div className="bg-[#0a0a0a] border border-white/10 rounded-sm p-8 text-center hover:border-[#FFD700]/50 transition-colors group">
+            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#FFD700] transition-colors">
+              <IconMapPin size={24} className="text-[#FFD700] group-hover:text-black transition-colors" />
             </div>
-            <h3 className="font-semibold text-gray-800 mb-1 text-sm sm:text-base">Visit Us</h3>
-            <p className="text-gray-600 text-sm">123 Main Street, Mumbai</p>
-            <p className="text-xs sm:text-sm text-gray-500">Maharashtra 400001</p>
+            <h3 className="font-bold text-white mb-2 uppercase tracking-wide">Visit Us</h3>
+            <p className="text-gray-400 mb-1">123 Firework Lane, Sivakasi</p>
+            <p className="text-gray-500 text-xs">Tamil Nadu 626123</p>
           </div>
         </div>
 
-        <div className="max-w-xl mx-auto bg-white rounded-lg p-4 sm:p-6">
-          <h2 className="text-base sm:text-lg font-bold text-gray-800 mb-3 sm:mb-4">Send us a Message</h2>
-          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        <div className="max-w-2xl mx-auto bg-[#0a0a0a] border border-white/10 rounded-sm p-8 sm:p-10 relative overflow-hidden">
+           <div className="absolute top-0 right-0 w-64 h-64 bg-[#FFD700]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+           
+          <h2 className="text-2xl font-bold text-white mb-6 tracking-tight relative z-10">Send us a Message</h2>
+          <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
                 type="text"
                 name="name"
                 placeholder="Your Name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E63946] text-sm"
+                className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
                 required
               />
               <input
@@ -85,7 +87,7 @@ export default function ContactPage() {
                 placeholder="Your Email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E63946] text-sm"
+                className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
                 required
               />
             </div>
@@ -95,20 +97,20 @@ export default function ContactPage() {
               placeholder="Your Phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E63946] text-sm"
+              className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
             />
             <textarea
               name="message"
               placeholder="Your Message"
               value={formData.message}
               onChange={handleChange}
-              rows={4}
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E63946] resize-none text-sm"
+              rows={5}
+              className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600 resize-none"
               required
             ></textarea>
             <button
               type="submit"
-              className="w-full bg-[#E63946] text-white py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-[#C62E39] text-sm sm:text-base"
+              className="w-full bg-[#FFD700] text-black py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-colors"
             >
               Send Message
             </button>

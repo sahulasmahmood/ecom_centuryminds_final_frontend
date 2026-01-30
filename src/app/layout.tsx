@@ -10,8 +10,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "LEATS - Daily Fresh Delivery | Groceries, Fruits & Vegetables",
-  description: "LEATS - Your trusted online grocery store. Fresh vegetables, fruits, dairy, meat & more delivered to your doorstep. Best prices, fast delivery!",
+  title: "SkySpark - Premium Fireworks & Celebrations",
+  description: "SkySpark - Your trusted online store for premium fireworks, crackers, and celebration supplies. Safe delivery, best prices, and quality assured directly from Sivakasi.",
 };
 
 export default function RootLayout({

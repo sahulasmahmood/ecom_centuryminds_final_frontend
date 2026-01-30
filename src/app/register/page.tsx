@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer02 from '@/components/Footer02';
 
@@ -15,69 +14,77 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Header />
-      <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-12">
-        <div className="max-w-md mx-auto bg-white rounded-lg p-4 sm:p-8 shadow-sm">
-          <div className="text-center mb-4 sm:mb-6">
-            <Image src="/logo.jpeg" alt="LEATS" width={80} height={32} className="mx-auto mb-3 sm:mb-4 w-16 sm:w-[100px]" />
-            <h1 className="text-lg sm:text-xl font-bold text-gray-800">Create Account</h1>
-            <p className="text-gray-500 text-xs sm:text-sm">Join LEATS for fresh groceries</p>
+      <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-16">
+        <div className="max-w-md mx-auto bg-[#0a0a0a] border border-white/10 rounded-sm p-6 sm:p-10 relative overflow-hidden">
+          
+           {/* Decorative background glow */}
+           <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFD700]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+           
+          <div className="text-center mb-8 relative z-10">
+            <h2 className="text-3xl font-bold text-white tracking-tight mb-2">SkySpark</h2>
+            <p className="text-[#FFD700] text-sm font-bold uppercase tracking-widest">Premium Crackers</p>
+          </div>
+          
+          <div className="mb-8 text-center relative z-10">
+            <h1 className="text-xl font-bold text-white mb-2">Create Account</h1>
+            <p className="text-gray-400 text-sm">Join SkySpark for exclusive offers</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
             <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Full Name</label>
+              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E63946] text-sm"
+                 className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
                 placeholder="Enter your name"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Email</label>
               <input
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E63946] text-sm"
+                 className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
                 placeholder="Enter email"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Phone Number</label>
               <input
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E63946] text-sm"
+                 className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
                 placeholder="Enter phone number"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Password</label>
+              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Password</label>
               <input
                 type="password"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E63946] text-sm"
+                 className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
                 placeholder="Create password"
                 required
               />
             </div>
-            <button type="submit" className="w-full bg-[#E63946] text-white py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-[#C62E39] text-sm sm:text-base">
+            <button type="submit" className="w-full bg-[#FFD700] text-black py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-colors text-sm">
               Create Account
             </button>
           </form>
 
-          <div className="mt-4 sm:mt-6 text-center">
-            <p className="text-gray-600 text-xs sm:text-sm">
-              Already have an account? <Link href="/login" className="text-[#E63946] font-medium hover:underline">Sign In</Link>
+          <div className="mt-8 text-center relative z-10">
+            <p className="text-gray-500 text-sm">
+              Already have an account? <Link href="/login" className="text-[#FFD700] font-bold hover:text-white transition-colors">Sign In</Link>
             </p>
           </div>
         </div>

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer02 from '@/components/Footer02';
 
@@ -15,54 +14,62 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Header />
-      <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-12">
-        <div className="max-w-md mx-auto bg-white rounded-lg p-4 sm:p-8 shadow-sm">
-          <div className="text-center mb-4 sm:mb-6">
-            <Image src="/logo.jpeg" alt="LEATS" width={80} height={32} className="mx-auto mb-3 sm:mb-4 w-16 sm:w-[100px]" />
-            <h1 className="text-lg sm:text-xl font-bold text-gray-800">Welcome Back!</h1>
-            <p className="text-gray-500 text-xs sm:text-sm">Sign in to continue</p>
+      <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-16">
+        <div className="max-w-md mx-auto bg-[#0a0a0a] border border-white/10 rounded-sm p-6 sm:p-10 relative overflow-hidden">
+          
+           {/* Decorative background glow */}
+           <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFD700]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+           
+          <div className="text-center mb-8 relative z-10">
+            <h2 className="text-3xl font-bold text-white tracking-tight mb-2">SkySpark</h2>
+            <p className="text-[#FFD700] text-sm font-bold uppercase tracking-widest">Premium Crackers</p>
+          </div>
+          
+          <div className="mb-8 text-center relative z-10">
+            <h1 className="text-xl font-bold text-white mb-2">Welcome Back!</h1>
+            <p className="text-gray-400 text-sm">Sign in to access your account</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
             <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Email or Phone</label>
+              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Email or Phone</label>
               <input
                 type="text"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E63946] text-sm"
+                className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
                 placeholder="Enter email or phone"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Password</label>
+              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Password</label>
               <input
                 type="password"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E63946] text-sm"
+                className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
                 placeholder="Enter password"
                 required
               />
             </div>
-            <div className="flex items-center justify-between text-xs sm:text-sm">
-              <label className="flex items-center gap-2">
-                <input type="checkbox" className="rounded text-[#E63946]" />
-                <span className="text-gray-600">Remember me</span>
+            <div className="flex items-center justify-between text-sm">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" className="rounded-sm text-[#FFD700] focus:ring-[#FFD700] bg-[#1a1a1a] border-white/20" />
+                <span className="text-gray-400">Remember me</span>
               </label>
-              <Link href="/forgot-password" className="text-[#E63946] hover:underline">Forgot Password?</Link>
+              <Link href="/forgot-password" className="text-[#FFD700] hover:text-white transition-colors text-sm">Forgot Password?</Link>
             </div>
-            <button type="submit" className="w-full bg-[#E63946] text-white py-2.5 sm:py-3 rounded-lg font-semibold hover:bg-[#C62E39] text-sm sm:text-base">
+            <button type="submit" className="w-full bg-[#FFD700] text-black py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-colors text-sm">
               Sign In
             </button>
           </form>
 
-          <div className="mt-4 sm:mt-6 text-center">
-            <p className="text-gray-600 text-xs sm:text-sm">
-              New to LEATS? <Link href="/register" className="text-[#E63946] font-medium hover:underline">Create Account</Link>
+          <div className="mt-8 text-center relative z-10">
+            <p className="text-gray-500 text-sm">
+              New to SkySpark? <Link href="/register" className="text-[#FFD700] font-bold hover:text-white transition-colors">Create Account</Link>
             </p>
           </div>
         </div>
