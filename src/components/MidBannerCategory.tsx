@@ -6,40 +6,40 @@ import Link from 'next/link';
 export default function MidBannerCategory() {
   const banners = [
     {
-      title: 'Fresh Fruits',
-      subtitle: 'Seasonal & Exotic',
-      offer: 'UP TO 35% OFF',
+      title: 'Firecrackers',
+      subtitle: 'Atom Bombs & Lakshmi',
+      offer: 'UP TO 40% OFF',
       detailedBg: 'bg-[#fef2f2]',
       borderColor: 'border-red-100',
       titleColor: 'text-red-900',
       textColor: 'text-red-700',
       btnColor: 'bg-red-600',
-      image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&h=250&fit=crop',
-      link: '/category/fruits-vegetables'
+      image: '/cracker-atom-bomb.jpg',
+      link: '/category/firecrackers'
     },
     {
-      title: 'Kitchen Essentials',
-      subtitle: 'Oil, Ghee & Masala',
-      offer: 'STARTING ₹99',
+      title: 'Sparklers',
+      subtitle: 'Golden & Colorful',
+      offer: 'STARTING ₹29',
       detailedBg: 'bg-[#fffbeb]',
       borderColor: 'border-amber-100',
       titleColor: 'text-amber-900',
       textColor: 'text-amber-700',
       btnColor: 'bg-amber-600',
-      image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&h=250&fit=crop',
-      link: '/category/oil-ghee-masala'
+      image: '/cracker-sparklers.jpg',
+      link: '/category/sparklers'
     },
     {
-      title: 'Personal Care',
-      subtitle: 'Beauty & Hygiene',
-      offer: 'BUY 1 GET 1',
+      title: 'Mega Assorts',
+      subtitle: 'Complete Collections',
+      offer: 'BUY & SAVE MORE',
       detailedBg: 'bg-[#eff6ff]',
-      borderColor: 'border-blue-100',
-      titleColor: 'text-blue-900',
-      textColor: 'text-blue-700',
-      btnColor: 'bg-blue-600',
-      image: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=400&h=250&fit=crop',
-      link: '/category/personal-care'
+      borderColor: 'border-purple-100',
+      titleColor: 'text-purple-900',
+      textColor: 'text-purple-700',
+      btnColor: 'bg-purple-600',
+      image: '/cracker-assortment.jpg',
+      link: '/category/mega-assortment'
     },
   ];
 

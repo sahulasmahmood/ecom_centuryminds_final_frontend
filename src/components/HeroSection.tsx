@@ -8,59 +8,59 @@ import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Professional banners with text overlay (BigBasket style)
+  // Diwali Crackers themed banners
   const banners = [
     {
       id: 1,
-      image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1600&h=500&fit=crop',
-      title: 'Fresh Vegetables',
-      subtitle: 'Farm Fresh Daily',
-      description: 'Get the freshest vegetables delivered to your doorstep',
+      image: '/cracker-hero-1.jpg',
+      title: 'Diwali Fireworks',
+      subtitle: 'Celebrate with Crackers',
+      description: 'Premium firecracker collection for festive celebrations',
       offer: 'Up to 40% OFF',
-      offerColor: 'bg-green-600',
+      offerColor: 'bg-[#FFD700]',
       buttonText: 'Shop Now',
       buttonColor: 'bg-white text-gray-800 hover:bg-gray-100',
       textPosition: 'left',
-      link: '/category/fruits-vegetables',
+      link: '/category/firecrackers',
     },
     {
       id: 2,
-      image: 'https://images.unsplash.com/photo-1608686207856-001b95cf60ca?w=1600&h=500&fit=crop',
-      title: 'Daily Essentials',
-      subtitle: 'Grocery at Best Prices',
-      description: 'Atta, Rice, Dal & more at unbeatable prices',
-      offer: 'Save ₹200',
-      offerColor: 'bg-orange-600',
+      image: '/cracker-hero-2.jpg',
+      title: 'Premium Crackers',
+      subtitle: 'Best Quality Assured',
+      description: 'Atom bombs, sparklers, and compound crackers at unbeatable prices',
+      offer: 'Save ₹500',
+      offerColor: 'bg-[#FF6B35]',
       buttonText: 'Explore',
-      buttonColor: 'bg-[#e63946] text-white hover:bg-[#c1121f]',
+      buttonColor: 'bg-white text-gray-800 hover:bg-gray-100',
       textPosition: 'right',
-      link: '/category/atta-rice-dal',
+      link: '/category/premium-crackers',
     },
     {
       id: 3,
-      image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=1600&h=500&fit=crop',
-      title: 'Premium Fruits',
-      subtitle: 'Handpicked Quality',
-      description: 'Sweet, juicy fruits from the best orchards',
-      offer: 'Flat 25% OFF',
-      offerColor: 'bg-red-600',
+      image: '/cracker-hero-3.jpg',
+      title: 'Special Edition',
+      subtitle: 'Limited Time Offer',
+      description: 'Exclusive Lakshmi and luxury cracker collections',
+      offer: 'Flat 35% OFF',
+      offerColor: 'bg-[#7B2D9E]',
       buttonText: 'Order Now',
       buttonColor: 'bg-white text-gray-800 hover:bg-gray-100',
       textPosition: 'left',
-      link: '/category/fruits-vegetables',
+      link: '/category/special-edition',
     },
     {
       id: 4,
-      image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=1600&h=500&fit=crop',
-      title: 'Dairy Fresh',
-      subtitle: 'Pure & Natural',
-      description: 'Fresh milk, paneer, curd delivered daily',
-      offer: 'Starting ₹25',
-      offerColor: 'bg-blue-600',
+      image: '/cracker-hero-4.jpg',
+      title: 'Sparklers & Lights',
+      subtitle: 'Brighten Your Celebration',
+      description: 'Safe and eco-friendly sparklers for all ages',
+      offer: 'Starting ₹50',
+      offerColor: 'bg-[#C1121F]',
       buttonText: 'Buy Now',
-      buttonColor: 'bg-[#e63946] text-white hover:bg-[#c1121f]',
+      buttonColor: 'bg-white text-gray-800 hover:bg-gray-100',
       textPosition: 'right',
-      link: '/category/dairy-bread-eggs',
+      link: '/category/sparklers',
     },
   ];
 
@@ -178,7 +178,7 @@ export default function HeroSection() {
                 onClick={() => goToSlide(index)}
                 className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                   index === currentSlide 
-                    ? 'bg-[#e63946] w-6 sm:w-8 shadow-lg' 
+                    ? 'bg-[#FFD700] w-6 sm:w-8 shadow-lg' 
                     : 'bg-white/70 hover:bg-white w-1.5 sm:w-2'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}

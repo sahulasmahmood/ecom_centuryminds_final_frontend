@@ -21,12 +21,12 @@ export default function TrendingProducts() {
         {/* Section Header */}
         <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
           <div>
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">Trending Products</h2>
-            <p className="text-xs sm:text-sm text-gray-500">Best deals with maximum savings</p>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">Best Discounts</h2>
+            <p className="text-xs sm:text-sm text-gray-500">Maximum savings on crackers this Diwali</p>
           </div>
           <Link 
             href="/product" 
-            className="text-[#e63946] font-medium hover:underline text-xs sm:text-sm md:text-base"
+            className="text-[#C1121F] font-medium hover:underline text-xs sm:text-sm md:text-base"
           >
             View All →
           </Link>

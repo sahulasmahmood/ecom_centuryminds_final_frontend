@@ -21,11 +21,11 @@ export default function PopularProducts() {
         <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
           <div>
             <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">Best Sellers</h2>
-            <p className="text-xs sm:text-sm text-gray-500">Most popular products near you</p>
+            <p className="text-xs sm:text-sm text-gray-500">Most popular crackers this Diwali</p>
           </div>
           <Link 
             href="/product" 
-            className="text-[#e63946] font-medium hover:underline text-xs sm:text-sm md:text-base"
+            className="text-[#C1121F] font-medium hover:underline text-xs sm:text-sm md:text-base"
           >
             View All →
           </Link>
@@ -37,7 +37,7 @@ export default function PopularProducts() {
             onClick={() => setActiveCategory(0)}
             className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-colors active:scale-95 ${
               activeCategory === 0
-                ? 'bg-[#e63946] text-white'
+                ? 'bg-[#C1121F] text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
@@ -49,7 +49,7 @@ export default function PopularProducts() {
               onClick={() => setActiveCategory(category.id)}
               className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-colors active:scale-95 ${
                 activeCategory === category.id
-                  ? 'bg-[#e63946] text-white'
+                  ? 'bg-[#C1121F] text-white'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
               }`}
             >

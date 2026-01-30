@@ -35,7 +35,7 @@ export default function Header() {
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       {/* Main Header */}
-      <div className="bg-[#e63946]">
+      <div className="bg-gradient-to-r from-[#C1121F] to-[#FF6B35]">
         <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
           <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-6">
             {/* Mobile Menu Button */}
@@ -48,16 +48,16 @@ export default function Header() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full overflow-hidden bg-white">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full overflow-hidden bg-white shadow-lg">
                 <Image 
                   src="/logo.jpeg"
-                  alt="Leats Logo"
+                  alt="Crackers Central Logo"
                   width={48}
                   height={48}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white">Leats</span>
+              <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white">Crackers Central</span>
             </Link>
 
             {/* Shop by Category - Desktop Only */}
@@ -66,7 +66,7 @@ export default function Header() {
               onMouseEnter={() => setShowMegaMenu(true)}
               onMouseLeave={() => setShowMegaMenu(false)}
             >
-              <button className="bg-[#c1121f] text-white px-4 py-2.5 rounded-md flex items-center gap-2 hover:bg-[#a01018] focus:outline-none font-medium transition-colors">
+              <button className="bg-[#7B2D9E] text-white px-4 py-2.5 rounded-md flex items-center gap-2 hover:bg-[#5F1F7A] focus:outline-none font-medium transition-colors">
                 <IconMenu2 size={20} />
                 Shop by Category
                 <IconChevronDown size={18} className={`transition-transform ${showMegaMenu ? 'rotate-180' : ''}`} />
@@ -82,7 +82,7 @@ export default function Header() {
                         key={category.id}
                         className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-colors ${
                           activeCategory.id === category.id 
-                            ? 'bg-white text-[#e63946] border-l-4 border-[#e63946]' 
+                            ? 'bg-white text-[#C1121F] border-l-4 border-[#C1121F]' 
                             : 'hover:bg-white text-gray-700'
                         }`}
                         onMouseEnter={() => setActiveCategory(category)}
@@ -101,7 +101,7 @@ export default function Header() {
                     <div className="mb-4">
                       <Link 
                         href={`/category/${activeCategory.slug}`}
-                        className="text-lg font-bold text-gray-800 hover:text-[#e63946] transition-colors"
+                        className="text-lg font-bold text-gray-800 hover:text-[#C1121F] transition-colors"
                       >
                         {activeCategory.name}
                       </Link>
@@ -113,7 +113,7 @@ export default function Header() {
                         <Link
                           key={sub.id}
                           href={`/category/${activeCategory.slug}?sub=${sub.slug}`}
-                          className="text-sm text-gray-600 hover:text-[#e63946] hover:underline transition-colors py-1"
+                          className="text-sm text-gray-600 hover:text-[#C1121F] hover:underline transition-colors py-1"
                         >
                           {sub.name}
                         </Link>
@@ -123,7 +123,7 @@ export default function Header() {
                     <div className="mt-6 pt-4 border-t border-gray-200">
                       <Link 
                         href={`/category/${activeCategory.slug}`}
-                        className="inline-flex items-center gap-2 text-[#e63946] font-medium text-sm hover:underline"
+                        className="inline-flex items-center gap-2 text-[#C1121F] font-medium text-sm hover:underline"
                       >
                         View All {activeCategory.name}
                         <IconChevronRight size={16} />
@@ -198,7 +198,7 @@ export default function Header() {
               <div className="relative">
                 <IconShoppingCart size={22} className="sm:w-6 sm:h-6" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-[#ffc300] text-gray-900 text-[10px] sm:text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-medium">
+                  <span className="absolute -top-2 -right-2 bg-[#FFD700] text-gray-900 text-[10px] sm:text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-medium">
                     {totalItems}
                   </span>
                 )}
@@ -239,7 +239,7 @@ export default function Header() {
               <Link 
                 key={category.id}
                 href={`/category/${category.slug}`}
-                className="flex items-center gap-2 text-gray-700 hover:text-[#e63946] whitespace-nowrap text-sm font-medium py-1 transition-colors"
+                className="flex items-center gap-2 text-gray-700 hover:text-[#C1121F] whitespace-nowrap text-sm font-medium py-1 transition-colors"
               >
                 <span>{category.icon}</span>
                 <span>{category.name}</span>
@@ -257,18 +257,18 @@ export default function Header() {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Menu Header */}
-            <div className="bg-[#e63946] p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#C1121F] to-[#FF6B35] p-4 flex items-center justify-between">
               <Link href="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
                 <div className="w-10 h-10 rounded-full overflow-hidden bg-white">
                   <Image 
                     src="/logo.jpeg"
-                    alt="Leats Logo"
+                    alt="Crackers Central Logo"
                     width={40}
                     height={40}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <span className="text-xl font-bold text-white">Leats</span>
+                <span className="text-xl font-bold text-white">Crackers Central</span>
               </Link>
               <button onClick={() => setMobileMenuOpen(false)} className="text-white p-1">
                 <IconX size={24} />
@@ -311,7 +311,7 @@ export default function Header() {
                   <Link
                     key={category.id}
                     href={`/category/${category.slug}`}
-                    className="flex items-center gap-3 py-3 text-gray-700 hover:text-[#e63946] hover:bg-gray-50 rounded-lg px-2 -mx-2"
+                    className="flex items-center gap-3 py-3 text-gray-700 hover:text-[#C1121F] hover:bg-gray-50 rounded-lg px-2 -mx-2"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="text-xl">{category.icon}</span>

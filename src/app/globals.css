@@ -30,11 +30,13 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
     
-    /* LEATS Brand Colors */
-    --leats-red: #E31837;
-    --leats-yellow: #FFD700;
-    --leats-dark: #333333;
-    --leats-light: #F5F5F5;
+    /* Crackers Diwali Brand Colors */
+    --crackers-deep-red: #C1121F;
+    --crackers-gold: #FFD700;
+    --crackers-orange: #FF6B35;
+    --crackers-purple: #7B2D9E;
+    --crackers-dark: #2C1810;
+    --crackers-light-cream: #FFF8F0;
   }
 }
 
@@ -58,12 +60,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #E31837;
+  background: #C1121F;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c41530;
+  background: #FF6B35;
 }
 
 /* Weight selector dropdown */

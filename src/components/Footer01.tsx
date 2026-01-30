@@ -15,29 +15,29 @@ export default function Footer01() {
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-white">
                 <Image 
                   src="/logo.jpeg"
-                  alt="Leats Logo"
+                  alt="Crackers Central Logo"
                   width={40}
                   height={40}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="text-xl sm:text-2xl font-bold text-white">Leats</span>
+              <span className="text-xl sm:text-2xl font-bold text-white">Crackers Central</span>
             </Link>
             <p className="text-xs sm:text-sm mb-3 sm:mb-4 text-gray-400">
-              Your one-stop shop for fresh groceries, daily essentials, and household items. 
-              We deliver quality products at the best prices, right to your doorstep.
+              Your ultimate destination for premium crackers and fireworks. We deliver quality celebrations 
+              and festive joy right to your doorstep, with the best prices on Diwali products.
             </p>
             <div className="flex gap-2 sm:gap-3">
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#e63946] transition-colors active:scale-95">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#C1121F] transition-colors active:scale-95">
                 <IconBrandFacebook size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#e63946] transition-colors active:scale-95">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#FF6B35] transition-colors active:scale-95">
                 <IconBrandTwitter size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#e63946] transition-colors active:scale-95">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#7B2D9E] transition-colors active:scale-95">
                 <IconBrandInstagram size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#e63946] transition-colors active:scale-95">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#FFD700] transition-colors active:scale-95">
                 <IconBrandYoutube size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
             </div>

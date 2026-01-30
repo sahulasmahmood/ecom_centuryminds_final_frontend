@@ -7,32 +7,32 @@ import { categories } from '@/MockData/CategoryData';
 export default function DealsSection() {
   const deals = [
     {
-      title: 'Fresh Vegetables',
+      title: 'Firecrackers',
       discount: 'Up to 40% OFF',
-      image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&h=200&fit=crop',
-      bgColor: 'bg-green-50',
-      link: '/category/fruits-vegetables'
+      image: '/cracker-atom-bomb.jpg',
+      bgColor: 'bg-red-50',
+      link: '/category/firecrackers'
     },
     {
-      title: 'Dairy Products',
-      discount: 'Starting ₹25',
-      image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=200&fit=crop',
+      title: 'Sparklers',
+      discount: 'Starting ₹29',
+      image: '/cracker-sparklers.jpg',
       bgColor: 'bg-yellow-50',
-      link: '/category/dairy-bread-eggs'
+      link: '/category/sparklers'
     },
     {
-      title: 'Atta & Rice',
-      discount: 'Up to 20% OFF',
-      image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300&h=200&fit=crop',
+      title: 'Mega Assorts',
+      discount: 'Up to 40% OFF',
+      image: '/cracker-assortment.jpg',
       bgColor: 'bg-orange-50',
-      link: '/category/atta-rice-dal'
+      link: '/category/mega-assortment'
     },
     {
-      title: 'Snacks & Drinks',
-      discount: 'Buy 2 Get 1 Free',
-      image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300&h=200&fit=crop',
+      title: 'Luxury Themes',
+      discount: 'Premium Collection',
+      image: 'https://images.unsplash.com/photo-1576091160550-112173f1f664?w=300&h=200&fit=crop',
       bgColor: 'bg-purple-50',
-      link: '/category/snacks-beverages'
+      link: '/category/luxury-themed'
     },
   ];
 
