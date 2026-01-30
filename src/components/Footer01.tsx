@@ -6,7 +6,7 @@ import { IconBrandFacebook, IconBrandTwitter, IconBrandInstagram, IconBrandYoutu
 
 export default function Footer01() {
   return (
-    <footer className="bg-[#1A0F0A] text-gray-300 pt-8 sm:pt-12 pb-4 sm:pb-6 border-t border-[#E8DCC8]">
+    <footer style={{ backgroundColor: 'var(--color-gray-900)', borderTopColor: 'var(--color-gray-300)' }} className="text-gray-300 pt-8 sm:pt-12 pb-4 sm:pb-6 border-t">
       <div className="container mx-auto px-3 sm:px-4">
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 mb-6 sm:mb-8">
           {/* Brand */}
@@ -28,16 +28,16 @@ export default function Footer01() {
               and festive joy right to your doorstep, with the best prices on Diwali products.
             </p>
             <div className="flex gap-2 sm:gap-3">
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-[#2C1810] rounded-full flex items-center justify-center hover:bg-[#8B0000] hover:scale-110 transition-all duration-300 active:scale-95">
+              <a href="#" style={{ backgroundColor: 'var(--color-gray-800)' }} className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 active:scale-95" onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-primary-red)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-gray-800)'; }}>
                 <IconBrandFacebook size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-[#2C1810] rounded-full flex items-center justify-center hover:bg-[#E67E22] hover:scale-110 transition-all duration-300 active:scale-95">
+              <a href="#" style={{ backgroundColor: 'var(--color-gray-800)' }} className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 active:scale-95" onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-bright-yellow)'; e.currentTarget.style.color = 'black'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-gray-800)'; e.currentTarget.style.color = 'white'; }}>
                 <IconBrandTwitter size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-[#2C1810] rounded-full flex items-center justify-center hover:bg-[#6B3FA0] hover:scale-110 transition-all duration-300 active:scale-95">
+              <a href="#" style={{ backgroundColor: 'var(--color-gray-800)' }} className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 active:scale-95" onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-primary-red)'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-gray-800)'; }}>
                 <IconBrandInstagram size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-[#2C1810] rounded-full flex items-center justify-center hover:bg-[#D4AF37] hover:scale-110 transition-all duration-300 active:scale-95">
+              <a href="#" style={{ backgroundColor: 'var(--color-gray-800)' }} className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 active:scale-95" onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-bright-yellow)'; e.currentTarget.style.color = 'black'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-gray-800)'; e.currentTarget.style.color = 'white'; }}>
                 <IconBrandYoutube size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
             </div>
@@ -47,10 +47,10 @@ export default function Footer01() {
           <div>
             <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Quick Links</h4>
             <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-              <li><Link href="/about" className="hover:text-[#D4AF37] transition-colors">About Us</Link></li>
-              <li><Link href="/contact" className="hover:text-[#D4AF37] transition-colors">Contact Us</Link></li>
-              <li><Link href="/faq" className="hover:text-[#D4AF37] transition-colors">FAQs</Link></li>
-              <li><Link href="/order-tracking" className="hover:text-[#D4AF37] transition-colors">Track Order</Link></li>
+              <li><Link href="/about" style={{ color: 'var(--color-gray-300)' }} className="hover:text-[color:var(--color-bright-yellow)] transition-colors">About Us</Link></li>
+              <li><Link href="/contact" style={{ color: 'var(--color-gray-300)' }} className="hover:text-[color:var(--color-bright-yellow)] transition-colors">Contact Us</Link></li>
+              <li><Link href="/faq" style={{ color: 'var(--color-gray-300)' }} className="hover:text-[color:var(--color-bright-yellow)] transition-colors">FAQs</Link></li>
+              <li><Link href="/order-tracking" style={{ color: 'var(--color-gray-300)' }} className="hover:text-[color:var(--color-bright-yellow)] transition-colors">Track Order</Link></li>
             </ul>
           </div>
 
@@ -58,10 +58,10 @@ export default function Footer01() {
           <div>
             <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Customer Service</h4>
             <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-              <li><Link href="/shipping" className="hover:text-[#D4AF37] transition-colors">Shipping Policy</Link></li>
-              <li><Link href="/returns" className="hover:text-[#D4AF37] transition-colors">Returns & Refunds</Link></li>
-              <li><Link href="/privacy" className="hover:text-[#D4AF37] transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-[#D4AF37] transition-colors">Terms & Conditions</Link></li>
+              <li><Link href="/shipping" style={{ color: 'var(--color-gray-300)' }} className="hover:text-[color:var(--color-bright-yellow)] transition-colors">Shipping Policy</Link></li>
+              <li><Link href="/returns" style={{ color: 'var(--color-gray-300)' }} className="hover:text-[color:var(--color-bright-yellow)] transition-colors">Returns & Refunds</Link></li>
+              <li><Link href="/privacy" style={{ color: 'var(--color-gray-300)' }} className="hover:text-[color:var(--color-bright-yellow)] transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" style={{ color: 'var(--color-gray-300)' }} className="hover:text-[color:var(--color-bright-yellow)] transition-colors">Terms & Conditions</Link></li>
             </ul>
           </div>
 

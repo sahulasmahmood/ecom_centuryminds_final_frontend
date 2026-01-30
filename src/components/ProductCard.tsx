@@ -66,7 +66,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         
         {/* Product Name - Fixed height */}
         <Link href={`/product/${product.id}`}>
-          <h3 className="text-xs sm:text-sm font-semibold text-gray-800 mb-1.5 sm:mb-2 line-clamp-2 h-8 sm:h-10 hover:text-[#8B0000] transition-colors">
+          <h3 className="text-xs sm:text-sm font-semibold text-gray-800 mb-1.5 sm:mb-2 line-clamp-2 h-8 sm:h-10 hover:text-[color:var(--color-primary-red)] transition-colors">
             {product.name}
           </h3>
         </Link>
@@ -79,7 +79,8 @@ export default function ProductCard({ product }: ProductCardProps) {
               e.stopPropagation();
               setShowVariants(!showVariants);
             }}
-            className="w-full h-full flex items-center justify-between px-2 sm:px-3 bg-[#F5F1ED] rounded text-xs sm:text-sm text-gray-700 hover:bg-[#E8DCC8] transition-colors"
+            style={{ backgroundColor: 'var(--color-gray-100)' }}
+            className="w-full h-full flex items-center justify-between px-2 sm:px-3 rounded-lg text-xs sm:text-sm text-gray-700 hover:bg-gray-200 transition-colors"
           >
             <span className="truncate pr-1 sm:pr-2">{currentVariant.weight}</span>
             <IconChevronDown size={14} className={`flex-shrink-0 transition-transform sm:w-4 sm:h-4 ${showVariants ? 'rotate-180' : ''}`} />
@@ -87,7 +88,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           
           {/* Variants Dropdown */}
           {showVariants && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-[#E8DCC8] rounded-lg shadow-lg z-20 max-h-48 overflow-y-auto">
+            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-20 max-h-48 overflow-y-auto">
               {product.variants.map((variant, index) => (
                 <button
                   key={index}
@@ -97,7 +98,8 @@ export default function ProductCard({ product }: ProductCardProps) {
                     setSelectedVariant(index);
                     setShowVariants(false);
                   }}
-                  className={`w-full px-2 sm:px-3 py-1.5 sm:py-2 text-left hover:bg-[#F5F1ED] flex items-center justify-between ${selectedVariant === index ? 'bg-[#FFF8F0]' : ''}`}
+                  style={{ backgroundColor: selectedVariant === index ? 'var(--color-yellow-light)' : 'transparent' }}
+                  className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-left hover:bg-gray-100 flex items-center justify-between"
                 >
                   <div>
                     <p className="text-xs sm:text-sm font-medium">{variant.weight}</p>
@@ -112,7 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     </div>
                   </div>
                   {selectedVariant === index && (
-                    <span className="text-[#8B0000] font-bold">✓</span>
+                    <span style={{ color: 'var(--color-primary-red)' }} className="font-bold">✓</span>
                   )}
                 </button>
               ))}
@@ -146,22 +148,27 @@ export default function ProductCard({ product }: ProductCardProps) {
           {quantity === 0 ? (
             <button
               onClick={handleAddToCart}
-              className="flex-1 py-1.5 sm:py-2 px-2 sm:px-4 border-2 border-[#8B0000] text-[#8B0000] rounded font-semibold hover:bg-[#8B0000] hover:text-white transition-all duration-300 active:scale-95 text-xs sm:text-sm premium-button"
+              style={{ borderColor: 'var(--color-primary-red)', color: 'var(--color-primary-red)' }}
+              className="flex-1 py-1.5 sm:py-2 px-2 sm:px-4 border-2 rounded-lg font-semibold transition-all duration-300 active:scale-95 text-xs sm:text-sm premium-button"
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--color-primary-red)'; e.currentTarget.style.color = 'white'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--color-primary-red)'; }}
             >
               Add
             </button>
           ) : (
-            <div className="flex-1 flex items-center justify-between border-2 border-[#8B0000] rounded overflow-hidden">
+            <div style={{ borderColor: 'var(--color-primary-red)' }} className="flex-1 flex items-center justify-between border-2 rounded-lg overflow-hidden">
               <button
                 onClick={handleDecrement}
-                className="px-2 sm:px-3 py-1.5 sm:py-2 text-[#8B0000] hover:bg-[#8B0000] hover:text-white transition-all duration-300 active:scale-95 premium-button"
+                style={{ color: 'var(--color-primary-red)' }}
+                className="px-2 sm:px-3 py-1.5 sm:py-2 hover:bg-gray-100 transition-all duration-300 active:scale-95 premium-button"
               >
                 <IconMinus size={14} className="sm:w-4 sm:h-4" />
               </button>
-              <span className="font-bold text-[#8B0000] text-xs sm:text-sm">{quantity}</span>
+              <span style={{ color: 'var(--color-primary-red)' }} className="font-bold text-xs sm:text-sm">{quantity}</span>
               <button
                 onClick={handleIncrement}
-                className="px-2 sm:px-3 py-1.5 sm:py-2 text-[#8B0000] hover:bg-[#8B0000] hover:text-white transition-all duration-300 active:scale-95 premium-button"
+                style={{ color: 'var(--color-primary-red)' }}
+                className="px-2 sm:px-3 py-1.5 sm:py-2 hover:bg-gray-100 transition-all duration-300 active:scale-95 premium-button"
               >
                 <IconPlus size={14} className="sm:w-4 sm:h-4" />
               </button>

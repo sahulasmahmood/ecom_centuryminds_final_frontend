@@ -66,7 +66,7 @@ export default function Header() {
               onMouseEnter={() => setShowMegaMenu(true)}
               onMouseLeave={() => setShowMegaMenu(false)}
             >
-              <button className="px-4 py-2.5 rounded-md flex items-center gap-2 focus:outline-none font-medium transition-all duration-300 shadow-md hover:shadow-lg text-[color:var(--navbar-text-light)] bg-[color:var(--navbar-dark-red)] hover:opacity-90" style={{ background: `linear-gradient(135deg, var(--navbar-dark-red) 0%, rgba(212, 175, 55, 0.9) 100%)` }}>
+              <button style={{ backgroundColor: 'var(--color-bright-yellow)', color: 'var(--color-gray-900)' }} className="px-4 py-2.5 rounded-lg flex items-center gap-2 focus:outline-none font-semibold transition-all duration-300 shadow-sm hover:shadow-md hover:opacity-90">
                 <IconMenu2 size={20} />
                 Shop by Category
                 <IconChevronDown size={18} className={`transition-transform ${showMegaMenu ? 'rotate-180' : ''}`} />
@@ -74,19 +74,19 @@ export default function Header() {
 
               {/* Mega Menu */}
               {showMegaMenu && (
-                <div className="absolute top-full left-0 mt-0 bg-white rounded-lg shadow-2xl flex z-50 min-w-[700px] backdrop-blur-sm" style={{ borderColor: `var(--navbar-border-subtle)` }}>
+                <div className="absolute top-full left-0 mt-0 bg-white rounded-xl shadow-lg flex z-50 min-w-[700px]">
                   {/* Categories List - Left Side */}
-                  <div className="w-64 bg-gray-50 border-r border-gray-200 py-2">
+                  <div className="w-64 bg-gray-50 border-r border-gray-200 py-2 rounded-l-xl">
                     {categories.map((category) => (
                       <div
                         key={category.id}
                         style={{
-                          backgroundColor: activeCategory.id === category.id ? `var(--navbar-bg-light)` : 'transparent',
-                          color: activeCategory.id === category.id ? `var(--navbar-primary-red)` : '#6B7280',
-                          borderLeft: activeCategory.id === category.id ? `4px solid var(--navbar-gold)` : 'none',
+                          backgroundColor: activeCategory.id === category.id ? 'var(--color-yellow-light)' : 'transparent',
+                          color: activeCategory.id === category.id ? 'var(--color-primary-red)' : 'var(--color-gray-600)',
+                          borderLeft: activeCategory.id === category.id ? '4px solid var(--color-primary-red)' : 'none',
                         }}
                         className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-all duration-300 ${
-                          activeCategory.id === category.id ? 'shadow-sm' : 'hover:bg-[color:var(--navbar-bg-cream)]'
+                          activeCategory.id === category.id ? 'font-semibold' : 'hover:bg-gray-100'
                         }`}
                         onMouseEnter={() => setActiveCategory(category)}
                       >
@@ -104,8 +104,8 @@ export default function Header() {
                     <div className="mb-4">
                       <Link 
                         href={`/category/${activeCategory.slug}`}
-                        style={{ color: `var(--navbar-text-dark)` }}
-                        className="text-lg font-bold hover:opacity-80 transition-opacity"
+                        style={{ color: 'var(--color-gray-900)' }}
+                        className="text-lg font-bold hover:text-[var(--color-primary-red)] transition-colors"
                       >
                         {activeCategory.name}
                       </Link>
@@ -117,19 +117,19 @@ export default function Header() {
                         <Link
                           key={sub.id}
                           href={`/category/${activeCategory.slug}?sub=${sub.slug}`}
-                          style={{ color: '#4B5563' }}
-                          className="text-sm hover:underline transition-colors py-1 font-medium hover:opacity-70"
+                          style={{ color: 'var(--color-gray-600)' }}
+                          className="text-sm hover:text-[var(--color-primary-red)] hover:underline transition-colors py-1 font-medium"
                         >
                           {sub.name}
                         </Link>
                       ))}
                     </div>
 
-                    <div className="mt-6 pt-4" style={{ borderTop: `1px solid var(--navbar-border-subtle)` }}>
+                    <div className="mt-6 pt-4 border-t border-gray-200">
                       <Link 
                         href={`/category/${activeCategory.slug}`}
-                        style={{ color: `var(--navbar-primary-red)` }}
-                        className="inline-flex items-center gap-2 font-semibold text-sm transition-all hover:gap-3"
+                        style={{ color: 'var(--color-primary-red)' }}
+                        className="inline-flex items-center gap-2 font-semibold text-sm transition-all hover:gap-3 hover:opacity-80"
                       >
                         View All {activeCategory.name}
                         <IconChevronRight size={16} />
@@ -204,7 +204,7 @@ export default function Header() {
               <div className="relative">
                 <IconShoppingCart size={22} className="sm:w-6 sm:h-6" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-2 -right-2 text-gray-900 text-[10px] sm:text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-bold shadow-md" style={{ backgroundColor: `var(--navbar-gold)` }}>
+                  <span className="absolute -top-2 -right-2 text-gray-900 text-[10px] sm:text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-bold shadow-md" style={{ backgroundColor: 'var(--color-bright-yellow)' }}>
                     {totalItems}
                   </span>
                 )}
@@ -317,10 +317,10 @@ export default function Header() {
                   <Link
                     key={category.id}
                     href={`/category/${category.slug}`}
-                    style={{ color: '#374151' }}
-                    className="flex items-center gap-3 py-3 rounded-lg px-2 -mx-2 font-medium transition-all duration-300 hover:opacity-80"
-                    onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--navbar-primary-red)'; e.currentTarget.style.backgroundColor = 'var(--navbar-bg-cream)'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = '#374151'; e.currentTarget.style.backgroundColor = 'transparent'; }}
+                    style={{ color: 'var(--color-gray-600)' }}
+                    className="flex items-center gap-3 py-3 rounded-lg px-2 -mx-2 font-medium transition-all duration-300 hover:bg-gray-100"
+                    onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-primary-red)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-gray-600)'; }}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="text-xl">{category.icon}</span>
