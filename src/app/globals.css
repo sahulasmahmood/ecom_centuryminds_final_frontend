@@ -135,13 +135,32 @@
 
 /* Navbar Category Link Styling */
 .navbar-category-link {
-  @apply group;
+  position: relative;
+  display: inline-flex;
+  gap: 0.5rem;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.25rem 0;
+  transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
 .navbar-category-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0.125rem;
   background-color: var(--navbar-gold);
+  transition: width 0.3s ease;
 }
 
 .navbar-category-link:hover {
   color: var(--navbar-primary-red);
+}
+
+.navbar-category-link:hover::after {
+  width: 100%;
 }
