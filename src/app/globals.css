@@ -39,6 +39,20 @@
     --crackers-light: #FAFAF8;
     --crackers-cream: #F5F1ED;
     --crackers-border: #E8DCC8;
+    
+    /* Navbar Specific Variables - Festive Red & Gold Theme */
+    --navbar-primary-red: #C1121F;
+    --navbar-dark-red: #8B0000;
+    --navbar-light-red: #D32F2F;
+    --navbar-gold: #D4AF37;
+    --navbar-gold-hover: #E8C547;
+    --navbar-gold-light: #F5D861;
+    --navbar-text-light: #FFFFFF;
+    --navbar-text-dark: #1A0F0A;
+    --navbar-bg-light: #FAFAF8;
+    --navbar-bg-cream: #F5F1ED;
+    --navbar-border-subtle: #E8DCC8;
+    --navbar-shadow: rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -62,12 +76,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C1121F;
+  background: var(--navbar-primary-red);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF6B35;
+  background: var(--navbar-gold);
 }
 
 /* Weight selector dropdown */
@@ -91,12 +105,17 @@
 
 /* Premium styling */
 .premium-header {
-  background: linear-gradient(135deg, #8B0000 0%, #6B3FA0 50%, #E67E22 100%);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, var(--navbar-primary-red) 0%, var(--navbar-dark-red) 50%, var(--navbar-gold) 100%);
+  box-shadow: 0 4px 20px var(--navbar-shadow);
 }
 
 .premium-card {
-  @apply bg-white rounded-lg shadow-md border border-[#E8DCC8] transition-all duration-300 hover:shadow-lg hover:border-[#D4AF37];
+  @apply bg-white rounded-lg shadow-md transition-all duration-300 hover:shadow-lg;
+  border: 1px solid var(--navbar-border-subtle);
+}
+
+.premium-card:hover {
+  border-color: var(--navbar-gold);
 }
 
 .premium-button {
@@ -104,12 +123,25 @@
 }
 
 .festive-gradient {
-  background: linear-gradient(135deg, #8B0000 0%, #E67E22 50%, #D4AF37 100%);
+  background: linear-gradient(135deg, var(--navbar-dark-red) 0%, var(--navbar-orange) 50%, var(--navbar-gold) 100%);
 }
 
 .festive-text {
-  background: linear-gradient(135deg, #8B0000 0%, #6B3FA0 100%);
+  background: linear-gradient(135deg, var(--navbar-primary-red) 0%, var(--navbar-dark-red) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Navbar Category Link Styling */
+.navbar-category-link {
+  @apply group;
+}
+
+.navbar-category-link::after {
+  background-color: var(--navbar-gold);
+}
+
+.navbar-category-link:hover {
+  color: var(--navbar-primary-red);
 }
