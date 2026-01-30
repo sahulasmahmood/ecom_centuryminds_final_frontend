@@ -6,7 +6,7 @@ import { IconBrandFacebook, IconBrandTwitter, IconBrandInstagram, IconBrandYoutu
 
 export default function Footer01() {
   return (
-    <footer className="bg-gray-900 text-gray-300 pt-8 sm:pt-12 pb-4 sm:pb-6">
+    <footer className="bg-[#1A0F0A] text-gray-300 pt-8 sm:pt-12 pb-4 sm:pb-6 border-t border-[#E8DCC8]">
       <div className="container mx-auto px-3 sm:px-4">
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 mb-6 sm:mb-8">
           {/* Brand */}
@@ -28,16 +28,16 @@ export default function Footer01() {
               and festive joy right to your doorstep, with the best prices on Diwali products.
             </p>
             <div className="flex gap-2 sm:gap-3">
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#C1121F] transition-colors active:scale-95">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-[#2C1810] rounded-full flex items-center justify-center hover:bg-[#8B0000] hover:scale-110 transition-all duration-300 active:scale-95">
                 <IconBrandFacebook size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#FF6B35] transition-colors active:scale-95">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-[#2C1810] rounded-full flex items-center justify-center hover:bg-[#E67E22] hover:scale-110 transition-all duration-300 active:scale-95">
                 <IconBrandTwitter size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#7B2D9E] transition-colors active:scale-95">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-[#2C1810] rounded-full flex items-center justify-center hover:bg-[#6B3FA0] hover:scale-110 transition-all duration-300 active:scale-95">
                 <IconBrandInstagram size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#FFD700] transition-colors active:scale-95">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 bg-[#2C1810] rounded-full flex items-center justify-center hover:bg-[#D4AF37] hover:scale-110 transition-all duration-300 active:scale-95">
                 <IconBrandYoutube size={16} className="sm:w-[18px] sm:h-[18px]" />
               </a>
             </div>
@@ -47,10 +47,10 @@ export default function Footer01() {
           <div>
             <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Quick Links</h4>
             <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-              <li><Link href="/about" className="hover:text-[#e63946] transition-colors">About Us</Link></li>
-              <li><Link href="/contact" className="hover:text-[#e63946] transition-colors">Contact Us</Link></li>
-              <li><Link href="/faq" className="hover:text-[#e63946] transition-colors">FAQs</Link></li>
-              <li><Link href="/order-tracking" className="hover:text-[#e63946] transition-colors">Track Order</Link></li>
+              <li><Link href="/about" className="hover:text-[#D4AF37] transition-colors">About Us</Link></li>
+              <li><Link href="/contact" className="hover:text-[#D4AF37] transition-colors">Contact Us</Link></li>
+              <li><Link href="/faq" className="hover:text-[#D4AF37] transition-colors">FAQs</Link></li>
+              <li><Link href="/order-tracking" className="hover:text-[#D4AF37] transition-colors">Track Order</Link></li>
             </ul>
           </div>
 
@@ -58,10 +58,10 @@ export default function Footer01() {
           <div>
             <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Customer Service</h4>
             <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-              <li><Link href="/shipping" className="hover:text-[#e63946] transition-colors">Shipping Policy</Link></li>
-              <li><Link href="/returns" className="hover:text-[#e63946] transition-colors">Returns & Refunds</Link></li>
-              <li><Link href="/privacy" className="hover:text-[#e63946] transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-[#e63946] transition-colors">Terms & Conditions</Link></li>
+              <li><Link href="/shipping" className="hover:text-[#D4AF37] transition-colors">Shipping Policy</Link></li>
+              <li><Link href="/returns" className="hover:text-[#D4AF37] transition-colors">Returns & Refunds</Link></li>
+              <li><Link href="/privacy" className="hover:text-[#D4AF37] transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-[#D4AF37] transition-colors">Terms & Conditions</Link></li>
             </ul>
           </div>
 

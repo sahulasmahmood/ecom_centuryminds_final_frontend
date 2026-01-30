@@ -20,12 +20,12 @@ export default function PopularProducts() {
         {/* Section Header */}
         <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
           <div>
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">Best Sellers</h2>
-            <p className="text-xs sm:text-sm text-gray-500">Most popular crackers this Diwali</p>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#1A0F0A]">Bestsellers</h2>
+            <p className="text-xs sm:text-sm text-gray-500">Premium crackers loved by customers</p>
           </div>
           <Link 
             href="/product" 
-            className="text-[#C1121F] font-medium hover:underline text-xs sm:text-sm md:text-base"
+            className="text-[#8B0000] font-semibold hover:text-[#D4AF37] transition-colors text-xs sm:text-sm md:text-base"
           >
             View All →
           </Link>
@@ -35,10 +35,10 @@ export default function PopularProducts() {
         <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 overflow-x-auto pb-2 scrollbar-hide">
           <button
             onClick={() => setActiveCategory(0)}
-            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-colors active:scale-95 ${
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 active:scale-95 ${
               activeCategory === 0
-                ? 'bg-[#C1121F] text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-[#8B0000] text-white shadow-md'
+                : 'bg-[#F5F1ED] text-[#1A0F0A] border border-[#E8DCC8] hover:bg-[#E8DCC8]'
             }`}
           >
             All
@@ -47,10 +47,10 @@ export default function PopularProducts() {
             <button
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
-              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-colors active:scale-95 ${
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 active:scale-95 ${
                 activeCategory === category.id
-                  ? 'bg-[#C1121F] text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-[#8B0000] text-white shadow-md'
+                  : 'bg-[#F5F1ED] text-[#1A0F0A] border border-[#E8DCC8] hover:bg-[#E8DCC8]'
               }`}
             >
               {category.name}

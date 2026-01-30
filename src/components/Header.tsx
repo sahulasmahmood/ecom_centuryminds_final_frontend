@@ -33,9 +33,9 @@ export default function Header() {
   const { totalItems, totalPrice } = useCart();
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-white sticky top-0 z-50">
       {/* Main Header */}
-      <div className="bg-gradient-to-r from-[#C1121F] to-[#FF6B35]">
+      <div className="premium-header">
         <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
           <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-6">
             {/* Mobile Menu Button */}
@@ -66,7 +66,7 @@ export default function Header() {
               onMouseEnter={() => setShowMegaMenu(true)}
               onMouseLeave={() => setShowMegaMenu(false)}
             >
-              <button className="bg-[#7B2D9E] text-white px-4 py-2.5 rounded-md flex items-center gap-2 hover:bg-[#5F1F7A] focus:outline-none font-medium transition-colors">
+              <button className="bg-[#6B3FA0] text-white px-4 py-2.5 rounded-md flex items-center gap-2 hover:bg-[#5A2F85] focus:outline-none font-medium transition-all duration-300 shadow-md hover:shadow-lg">
                 <IconMenu2 size={20} />
                 Shop by Category
                 <IconChevronDown size={18} className={`transition-transform ${showMegaMenu ? 'rotate-180' : ''}`} />
@@ -74,16 +74,16 @@ export default function Header() {
 
               {/* Mega Menu */}
               {showMegaMenu && (
-                <div className="absolute top-full left-0 mt-0 bg-white rounded-lg shadow-2xl border border-gray-200 flex z-50 min-w-[700px]">
+                <div className="absolute top-full left-0 mt-0 bg-white rounded-lg shadow-2xl border border-[#E8DCC8] flex z-50 min-w-[700px] backdrop-blur-sm">
                   {/* Categories List - Left Side */}
                   <div className="w-64 bg-gray-50 border-r border-gray-200 py-2">
                     {categories.map((category) => (
                       <div
                         key={category.id}
-                        className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-colors ${
+                        className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-all duration-300 ${
                           activeCategory.id === category.id 
-                            ? 'bg-white text-[#C1121F] border-l-4 border-[#C1121F]' 
-                            : 'hover:bg-white text-gray-700'
+                            ? 'bg-[#FAFAF8] text-[#8B0000] border-l-4 border-[#D4AF37] shadow-sm' 
+                            : 'hover:bg-[#F5F1ED] text-gray-700'
                         }`}
                         onMouseEnter={() => setActiveCategory(category)}
                       >
@@ -101,7 +101,7 @@ export default function Header() {
                     <div className="mb-4">
                       <Link 
                         href={`/category/${activeCategory.slug}`}
-                        className="text-lg font-bold text-gray-800 hover:text-[#C1121F] transition-colors"
+                        className="text-lg font-bold text-gray-800 hover:text-[#8B0000] transition-colors"
                       >
                         {activeCategory.name}
                       </Link>
@@ -113,17 +113,17 @@ export default function Header() {
                         <Link
                           key={sub.id}
                           href={`/category/${activeCategory.slug}?sub=${sub.slug}`}
-                          className="text-sm text-gray-600 hover:text-[#C1121F] hover:underline transition-colors py-1"
+                          className="text-sm text-gray-600 hover:text-[#8B0000] hover:underline transition-colors py-1 font-medium"
                         >
                           {sub.name}
                         </Link>
                       ))}
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-gray-200">
+                    <div className="mt-6 pt-4 border-t border-[#E8DCC8]">
                       <Link 
                         href={`/category/${activeCategory.slug}`}
-                        className="inline-flex items-center gap-2 text-[#C1121F] font-medium text-sm hover:underline"
+                        className="inline-flex items-center gap-2 text-[#8B0000] font-semibold text-sm hover:text-[#D4AF37] transition-colors"
                       >
                         View All {activeCategory.name}
                         <IconChevronRight size={16} />
@@ -198,7 +198,7 @@ export default function Header() {
               <div className="relative">
                 <IconShoppingCart size={22} className="sm:w-6 sm:h-6" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-[#FFD700] text-gray-900 text-[10px] sm:text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-medium">
+                  <span className="absolute -top-2 -right-2 bg-[#D4AF37] text-gray-900 text-[10px] sm:text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-bold shadow-md">
                     {totalItems}
                   </span>
                 )}
@@ -239,7 +239,7 @@ export default function Header() {
               <Link 
                 key={category.id}
                 href={`/category/${category.slug}`}
-                className="flex items-center gap-2 text-gray-700 hover:text-[#C1121F] whitespace-nowrap text-sm font-medium py-1 transition-colors"
+                className="flex items-center gap-2 text-gray-700 hover:text-[#8B0000] whitespace-nowrap text-sm font-semibold py-1 transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#D4AF37] after:transition-all after:duration-300 hover:after:w-full"
               >
                 <span>{category.icon}</span>
                 <span>{category.name}</span>
@@ -257,7 +257,7 @@ export default function Header() {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Menu Header */}
-            <div className="bg-gradient-to-r from-[#C1121F] to-[#FF6B35] p-4 flex items-center justify-between">
+            <div className="premium-header p-4 flex items-center justify-between">
               <Link href="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
                 <div className="w-10 h-10 rounded-full overflow-hidden bg-white">
                   <Image 
@@ -311,7 +311,7 @@ export default function Header() {
                   <Link
                     key={category.id}
                     href={`/category/${category.slug}`}
-                    className="flex items-center gap-3 py-3 text-gray-700 hover:text-[#C1121F] hover:bg-gray-50 rounded-lg px-2 -mx-2"
+                    className="flex items-center gap-3 py-3 text-gray-700 hover:text-[#8B0000] hover:bg-[#F5F1ED] rounded-lg px-2 -mx-2 font-medium transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="text-xl">{category.icon}</span>

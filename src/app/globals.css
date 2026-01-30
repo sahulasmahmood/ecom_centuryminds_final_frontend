@@ -30,13 +30,15 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
     
-    /* Crackers Diwali Brand Colors */
-    --crackers-deep-red: #C1121F;
-    --crackers-gold: #FFD700;
-    --crackers-orange: #FF6B35;
-    --crackers-purple: #7B2D9E;
-    --crackers-dark: #2C1810;
-    --crackers-light-cream: #FFF8F0;
+    /* Premium Crackers Diwali Brand Colors */
+    --crackers-primary: #8B0000;
+    --crackers-gold: #D4AF37;
+    --crackers-orange: #E67E22;
+    --crackers-accent: #6B3FA0;
+    --crackers-dark: #1A0F0A;
+    --crackers-light: #FAFAF8;
+    --crackers-cream: #F5F1ED;
+    --crackers-border: #E8DCC8;
   }
 }
 
@@ -85,4 +87,29 @@
 /* Price tag */
 .price-tag {
   @apply bg-yellow-100 text-yellow-800 text-xs px-2 py-0.5 rounded font-medium;
+}
+
+/* Premium styling */
+.premium-header {
+  background: linear-gradient(135deg, #8B0000 0%, #6B3FA0 50%, #E67E22 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.premium-card {
+  @apply bg-white rounded-lg shadow-md border border-[#E8DCC8] transition-all duration-300 hover:shadow-lg hover:border-[#D4AF37];
+}
+
+.premium-button {
+  @apply font-medium transition-all duration-300 hover:scale-105 active:scale-95;
+}
+
+.festive-gradient {
+  background: linear-gradient(135deg, #8B0000 0%, #E67E22 50%, #D4AF37 100%);
+}
+
+.festive-text {
+  background: linear-gradient(135deg, #8B0000 0%, #6B3FA0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

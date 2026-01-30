@@ -38,7 +38,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow group relative h-full flex flex-col">
+    <div className="premium-card relative h-full flex flex-col">
       {/* Badge */}
       {product.badge && (
         <span className={`absolute top-1.5 right-1.5 sm:top-2 sm:right-2 ${product.badgeColor} text-white text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full z-10 flex items-center gap-0.5 sm:gap-1`}>
@@ -66,7 +66,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         
         {/* Product Name - Fixed height */}
         <Link href={`/product/${product.id}`}>
-          <h3 className="text-xs sm:text-sm font-medium text-gray-800 mb-1.5 sm:mb-2 line-clamp-2 h-8 sm:h-10 hover:text-[#C1121F] transition-colors">
+          <h3 className="text-xs sm:text-sm font-semibold text-gray-800 mb-1.5 sm:mb-2 line-clamp-2 h-8 sm:h-10 hover:text-[#8B0000] transition-colors">
             {product.name}
           </h3>
         </Link>
@@ -79,7 +79,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               e.stopPropagation();
               setShowVariants(!showVariants);
             }}
-            className="w-full h-full flex items-center justify-between px-2 sm:px-3 bg-gray-100 rounded text-xs sm:text-sm text-gray-700 hover:bg-gray-200 transition-colors"
+            className="w-full h-full flex items-center justify-between px-2 sm:px-3 bg-[#F5F1ED] rounded text-xs sm:text-sm text-gray-700 hover:bg-[#E8DCC8] transition-colors"
           >
             <span className="truncate pr-1 sm:pr-2">{currentVariant.weight}</span>
             <IconChevronDown size={14} className={`flex-shrink-0 transition-transform sm:w-4 sm:h-4 ${showVariants ? 'rotate-180' : ''}`} />
@@ -87,7 +87,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           
           {/* Variants Dropdown */}
           {showVariants && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-20 max-h-48 overflow-y-auto">
+            <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-[#E8DCC8] rounded-lg shadow-lg z-20 max-h-48 overflow-y-auto">
               {product.variants.map((variant, index) => (
                 <button
                   key={index}
@@ -97,7 +97,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     setSelectedVariant(index);
                     setShowVariants(false);
                   }}
-                  className={`w-full px-2 sm:px-3 py-1.5 sm:py-2 text-left hover:bg-gray-50 flex items-center justify-between ${selectedVariant === index ? 'bg-red-50' : ''}`}
+                  className={`w-full px-2 sm:px-3 py-1.5 sm:py-2 text-left hover:bg-[#F5F1ED] flex items-center justify-between ${selectedVariant === index ? 'bg-[#FFF8F0]' : ''}`}
                 >
                   <div>
                     <p className="text-xs sm:text-sm font-medium">{variant.weight}</p>
@@ -112,7 +112,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     </div>
                   </div>
                   {selectedVariant === index && (
-                    <span className="text-[#e63946]">✓</span>
+                    <span className="text-[#8B0000] font-bold">✓</span>
                   )}
                 </button>
               ))}
@@ -146,22 +146,22 @@ export default function ProductCard({ product }: ProductCardProps) {
           {quantity === 0 ? (
             <button
               onClick={handleAddToCart}
-              className="flex-1 py-1.5 sm:py-2 px-2 sm:px-4 border-2 border-[#C1121F] text-[#C1121F] rounded font-medium hover:bg-[#C1121F] hover:text-white transition-all duration-200 active:scale-95 text-xs sm:text-sm"
+              className="flex-1 py-1.5 sm:py-2 px-2 sm:px-4 border-2 border-[#8B0000] text-[#8B0000] rounded font-semibold hover:bg-[#8B0000] hover:text-white transition-all duration-300 active:scale-95 text-xs sm:text-sm premium-button"
             >
               Add
             </button>
           ) : (
-            <div className="flex-1 flex items-center justify-between border-2 border-[#C1121F] rounded overflow-hidden">
+            <div className="flex-1 flex items-center justify-between border-2 border-[#8B0000] rounded overflow-hidden">
               <button
                 onClick={handleDecrement}
-                className="px-2 sm:px-3 py-1.5 sm:py-2 text-[#C1121F] hover:bg-[#C1121F] hover:text-white transition-all duration-200 active:scale-95"
+                className="px-2 sm:px-3 py-1.5 sm:py-2 text-[#8B0000] hover:bg-[#8B0000] hover:text-white transition-all duration-300 active:scale-95 premium-button"
               >
                 <IconMinus size={14} className="sm:w-4 sm:h-4" />
               </button>
-              <span className="font-medium text-[#C1121F] text-xs sm:text-sm">{quantity}</span>
+              <span className="font-bold text-[#8B0000] text-xs sm:text-sm">{quantity}</span>
               <button
                 onClick={handleIncrement}
-                className="px-2 sm:px-3 py-1.5 sm:py-2 text-[#C1121F] hover:bg-[#C1121F] hover:text-white transition-all duration-200 active:scale-95"
+                className="px-2 sm:px-3 py-1.5 sm:py-2 text-[#8B0000] hover:bg-[#8B0000] hover:text-white transition-all duration-300 active:scale-95 premium-button"
               >
                 <IconPlus size={14} className="sm:w-4 sm:h-4" />
               </button>
