@@ -16,24 +16,24 @@ export default function TrendingProducts() {
     .slice(0, 10);
 
   return (
-    <section className="py-4 sm:py-6 md:py-8 bg-gray-50">
-      <div className="container mx-auto px-3 sm:px-4">
+    <section className="py-12 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">Trending Products</h2>
-            <p className="text-xs sm:text-sm text-gray-500">Best deals with maximum savings</p>
+            <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">Trending Now</h2>
+            <p className="text-gray-400 text-sm">Best deals with maximum savings</p>
           </div>
           <Link 
             href="/product" 
-            className="text-[#e63946] font-medium hover:underline text-xs sm:text-sm md:text-base"
+            className="text-sm font-bold text-[#FFD700] hover:text-white transition-colors whitespace-nowrap flex items-center gap-1"
           >
-            View All →
+            View All Deals <span className="text-lg">→</span>
           </Link>
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {trendingProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

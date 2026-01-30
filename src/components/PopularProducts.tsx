@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ProductCard from './ProductCard';
 import { getAllProducts } from '@/MockData/ProductData';
 import { categories } from '@/MockData/CategoryData';
+import { IconChevronRight } from '@tabler/icons-react';
 
 export default function PopularProducts() {
   const [activeCategory, setActiveCategory] = useState(0);
@@ -15,47 +16,46 @@ export default function PopularProducts() {
     : allProducts.filter(p => p.categoryId === activeCategory).slice(0, 10);
 
   return (
-    <section className="py-4 sm:py-6 md:py-8 bg-white">
-      <div className="container mx-auto px-3 sm:px-4">
+    <section className="py-12 bg-background border-b border-white/5">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">Best Sellers</h2>
-            <p className="text-xs sm:text-sm text-gray-500">Most popular products near you</p>
+            <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">Best Selling Fireworks</h2>
+            <p className="text-gray-400 text-sm">Top rated crackers chosen by our customers</p>
           </div>
-          <Link 
-            href="/product" 
-            className="text-[#e63946] font-medium hover:underline text-xs sm:text-sm md:text-base"
-          >
-            View All →
-          </Link>
-        </div>
-
-        {/* Category Tabs */}
-        <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 overflow-x-auto pb-2 scrollbar-hide">
-          <button
-            onClick={() => setActiveCategory(0)}
-            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-colors active:scale-95 ${
-              activeCategory === 0
-                ? 'bg-[#e63946] text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
-          >
-            All
-          </button>
-          {categories.slice(0, 6).map((category) => (
+          
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
             <button
-              key={category.id}
-              onClick={() => setActiveCategory(category.id)}
-              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-colors active:scale-95 ${
-                activeCategory === category.id
-                  ? 'bg-[#e63946] text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              onClick={() => setActiveCategory(0)}
+              className={`px-6 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all border ${
+                activeCategory === 0
+                  ? 'bg-white text-black border-white'
+                  : 'bg-transparent text-gray-400 border-white/10 hover:border-white hover:text-white'
               }`}
             >
-              {category.name}
+              All
             </button>
-          ))}
+            {categories.slice(0, 5).map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`px-6 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all border ${
+                  activeCategory === category.id
+                    ? 'bg-white text-black border-white'
+                    : 'bg-transparent text-gray-400 border-white/10 hover:border-white hover:text-white'
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
+            <Link 
+            href="/product" 
+            className="ml-4 text-sm font-bold text-[#FFD700] hover:text-white transition-colors whitespace-nowrap flex items-center gap-1"
+          >
+            View All <IconChevronRight size={16} />
+          </Link>
+          </div>
         </div>
 
         {/* Products Grid */}

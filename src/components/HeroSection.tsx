@@ -8,59 +8,59 @@ import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Professional banners with text overlay (BigBasket style)
+  // Professional banners with text overlay (Fireworks style)
   const banners = [
     {
       id: 1,
-      image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=1600&h=500&fit=crop',
-      title: 'Fresh Vegetables',
-      subtitle: 'Farm Fresh Daily',
-      description: 'Get the freshest vegetables delivered to your doorstep',
-      offer: 'Up to 40% OFF',
-      offerColor: 'bg-green-600',
-      buttonText: 'Shop Now',
-      buttonColor: 'bg-white text-gray-800 hover:bg-gray-100',
+      image: '/assets/images/hero_fireworks.png',
+      title: 'Diwali Dhamaka Sale',
+      subtitle: 'Light Up Your Celebration',
+      description: 'Get flat 50% OFF on all premium crackers combos',
+      offer: 'FLAT 50% OFF',
+      offerColor: 'bg-gradient-to-r from-red-600 to-orange-600',
+      buttonText: 'Shop Crackers',
+      buttonColor: 'bg-[#FFD700] text-black hover:bg-yellow-400',
       textPosition: 'left',
-      link: '/category/fruits-vegetables',
+      link: '/category/ground-chakkars',
     },
     {
       id: 2,
-      image: 'https://images.unsplash.com/photo-1608686207856-001b95cf60ca?w=1600&h=500&fit=crop',
-      title: 'Daily Essentials',
-      subtitle: 'Grocery at Best Prices',
-      description: 'Atta, Rice, Dal & more at unbeatable prices',
-      offer: 'Save ₹200',
-      offerColor: 'bg-orange-600',
-      buttonText: 'Explore',
-      buttonColor: 'bg-[#e63946] text-white hover:bg-[#c1121f]',
+      image: '/assets/images/sparklers_box.png',
+      title: 'Kids Special Box',
+      subtitle: 'Safe & Colorful',
+      description: 'Sparklers, Pop Pops, and Magic Stones for little ones',
+      offer: 'Kids Favorite',
+      offerColor: 'bg-gradient-to-r from-purple-600 to-blue-600',
+      buttonText: 'Buy Gift Box',
+      buttonColor: 'bg-white text-purple-900 hover:bg-gray-100',
       textPosition: 'right',
-      link: '/category/atta-rice-dal',
+      link: '/category/kids-special',
     },
     {
       id: 3,
-      image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=1600&h=500&fit=crop',
-      title: 'Premium Fruits',
-      subtitle: 'Handpicked Quality',
-      description: 'Sweet, juicy fruits from the best orchards',
-      offer: 'Flat 25% OFF',
-      offerColor: 'bg-red-600',
+      image: '/assets/images/flower_pots.png',
+      title: 'Grand Wedding Shots',
+      subtitle: 'Premium Aerial Display',
+      description: 'Make your special day unforgettable with our sky shots',
+      offer: 'Wedding Special',
+      offerColor: 'bg-gradient-to-r from-pink-600 to-rose-600',
       buttonText: 'Order Now',
-      buttonColor: 'bg-white text-gray-800 hover:bg-gray-100',
+      buttonColor: 'bg-[#FFD700] text-black hover:bg-yellow-400',
       textPosition: 'left',
-      link: '/category/fruits-vegetables',
+      link: '/category/aerial-shots',
     },
     {
       id: 4,
-      image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=1600&h=500&fit=crop',
-      title: 'Dairy Fresh',
-      subtitle: 'Pure & Natural',
-      description: 'Fresh milk, paneer, curd delivered daily',
-      offer: 'Starting ₹25',
-      offerColor: 'bg-blue-600',
-      buttonText: 'Buy Now',
+      image: '/assets/images/ground_chakkars.png',
+      title: 'Classic Ground Chakkars',
+      subtitle: 'Traditional Diwali Fun',
+      description: 'Long spinning chakkars and bright flower pots',
+      offer: 'Buy 1 Get 1',
+      offerColor: 'bg-gradient-to-r from-green-600 to-teal-600',
+      buttonText: 'Grab Deal',
       buttonColor: 'bg-[#e63946] text-white hover:bg-[#c1121f]',
       textPosition: 'right',
-      link: '/category/dairy-bread-eggs',
+      link: '/category/flower-pots',
     },
   ];
 
@@ -71,10 +71,6 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, [banners.length]);
 
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
   const goToPrev = () => {
     setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length);
   };
@@ -84,111 +80,94 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="bg-gray-100">
-      <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-4">
-        {/* Main Banner Slider */}
-        <div className="relative rounded-lg sm:rounded-xl overflow-hidden group shadow-lg">
-          {/* Banner Container */}
-          <div className="relative w-full h-[180px] sm:h-[250px] md:h-[320px] lg:h-[380px] xl:h-[420px]">
-            {banners.map((banner, index) => (
-              <div
-                key={banner.id}
-                className={`absolute inset-0 transition-opacity duration-700 ${
-                  index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              >
-                {/* Background Image */}
-                <Image
-                  src={banner.image}
-                  alt={banner.title}
-                  fill
-                  className="object-cover"
-                  priority={index === 0}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1400px"
-                />
+    <section className="bg-background relative">
+      {/* Full Width Banner Slider */}
+      <div className="relative group w-full h-[500px] sm:h-[600px] lg:h-[700px] overflow-hidden">
+        {banners.map((banner, index) => (
+          <div
+            key={banner.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
+          >
+            {/* Background Image */}
+            <Image
+              src={banner.image}
+              alt={banner.title}
+              fill
+              className="object-cover"
+              priority={index === 0}
+              quality={90}
+            />
+            
+            {/* Premium Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent"></div>
+            
+            {/* Content Container */}
+            <div className="absolute inset-0 container mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
+              <div className="max-w-2xl space-y-6">
+                {/* Offer Badge - Minimalist */}
+                <span className="inline-block px-3 py-1 bg-[#E31837] text-white text-xs font-bold tracking-[0.2em] uppercase mb-4">
+                  {banner.offer}
+                </span>
                 
-                {/* Dark Overlay for better text readability */}
-                <div className="absolute inset-0 bg-black/20"></div>
+                {/* Main Title - Editorial Style */}
+                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight">
+                  {banner.title.split(' ').map((word, i) => (
+                    <span key={i} className="block">{word}</span>
+                  ))}
+                </h2>
                 
-                {/* Text Content Overlay */}
-                <div className={`absolute inset-0 flex items-center z-10 ${
-                  banner.textPosition === 'right' ? 'justify-end' : 'justify-start'
-                }`}>
-                  <div className={`p-4 sm:p-6 md:p-8 lg:p-12 max-w-lg ${
-                    banner.textPosition === 'right' ? 'text-right' : 'text-left'
-                  }`}>
-                    {/* Offer Badge */}
-                    <div className={`inline-flex items-center gap-2 ${banner.offerColor} text-white px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-bold mb-2 sm:mb-3 shadow-lg`}>
-                      <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                      {banner.offer}
-                    </div>
-                    
-                    {/* Main Title */}
-                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-1 sm:mb-2 drop-shadow-lg">
-                      {banner.title}
-                    </h2>
-                    
-                    {/* Subtitle */}
-                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 font-medium mb-2 sm:mb-3 drop-shadow-md">
-                      {banner.subtitle}
-                    </p>
-                    
-                    {/* Description */}
-                    <p className="text-xs sm:text-sm md:text-base text-white/80 mb-3 sm:mb-4 md:mb-6 drop-shadow-md hidden sm:block">
-                      {banner.description}
-                    </p>
-                    
-                    {/* CTA Button */}
-                    <Link 
-                      href={banner.link}
-                      className={`inline-flex items-center gap-2 ${banner.buttonColor} px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 rounded-lg font-semibold text-xs sm:text-sm md:text-base transition-all duration-200 shadow-lg hover:shadow-xl active:scale-95`}
-                    >
-                      {banner.buttonText}
-                      <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
-                  </div>
+                {/* Subtitle */}
+                <p className="text-lg sm:text-xl text-gray-200 font-light tracking-wide max-w-lg border-l-2 border-[#FFD700] pl-4">
+                  {banner.subtitle}
+                </p>
+                
+                {/* Description */}
+                <p className="text-gray-400 text-sm sm:text-base max-w-md leading-relaxed hidden sm:block">
+                  {banner.description}
+                </p>
+                
+                {/* CTA Button - Professional */}
+                <div className="pt-4">
+                  <Link 
+                    href={banner.link}
+                    className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 font-bold text-sm tracking-widest hover:bg-[#FFD700] transition-colors duration-300"
+                  >
+                    {banner.buttonText.toUpperCase()}
+                    <IconChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
+        ))}
 
-          {/* Navigation Arrows */}
-          <button
-            onClick={goToPrev}
-            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
-            aria-label="Previous slide"
-          >
-            <IconChevronLeft size={20} className="text-gray-700 sm:w-6 sm:h-6" />
-          </button>
-          <button
-            onClick={goToNext}
-            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
-            aria-label="Next slide"
-          >
-            <IconChevronRight size={20} className="text-gray-700 sm:w-6 sm:h-6" />
-          </button>
+        {/* Navigation - Minimalist Bottom Controls */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 border-t border-white/10 bg-black/50 backdrop-blur-sm">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+             {/* Slide Counter */}
+            <div className="text-white font-mono text-sm">
+              <span className="text-[#FFD700]">0{currentSlide + 1}</span>
+              <span className="text-gray-500 mx-2">/</span>
+              <span className="text-gray-500">0{banners.length}</span>
+            </div>
 
-          {/* Dots Indicator */}
-          <div className="absolute bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-1.5 sm:gap-2">
-            {banners.map((_, index) => (
+            {/* Arrows */}
+            <div className="flex gap-px">
               <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
-                  index === currentSlide 
-                    ? 'bg-[#e63946] w-6 sm:w-8 shadow-lg' 
-                    : 'bg-white/70 hover:bg-white w-1.5 sm:w-2'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Slide Counter */}
-          <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-20 bg-black/50 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
-            {currentSlide + 1} / {banners.length}
+                onClick={goToPrev}
+                className="w-12 h-16 flex items-center justify-center bg-black/20 hover:bg-[#E31837] text-white transition-colors"
+              >
+                <IconChevronLeft size={20} />
+              </button>
+              <button
+                onClick={goToNext}
+                className="w-12 h-16 flex items-center justify-center bg-black/20 hover:bg-[#E31837] text-white transition-colors"
+                >
+                <IconChevronRight size={20} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

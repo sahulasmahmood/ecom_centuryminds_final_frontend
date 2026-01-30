@@ -9,18 +9,10 @@ import {
   IconSearch,
   IconShoppingCart,
   IconUser,
-  IconMapPin,
   IconMenu2,
   IconX,
   IconHome,
-  IconHeart,
 } from '@tabler/icons-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { categories } from '@/MockData/CategoryData';
 import { useCart } from '@/context/CartContext';
 
@@ -30,34 +22,34 @@ export default function Header() {
   const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
-  const { totalItems, totalPrice } = useCart();
+  const { totalItems } = useCart();
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-black text-white sticky top-0 z-50 border-b border-white/10">
       {/* Main Header */}
-      <div className="bg-[#e63946]">
-        <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
-          <div className="flex items-center justify-between gap-2 sm:gap-4 lg:gap-6">
+      <div className="bg-black/95 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-3 sm:py-4">
+          <div className="flex items-center justify-between gap-4 lg:gap-8">
             {/* Mobile Menu Button */}
             <button 
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden text-white p-1"
+              className="lg:hidden text-white p-1 hover:text-[#FFD700] transition-colors"
             >
               <IconMenu2 size={24} />
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full overflow-hidden bg-white">
+            <Link href="/" className="flex items-center gap-2 md:gap-3 flex-shrink-0 group">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#FFD700] group-hover:shadow-[0_0_10px_rgba(255,215,0,0.3)] transition-shadow">
                 <Image 
-                  src="/logo.jpeg"
-                  alt="Leats Logo"
-                  width={48}
-                  height={48}
+                  src="/assets/images/hero_fireworks.png"
+                  alt="SkySpark"
+                  width={40}
+                  height={40}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white">Leats</span>
+              <span className="text-xl sm:text-2xl font-bold text-white tracking-tight group-hover:text-[#FFD700] transition-colors">SkySpark</span>
             </Link>
 
             {/* Shop by Category - Desktop Only */}
@@ -66,68 +58,59 @@ export default function Header() {
               onMouseEnter={() => setShowMegaMenu(true)}
               onMouseLeave={() => setShowMegaMenu(false)}
             >
-              <button className="bg-[#c1121f] text-white px-4 py-2.5 rounded-md flex items-center gap-2 hover:bg-[#a01018] focus:outline-none font-medium transition-colors">
-                <IconMenu2 size={20} />
-                Shop by Category
-                <IconChevronDown size={18} className={`transition-transform ${showMegaMenu ? 'rotate-180' : ''}`} />
+              <button className="bg-[#FFD700] text-black px-6 py-2.5 rounded-sm flex items-center gap-2 hover:bg-white transition-colors focus:outline-none font-bold tracking-wide uppercase text-sm">
+                <IconMenu2 size={18} />
+                Products
+                <IconChevronDown size={16} className={`transition-transform ${showMegaMenu ? 'rotate-180' : ''}`} />
               </button>
 
               {/* Mega Menu */}
               {showMegaMenu && (
-                <div className="absolute top-full left-0 mt-0 bg-white rounded-lg shadow-2xl border border-gray-200 flex z-50 min-w-[700px]">
-                  {/* Categories List - Left Side */}
-                  <div className="w-64 bg-gray-50 border-r border-gray-200 py-2">
+                <div className="absolute top-full left-0 mt-0 bg-[#0a0a0a] border border-white/10 flex z-50 min-w-[700px] shadow-2xl">
+                  {/* Categories List */}
+                  <div className="w-64 bg-[#111] border-r border-white/5 py-2">
                     {categories.map((category) => (
                       <div
                         key={category.id}
-                        className={`flex items-center justify-between px-4 py-3 cursor-pointer transition-colors ${
+                        className={`flex items-center justify-between px-6 py-3 cursor-pointer transition-colors ${
                           activeCategory.id === category.id 
-                            ? 'bg-white text-[#e63946] border-l-4 border-[#e63946]' 
-                            : 'hover:bg-white text-gray-700'
+                            ? 'bg-[#FFD700] text-black' 
+                            : 'hover:bg-white/5 text-gray-300'
                         }`}
                         onMouseEnter={() => setActiveCategory(category)}
                       >
                         <div className="flex items-center gap-3">
-                          <span className="text-xl">{category.icon}</span>
-                          <span className="text-sm font-medium">{category.name}</span>
+                          <span className="text-lg opacity-70">{category.icon}</span>
+                          <span className="text-sm font-bold uppercase tracking-wider">{category.name}</span>
                         </div>
-                        <IconChevronRight size={16} className="text-gray-400" />
+                        <IconChevronRight size={14} className={activeCategory.id === category.id ? "text-black" : "text-gray-600"} />
                       </div>
                     ))}
                   </div>
 
-                  {/* Subcategories - Right Side */}
-                  <div className="flex-1 p-6">
-                    <div className="mb-4">
+                  {/* Subcategories */}
+                  <div className="flex-1 p-8 text-white">
+                    <div className="mb-6 pb-4 border-b border-white/10">
                       <Link 
                         href={`/category/${activeCategory.slug}`}
-                        className="text-lg font-bold text-gray-800 hover:text-[#e63946] transition-colors"
+                        className="text-xl font-bold text-white hover:text-[#FFD700] transition-colors"
                       >
                         {activeCategory.name}
                       </Link>
-                      <p className="text-sm text-gray-500 mt-1">{activeCategory.description}</p>
+                      <p className="text-sm text-gray-500 mt-2">{activeCategory.description}</p>
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-4">
                       {activeCategory.subcategories.map((sub) => (
                         <Link
                           key={sub.id}
                           href={`/category/${activeCategory.slug}?sub=${sub.slug}`}
-                          className="text-sm text-gray-600 hover:text-[#e63946] hover:underline transition-colors py-1"
+                          className="text-sm text-gray-400 hover:text-white transition-colors py-1 flex items-center gap-2 group/item"
                         >
+                          <span className="w-1 h-1 bg-gray-600 rounded-full group-hover/item:bg-[#FFD700] transition-colors"></span>
                           {sub.name}
                         </Link>
                       ))}
-                    </div>
-
-                    <div className="mt-6 pt-4 border-t border-gray-200">
-                      <Link 
-                        href={`/category/${activeCategory.slug}`}
-                        className="inline-flex items-center gap-2 text-[#e63946] font-medium text-sm hover:underline"
-                      >
-                        View All {activeCategory.name}
-                        <IconChevronRight size={16} />
-                      </Link>
                     </div>
                   </div>
                 </div>
@@ -135,18 +118,18 @@ export default function Header() {
             </div>
 
             {/* Search Bar - Desktop */}
-            <div className="hidden md:flex flex-1 max-w-xl lg:max-w-2xl">
-              <div className="flex items-center bg-white rounded-md overflow-hidden w-full">
-                <div className="px-3">
-                  <IconSearch size={20} className="text-gray-400" />
-                </div>
+            <div className="hidden md:flex flex-1 max-w-xl">
+              <div className="flex items-center bg-[#1a1a1a] border border-white/10 rounded-sm overflow-hidden w-full focus-within:border-[#FFD700] transition-colors">
                 <input 
                   type="text" 
-                  placeholder="Search for Products..."
+                  placeholder="Search firecrackers..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 px-2 py-2.5 focus:outline-none text-gray-700 w-full"
+                  className="flex-1 px-4 py-2.5 bg-transparent text-white placeholder-gray-500 focus:outline-none text-sm"
                 />
+                <button className="px-4 text-gray-400 hover:text-[#FFD700] transition-colors">
+                  <IconSearch size={20} />
+                </button>
               </div>
             </div>
 
@@ -158,176 +141,113 @@ export default function Header() {
               <IconSearch size={22} />
             </button>
 
-            {/* Location - Desktop Only */}
-            <div className="hidden xl:flex items-center gap-2 text-white cursor-pointer hover:opacity-90">
-              <IconMapPin size={20} />
-              <div className="text-sm">
-                <p className="text-xs opacity-80">Deliver to</p>
-                <p className="font-medium">Select Location</p>
-              </div>
-              <IconChevronDown size={16} />
-            </div>
-
-            {/* Account - Desktop */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="hidden sm:flex items-center gap-1 lg:gap-2 text-white hover:opacity-90 focus:outline-none">
-                  <IconUser size={22} />
-                  <div className="hidden lg:block text-sm text-left">
-                    <p className="text-xs opacity-80">Sign In</p>
-                    <p className="font-medium">My Account</p>
+            {/* Account Actions - Desktop */}
+            <div className="hidden sm:flex items-center gap-6">
+               <Link href="/login" className="flex flex-col items-center group">
+                  <IconUser size={22} className="text-gray-300 group-hover:text-[#FFD700] transition-colors" />
+                  <span className="text-[10px] uppercase font-bold text-gray-500 mt-0.5 group-hover:text-white">Account</span>
+               </Link>
+               
+               <Link href="/cart" className="flex flex-col items-center group relative">
+                  <div className="relative">
+                    <IconShoppingCart size={22} className="text-gray-300 group-hover:text-[#FFD700] transition-colors" />
+                    <span className="absolute -top-1.5 -right-1.5 bg-[#E31837] text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                      {totalItems}
+                    </span>
                   </div>
-                  <IconChevronDown size={16} className="hidden lg:block" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem asChild>
-                  <Link href="/login" className="cursor-pointer">Sign In</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/register" className="cursor-pointer">Register</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/order-tracking" className="cursor-pointer">My Orders</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {/* Cart */}
-            <Link href="/cart" className="flex items-center gap-1 lg:gap-2 text-white hover:opacity-90 transition-opacity">
-              <div className="relative">
-                <IconShoppingCart size={22} className="sm:w-6 sm:h-6" />
-                {totalItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-[#ffc300] text-gray-900 text-[10px] sm:text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-medium">
-                    {totalItems}
-                  </span>
-                )}
-              </div>
-              <div className="hidden sm:block text-sm">
-                <p className="text-xs opacity-80">My Cart</p>
-                <p className="font-medium">₹{totalPrice.toFixed(2)}</p>
-              </div>
-            </Link>
+                  <span className="text-[10px] uppercase font-bold text-gray-500 mt-0.5 group-hover:text-white">Cart</span>
+               </Link>
+            </div>
           </div>
 
           {/* Mobile Search Bar */}
           {mobileSearchOpen && (
-            <div className="md:hidden mt-3">
-              <div className="flex items-center bg-white rounded-md overflow-hidden">
-                <div className="px-3">
-                  <IconSearch size={20} className="text-gray-400" />
-                </div>
+            <div className="md:hidden mt-4">
+              <div className="flex items-center bg-[#1a1a1a] border border-white/10 rounded-sm overflow-hidden">
                 <input 
                   type="text" 
-                  placeholder="Search for Products..."
+                  placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 px-2 py-2.5 focus:outline-none text-gray-700"
+                  className="flex-1 px-3 py-2 bg-transparent text-white placeholder-gray-500 focus:outline-none text-sm"
                   autoFocus
                 />
+                <button className="px-3 text-gray-400">
+                  <IconSearch size={18} />
+                </button>
               </div>
             </div>
           )}
         </div>
       </div>
 
-      {/* Category Navigation Bar - Desktop */}
-      <div className="hidden lg:block bg-white border-b">
+      {/* Category Navigation Bar - Desktop - Sleek Dark */}
+      <div className="hidden lg:block bg-[#111] border-t border-white/5">
         <div className="container mx-auto px-4">
-          <div className="flex items-center gap-8 py-2 overflow-x-auto scrollbar-hide">
-            {categories.map((category) => (
+          <div className="flex items-center justify-center gap-8 py-3">
+             <Link href="/" className="text-sm font-bold uppercase tracking-wider text-[#FFD700] hover:text-white transition-colors">
+               Home
+             </Link>
+            {categories.slice(0, 6).map((category) => (
               <Link 
                 key={category.id}
                 href={`/category/${category.slug}`}
-                className="flex items-center gap-2 text-gray-700 hover:text-[#e63946] whitespace-nowrap text-sm font-medium py-1 transition-colors"
+                className="text-sm font-medium text-gray-400 hover:text-white transition-colors uppercase tracking-wide"
               >
-                <span>{category.icon}</span>
-                <span>{category.name}</span>
+                {category.name}
               </Link>
             ))}
+            <Link href="/product" className="text-sm font-bold uppercase tracking-wider text-[#E31837] hover:text-white transition-colors">
+               Sale
+             </Link>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50 lg:hidden" onClick={() => setMobileMenuOpen(false)}>
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 lg:hidden" onClick={() => setMobileMenuOpen(false)}>
           <div 
-            className="absolute left-0 top-0 h-full w-[85%] max-w-sm bg-white overflow-y-auto"
+            className="absolute left-0 top-0 h-full w-[80%] max-w-sm bg-[#111] border-r border-white/10 overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Menu Header */}
-            <div className="bg-[#e63946] p-4 flex items-center justify-between">
-              <Link href="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-                <div className="w-10 h-10 rounded-full overflow-hidden bg-white">
-                  <Image 
-                    src="/logo.jpeg"
-                    alt="Leats Logo"
-                    width={40}
-                    height={40}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <span className="text-xl font-bold text-white">Leats</span>
-              </Link>
-              <button onClick={() => setMobileMenuOpen(false)} className="text-white p-1">
+            <div className="bg-[#0a0a0a] p-4 flex items-center justify-between border-b border-white/10">
+              <div className="flex items-center gap-2">
+                 <span className="text-xl font-bold text-white tracking-tight">SkySpark</span>
+              </div>
+              <button onClick={() => setMobileMenuOpen(false)} className="text-white p-1 hover:text-[#E31837]">
                 <IconX size={24} />
               </button>
             </div>
 
             {/* Mobile Menu Links */}
-            <div className="p-4 border-b">
-              <Link 
-                href="/login" 
-                className="flex items-center gap-3 py-3 text-gray-700"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <IconUser size={20} />
-                <span>Sign In / Register</span>
-              </Link>
-              <Link 
-                href="/order-tracking" 
-                className="flex items-center gap-3 py-3 text-gray-700"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <IconHome size={20} />
-                <span>My Orders</span>
-              </Link>
-              <Link 
-                href="/wishlist" 
-                className="flex items-center gap-3 py-3 text-gray-700"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <IconHeart size={20} />
-                <span>Wishlist</span>
-              </Link>
-            </div>
+            <div className="p-4 space-y-2">
+              <div className="mb-6">
+                <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Account</h3>
+                <Link href="/login" className="flex items-center gap-3 py-2 text-gray-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>
+                  <IconUser size={18} />
+                  <span>Log In / Sign Up</span>
+                </Link>
+                <Link href="/order-tracking" className="flex items-center gap-3 py-2 text-gray-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>
+                  <IconHome size={18} />
+                  <span>Track Order</span>
+                </Link>
+              </div>
 
-            {/* Mobile Categories */}
-            <div className="p-4">
-              <h3 className="text-sm font-semibold text-gray-500 uppercase mb-3">Shop by Category</h3>
-              <div className="space-y-1">
+              <div>
+                <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Categories</h3>
                 {categories.map((category) => (
                   <Link
                     key={category.id}
                     href={`/category/${category.slug}`}
-                    className="flex items-center gap-3 py-3 text-gray-700 hover:text-[#e63946] hover:bg-gray-50 rounded-lg px-2 -mx-2"
+                    className="flex items-center justify-between py-2.5 text-gray-300 hover:text-[#FFD700] border-b border-white/5 last:border-0"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <span className="text-xl">{category.icon}</span>
-                    <span className="font-medium">{category.name}</span>
+                    <span className="text-sm font-medium">{category.name}</span>
+                    <IconChevronRight size={14} className="text-gray-600" />
                   </Link>
                 ))}
-              </div>
-            </div>
-
-            {/* Mobile Footer Links */}
-            <div className="p-4 border-t bg-gray-50">
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <Link href="/about" className="py-2 text-gray-600" onClick={() => setMobileMenuOpen(false)}>About Us</Link>
-                <Link href="/contact" className="py-2 text-gray-600" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
-                <Link href="/faq" className="py-2 text-gray-600" onClick={() => setMobileMenuOpen(false)}>FAQs</Link>
-                <Link href="/shipping" className="py-2 text-gray-600" onClick={() => setMobileMenuOpen(false)}>Shipping</Link>
               </div>
             </div>
           </div>
