@@ -8,12 +8,13 @@ import Footer02 from '@/components/Footer02';
 import ProductCard from '@/components/ProductCard';
 import { getProductsByCategory } from '@/MockData/ProductData';
 import { categories, getCategoryBySlug, getCategoryById } from '@/MockData/CategoryData';
-import { IconChevronRight, IconChevronLeft, IconFilter, IconX } from '@tabler/icons-react';
+import { IconChevronRight, IconChevronLeft, IconFilter, IconX, IconChevronDown } from '@tabler/icons-react';
 
 export default function CategoryPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState('relevance');
+  const [isSortOpen, setIsSortOpen] = useState(false);
   const [showMobileFilter, setShowMobileFilter] = useState(false);
   const itemsPerPage = 15;
 
@@ -129,20 +130,43 @@ export default function CategoryPage({ params }: { params: Promise<{ id: string 
                     <IconFilter size={16} />
                     <span>Filter</span>
                   </button>
-                  <div className="relative">
-                    <select
-                      value={sortBy}
-                      onChange={(e) => setSortBy(e.target.value)}
-                         className="appearance-none bg-[#111] border border-white/10 rounded-sm pl-4 pr-10 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-[#FFD700] cursor-pointer hover:border-white/30 transition-colors"
+                  <div className="relative z-20">
+                    <button
+                      onClick={() => setIsSortOpen(!isSortOpen)}
+                      className="w-[180px] flex items-center justify-between bg-[#111] border border-white/10 rounded-sm px-4 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-[#FFD700] hover:border-white/30 transition-colors"
                     >
-                      <option value="relevance">Relevance</option>
-                      <option value="price-low">Price: Low to High</option>
-                      <option value="price-high">Price: High to Low</option>
-                      <option value="discount">Discount</option>
-                    </select>
-                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
-                      <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                    </div>
+                      <span className="truncate mr-2">
+                        {sortBy === 'relevance' && 'Relevance'}
+                        {sortBy === 'price-low' && 'Price: Low to High'}
+                        {sortBy === 'price-high' && 'Price: High to Low'}
+                        {sortBy === 'discount' && 'Discount'}
+                      </span>
+                      <IconChevronDown size={14} className={`text-[#FFD700] flex-shrink-0 transition-transform duration-200 ${isSortOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    {isSortOpen && (
+                      <div className="absolute top-full right-0 mt-1 bg-[#111] border border-white/10 rounded-sm shadow-xl overflow-hidden min-w-[180px]">
+                        {[
+                          { value: 'relevance', label: 'Relevance' },
+                          { value: 'price-low', label: 'Price: Low to High' },
+                          { value: 'price-high', label: 'Price: High to Low' },
+                          { value: 'discount', label: 'Discount' }
+                        ].map((option) => (
+                          <button
+                            key={option.value}
+                            onClick={() => {
+                              setSortBy(option.value);
+                              setIsSortOpen(false);
+                            }}
+                            className={`w-full text-left px-4 py-3 text-sm transition-colors hover:bg-white/5 ${
+                              sortBy === option.value ? 'text-[#FFD700] font-bold' : 'text-gray-300'
+                            }`}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

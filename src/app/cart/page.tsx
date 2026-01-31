@@ -1,272 +1,207 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer01 from '@/components/Footer01';
 import Footer02 from '@/components/Footer02';
-import { IconMinus, IconPlus, IconX, IconShoppingCart, IconHeart } from '@tabler/icons-react';
+import { IconMinus, IconPlus, IconX, IconShoppingCart, IconArrowRight, IconTruck } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 
 export default function CartPage() {
   const { items, updateQuantity, removeFromCart, totalPrice, totalSavings, totalItems } = useCart();
+  const [mounted, setMounted] = useState(false);
 
-  const deliveryFee = totalPrice >= 499 ? 0 : 40;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const deliveryThreshold = 499;
+  const deliveryFee = totalPrice >= deliveryThreshold ? 0 : 40;
   const total = totalPrice + deliveryFee;
+  const progressPercent = Math.min((totalPrice / deliveryThreshold) * 100, 100);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
       
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-gray-400 mb-8">
+        <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8 uppercase tracking-widest font-bold">
           <Link href="/" className="hover:text-[#FFD700] transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-white font-medium">Shopping Cart</span>
+          <span className="text-gray-700">/</span>
+          <span className="text-white">Cart</span>
         </nav>
 
-        {/* Page Header */}
-        <div className="mb-8 border-b border-white/10 pb-6">
-          <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Shopping Cart</h1>
-          <p className="text-gray-400">There are <span className="text-[#FFD700] font-bold">{totalItems}</span> products in your cart</p>
-        </div>
-
         {items.length === 0 ? (
-          /* Empty Cart */
-          <div className="bg-[#0a0a0a] border border-white/10 rounded-sm p-12 text-center">
-            <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6">
-              <IconShoppingCart size={48} className="text-gray-500" />
+          /* Empty Cart Premium State */
+          <div className="flex flex-col items-center justify-center py-20 text-center">
+            <div className="w-32 h-32 bg-[#111] border border-white/10 rounded-full flex items-center justify-center mb-8 relative group">
+              <div className="absolute inset-0 bg-[#FFD700]/10 rounded-full blur-xl group-hover:blur-2xl transition-all duration-700"></div>
+              <IconShoppingCart size={48} className="text-gray-400 group-hover:text-[#FFD700] transition-colors relative z-10" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-4">Your Cart is Empty</h2>
-            <p className="text-gray-400 mb-8 max-w-md mx-auto">Looks like you haven&apos;t added any crackers to your cart yet. Browse our premium collection and light up your celebrations!</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">Your Cart is Empty</h2>
+            <p className="text-gray-400 mb-10 max-w-md mx-auto leading-relaxed">
+              Looks like you haven&apos;t added any sparks to your celebration yet. Explore our premium collection using the button below.
+            </p>
             <Link 
               href="/product" 
-              className="inline-block bg-[#FFD700] text-black px-8 py-3 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-colors"
+              className="inline-flex items-center gap-3 bg-[#FFD700] text-black px-10 py-4 rounded-sm font-bold uppercase tracking-[0.15em] hover:bg-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,215,0,0.3)]"
             >
-              Start Shopping
+              Start Shopping <IconArrowRight size={18} />
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Cart Items */}
-            <div className="lg:col-span-2">
-              <div className="bg-[#0a0a0a] border border-white/10 rounded-sm overflow-hidden">
-                {/* Table Header - Desktop Only */}
-                <div className="hidden sm:block bg-[#111] px-6 py-4 border-b border-white/10">
-                  <div className="grid grid-cols-12 gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
-                    <div className="col-span-6">Product</div>
-                    <div className="col-span-2 text-center">Price</div>
-                    <div className="col-span-2 text-center">Quantity</div>
-                    <div className="col-span-2 text-center">Total</div>
-                  </div>
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            
+            {/* Cart Items List */}
+            <div className="lg:col-span-8 flex flex-col gap-6">
+               <div className="flex items-center justify-between border-b border-white/10 pb-6">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Shopping Cart <span className="text-gray-500 text-lg font-normal ml-2">({totalItems} items)</span></h1>
+                  <button className="text-sm font-bold text-[#E31837] uppercase tracking-wider hover:text-white transition-colors underline decoration-white/20 hover:decoration-white">Clear Cart</button>
+               </div>
 
-                {/* Cart Items */}
-                <div className="divide-y divide-white/10">
+               {/* Free Delivery Bar */}
+               <div className="bg-[#111] border border-white/10 rounded-sm p-6 mb-2">
+                  <div className="flex items-center gap-3 mb-3">
+                     <IconTruck size={20} className={progressPercent === 100 ? "text-[#00E054]" : "text-[#FFD700]"} />
+                     <p className="text-sm font-medium text-gray-300">
+                        {progressPercent === 100 
+                           ? <span className="text-[#00E054] font-bold">You&apos;ve unlocked FREE Delivery!</span> 
+                           : <span>Add <span className="text-[#FFD700] font-bold">₹{(deliveryThreshold - totalPrice).toFixed(0)}</span> more for <span className="text-white font-bold">FREE Delivery</span></span>
+                        }
+                     </p>
+                  </div>
+                  <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                     <div 
+                        className="h-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] transition-all duration-1000 ease-out"
+                        style={{ width: `${progressPercent}%` }}
+                     ></div>
+                  </div>
+               </div>
+
+               {/* Items */}
+               <div className="space-y-4">
                   {items.map((item) => (
-                    <div key={`${item.product.id}-${item.variantIndex}`} className="p-6">
-                      {/* Mobile Layout */}
-                      <div className="sm:hidden">
-                        <div className="flex gap-4">
-                          <div className="relative w-20 h-20 bg-white/5 rounded-sm flex-shrink-0">
-                            <Image
-                              src={item.product.image}
-                              alt={item.product.name}
-                              fill
-                              className="object-contain p-2"
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex justify-between items-start gap-2">
-                              <div className="min-w-0">
-                                <p className="text-xs text-[#FFD700] font-bold uppercase mb-1">{item.product.brand}</p>
-                                <Link href={`/product/${item.product.id}`}>
-                                  <h3 className="font-bold text-white text-sm line-clamp-2 hover:text-[#FFD700] transition-colors">
-                                    {item.product.name}
-                                  </h3>
-                                </Link>
-                                <p className="text-xs text-gray-400 mt-1">{item.variant.weight}</p>
-                              </div>
-                              <button 
-                                onClick={() => removeFromCart(item.product.id, item.variantIndex)}
-                                className="text-gray-500 hover:text-red-500 p-1 flex-shrink-0 transition-colors"
-                              >
-                                <IconX size={18} />
-                              </button>
-                            </div>
-                            <div className="flex items-center justify-between mt-4">
-                              <div className="flex items-center border border-white/20 rounded-sm">
-                                <button
-                                  onClick={() => updateQuantity(item.product.id, item.variantIndex, item.quantity - 1)}
-                                  className="p-1.5 text-white hover:bg-white/10 transition-colors"
-                                >
-                                  <IconMinus size={14} />
-                                </button>
-                                <span className="px-3 py-1 text-sm bg-white/5 text-white min-w-[32px] text-center font-medium">{item.quantity}</span>
-                                <button
-                                  onClick={() => updateQuantity(item.product.id, item.variantIndex, item.quantity + 1)}
-                                  className="p-1.5 text-white hover:bg-white/10 transition-colors"
-                                >
-                                  <IconPlus size={14} />
-                                </button>
-                              </div>
-                              <div className="text-right">
-                                <span className="font-bold text-white">₹{item.variant.price * item.quantity}</span>
-                                {item.variant.mrp > item.variant.price && (
-                                  <span className="block text-xs text-gray-500 line-through decoration-white/20">₹{item.variant.mrp * item.quantity}</span>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                    <div 
+                      key={`${item.product.id}-${item.variantIndex}`} 
+                      className="group bg-[#0a0a0a] border border-white/10 rounded-sm p-4 sm:p-6 flex gap-4 sm:gap-6 relative overflow-hidden transition-all hover:border-[#FFD700]/30 hover:bg-[#111]"
+                    >
+                      {/* Remove Button (Absolute top-right) */}
+                      <button 
+                        onClick={() => removeFromCart(item.product.id, item.variantIndex)}
+                        className="absolute top-4 right-4 text-gray-600 hover:text-[#E31837] transition-colors p-1"
+                      >
+                        <IconX size={18} />
+                      </button>
+
+                      <div className="relative w-24 h-24 sm:w-32 sm:h-32 bg-white/5 rounded-sm flex-shrink-0">
+                        <Image
+                          src={item.product.image}
+                          alt={item.product.name}
+                          fill
+                          className="object-contain p-2 transition-transform group-hover:scale-110 duration-500"
+                        />
                       </div>
 
-                      {/* Desktop Layout */}
-                      <div className="hidden sm:grid grid-cols-12 gap-4 items-center">
-                        {/* Product Info */}
-                        <div className="col-span-6 flex items-center gap-4">
-                          <button 
-                            onClick={() => removeFromCart(item.product.id, item.variantIndex)}
-                            className="text-gray-500 hover:text-red-500 transition-colors"
-                          >
-                            <IconX size={20} />
-                          </button>
-                          <div className="relative w-20 h-20 bg-white/5 rounded-sm p-2">
-                             <Image
-                              src={item.product.image}
-                              alt={item.product.name}
-                              fill
-                              className="object-contain"
-                            />
+                      <div className="flex-1 flex flex-col justify-between">
+                        <div>
+                          <div className="flex justify-between pr-8">
+                             <div>
+                                <p className="text-[10px] sm:text-xs text-[#FFD700] font-bold uppercase tracking-widest mb-1">{item.product.brand}</p>
+                                <Link href={`/product/${item.product.id}`} className="block">
+                                  <h3 className="font-bold text-white text-base sm:text-lg hover:text-[#FFD700] transition-colors line-clamp-1">{item.product.name}</h3>
+                                </Link>
+                             </div>
                           </div>
-                          <div>
-                            <p className="text-xs text-[#FFD700] font-bold uppercase mb-1">{item.product.brand}</p>
-                            <Link href={`/product/${item.product.id}`}>
-                              <h3 className="font-bold text-white hover:text-[#FFD700] transition-colors">
-                                {item.product.name}
-                              </h3>
-                            </Link>
-                            <p className="text-sm text-gray-400 mt-1">{item.variant.weight}</p>
-                          </div>
+                          <p className="text-sm text-gray-400 mt-1 font-medium">{item.variant.weight}</p>
                         </div>
 
-                        {/* Price */}
-                        <div className="col-span-2 text-center">
-                          <span className="font-bold text-white">₹{item.variant.price}</span>
-                          {item.variant.mrp > item.variant.price && (
-                            <span className="block text-xs text-gray-500 line-through decoration-white/20">₹{item.variant.mrp}</span>
-                          )}
-                        </div>
+                        <div className="flex flex-wrap items-end justify-between gap-4 mt-4">
+                           {/* Quantity Control */}
+                           <div className="flex items-center border border-white/10 rounded-sm bg-black">
+                              <button
+                                onClick={() => updateQuantity(item.product.id, item.variantIndex, item.quantity - 1)}
+                                className="p-2 text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                              >
+                                <IconMinus size={14} />
+                              </button>
+                              <span className="w-8 text-center text-sm font-bold text-white">{item.quantity}</span>
+                              <button
+                                onClick={() => updateQuantity(item.product.id, item.variantIndex, item.quantity + 1)}
+                                className="p-2 text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                              >
+                                <IconPlus size={14} />
+                              </button>
+                           </div>
 
-                        {/* Quantity */}
-                        <div className="col-span-2 flex justify-center">
-                          <div className="flex items-center border border-white/20 rounded-sm">
-                            <button
-                              onClick={() => updateQuantity(item.product.id, item.variantIndex, item.quantity - 1)}
-                              className="p-2 text-white hover:bg-white/10 transition-colors"
-                            >
-                              <IconMinus size={14} />
-                            </button>
-                            <span className="px-3 py-2 text-sm bg-white/5 text-white min-w-[32px] text-center font-bold">{item.quantity}</span>
-                            <button
-                              onClick={() => updateQuantity(item.product.id, item.variantIndex, item.quantity + 1)}
-                              className="p-2 text-white hover:bg-white/10 transition-colors"
-                            >
-                              <IconPlus size={14} />
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Total */}
-                        <div className="col-span-2 text-center">
-                          <span className="font-bold text-[#FFD700]">
-                            ₹{item.variant.price * item.quantity}
-                          </span>
+                           {/* Price */}
+                           <div className="text-right">
+                              <div className="text-lg sm:text-xl font-bold text-white">₹{item.variant.price * item.quantity}</div>
+                              {item.variant.mrp > item.variant.price && (
+                                 <div className="text-xs text-gray-500 line-through">₹{item.variant.mrp * item.quantity}</div>
+                              )}
+                           </div>
                         </div>
                       </div>
                     </div>
                   ))}
-                </div>
+               </div>
+            </div>
 
-                {/* Cart Actions */}
-                <div className="bg-[#111] px-6 py-4 flex justify-between items-center border-t border-white/10">
-                  <Link 
-                    href="/product" 
-                    className="text-[#FFD700] hover:text-white font-bold text-sm uppercase tracking-wide transition-colors flex items-center gap-2"
-                  >
-                     <span>←</span> Continue Shopping
-                  </Link>
-                </div>
+            {/* Order Summary Sidebar */}
+            <div className="lg:col-span-4">
+              <div className="sticky top-24 space-y-4">
+                 <div className="bg-[#111] border border-white/10 rounded-sm p-6 overflow-hidden relative">
+                    {/* Decorative Blur */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFD700]/5 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
+                    
+                    <h3 className="text-lg font-bold text-white uppercase tracking-widest mb-6 border-b border-white/10 pb-4">Order Summary</h3>
+                    
+                    <div className="space-y-4 text-sm text-gray-300">
+                      <div className="flex justify-between">
+                         <span>Subtotal</span>
+                         <span className="text-white font-bold">₹{totalPrice.toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between text-[#E31837]">
+                         <span>Discount</span>
+                         <span className="font-bold">-₹{totalSavings.toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                         <span>Delivery Fee</span>
+                         <span className={deliveryFee === 0 ? "text-[#00E054] font-bold" : "text-white"}>
+                            {deliveryFee === 0 ? "FREE" : `₹${deliveryFee}`}
+                         </span>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-white/10">
+                       <div className="flex justify-between items-end mb-1">
+                          <span className="font-bold text-white">Grand Total</span>
+                          <span className="text-2xl font-bold text-[#FFD700]">₹{total.toFixed(2)}</span>
+                       </div>
+                       <p className="text-[10px] text-gray-500 text-right uppercase tracking-wider">Inclusive of all taxes</p>
+                    </div>
+
+                    <button className="w-full bg-[#FFD700] text-black font-bold uppercase tracking-[0.2em] py-4 mt-8 hover:bg-white transition-all transform active:scale-[0.98]">
+                       Proceed to Pay
+                    </button>
+                    
+                    <div className="mt-6 flex flex-col items-center gap-3">
+                       <p className="text-[10px] text-gray-500 uppercase tracking-widest">We Accept Secure Payment</p>
+                       <div className="flex gap-2 opacity-50 grayscale hover:grayscale-0 transition-all duration-300">
+                          {['VISA', 'Mastercard', 'UPI', 'RuPay'].map(m => (
+                             <div key={m} className="bg-white px-2 py-1 rounded-[2px] text-[10px] font-bold text-black border border-gray-300">{m}</div>
+                          ))}
+                       </div>
+                    </div>
+                 </div>
               </div>
             </div>
 
-
-            {/* Order Summary */}
-            <div className="lg:col-span-1">
-              <div className="bg-[#0a0a0a] border border-white/10 rounded-sm p-6 lg:sticky lg:top-24">
-                <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wider border-b border-white/10 pb-4">Order Summary</h3>
-                
-                <div className="space-y-4 mb-6">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-400">Subtotal ({totalItems} items)</span>
-                    <span className="font-bold text-white">₹{totalPrice.toFixed(2)}</span>
-                  </div>
-                  {totalSavings > 0 && (
-                    <div className="flex justify-between text-[#E31837] text-sm">
-                      <span>Discount</span>
-                      <span className="font-bold">-₹{totalSavings.toFixed(2)}</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-400">Delivery Fee</span>
-                    <span className="font-bold text-white">
-                      {deliveryFee === 0 ? <span className="text-[#FFD700]">FREE</span> : `₹${deliveryFee}`}
-                    </span>
-                  </div>
-                  <div className="border-t border-white/10 pt-4">
-                    <div className="flex justify-between items-end">
-                      <span className="text-lg font-bold text-white">Total</span>
-                      <span className="text-xl font-bold text-[#FFD700]">₹{total.toFixed(2)}</span>
-                    </div>
-                    <p className="text-xs text-gray-500 mt-1 text-right">Inclusive of all taxes</p>
-                  </div>
-                </div>
-
-                {/* Shipping Notice */}
-                {deliveryFee > 0 && (
-                  <div className="bg-[#FFD700]/10 border border-[#FFD700]/20 rounded-sm p-4 mb-4">
-                    <p className="text-xs sm:text-sm text-[#FFD700]">
-                      Add ₹{(499 - totalPrice).toFixed(2)} more to get free delivery!
-                    </p>
-                  </div>
-                )}
-
-                {/* Checkout Button */}
-                <button className="w-full bg-[#FFD700] text-black py-4 rounded-sm hover:bg-white transition-colors font-bold uppercase tracking-widest mb-4">
-                  Proceed to Checkout
-                </button>
-
-                {/* Additional Actions */}
-                <div className="space-y-2">
-                  <button className="w-full border border-white/20 text-gray-300 py-3 rounded-sm hover:border-white hover:text-white transition-colors flex items-center justify-center gap-2 text-sm font-medium">
-                    <IconHeart size={18} />
-                    Save for Later
-                  </button>
-                </div>
-
-                {/* Payment Methods */}
-                <div className="mt-8 text-center border-t border-white/10 pt-6">
-                  <p className="text-xs text-gray-500 mb-3 uppercase tracking-widest">We Accept</p>
-                  <div className="flex justify-center gap-2 flex-wrap text-gray-400">
-                    <span className="bg-white/5 border border-white/10 px-3 py-1 rounded-sm text-xs font-bold">VISA</span>
-                    <span className="bg-white/5 border border-white/10 px-3 py-1 rounded-sm text-xs font-bold">Mastercard</span>
-                    <span className="bg-white/5 border border-white/10 px-3 py-1 rounded-sm text-xs font-bold">UPI</span>
-                    <span className="bg-white/5 border border-white/10 px-3 py-1 rounded-sm text-xs font-bold">COD</span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         )}
       </main>

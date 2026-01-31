@@ -58,12 +58,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #e31837;
+  background: #FFD700;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c41530;
+  background: #e6c200;
 }
 
 /* Weight selector dropdown */

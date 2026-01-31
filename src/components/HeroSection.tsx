@@ -157,14 +157,14 @@ export default function HeroSection() {
             <div className="flex gap-px">
               <button
                 onClick={goToPrev}
-                className="w-12 h-16 flex items-center justify-center bg-black/20 hover:bg-[#E31837] text-white transition-colors"
+                className="w-12 h-16 flex items-center justify-center bg-black/20 hover:bg-[#FFD700] hover:text-black text-white transition-colors"
               >
                 <IconChevronLeft size={20} />
               </button>
               <button
                 onClick={goToNext}
-                className="w-12 h-16 flex items-center justify-center bg-black/20 hover:bg-[#E31837] text-white transition-colors"
-                >
+                className="w-12 h-16 flex items-center justify-center bg-black/20 hover:bg-[#FFD700] hover:text-black text-white transition-colors"
+              >
                 <IconChevronRight size={20} />
               </button>
             </div>

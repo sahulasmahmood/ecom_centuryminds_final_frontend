@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IconChevronDown, IconPlus, IconMinus } from '@tabler/icons-react';
+import { IconHeart, IconShoppingBag } from '@tabler/icons-react';
 import { Product } from '@/MockData/ProductData';
 import { useCart } from '@/context/CartContext';
 
@@ -13,11 +13,10 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const [selectedVariant, setSelectedVariant] = useState(0);
-  const [showVariants, setShowVariants] = useState(false);
-  const { addToCart, updateQuantity, getItemQuantity } = useCart();
+  const [isHovered, setIsHovered] = useState(false);
+  const { addToCart } = useCart();
 
   const currentVariant = product.variants[selectedVariant];
-  const quantity = getItemQuantity(product.id, selectedVariant);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -25,126 +24,76 @@ export default function ProductCard({ product }: ProductCardProps) {
     addToCart(product, selectedVariant);
   };
 
-  const handleIncrement = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    updateQuantity(product.id, selectedVariant, quantity + 1);
-  };
-
-  const handleDecrement = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    updateQuantity(product.id, selectedVariant, quantity - 1);
-  };
-
   return (
-    <div className="group relative bg-[#121212] border border-white/5 rounded-none hover:border-white/20 transition-all duration-300 flex flex-col h-full">
-      {/* Badge - Minimalist */}
+    <div 
+      className="group relative bg-transparent hover:bg-[#111] transition-colors duration-300 rounded-sm p-4 h-full flex flex-col"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Badge */}
       {product.badge && (
-        <span className="absolute top-0 left-0 bg-[#E31837] text-white text-[10px] font-bold px-2 py-1 z-10 tracking-widest uppercase">
+        <span className="absolute top-4 left-4 bg-[#E31837] text-white text-[10px] font-bold px-2 py-1 z-20 tracking-widest uppercase shadow-lg">
           {product.badge}
         </span>
       )}
 
+      {/* Wishlist Button - Visible on Hover */}
+      <button className="absolute top-4 right-4 z-20 bg-white text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-lg translate-y-2 group-hover:translate-y-0">
+         <IconHeart size={16} />
+      </button>
+
       {/* Product Image */}
-      <Link href={`/product/${product.id}`} className="block overflow-hidden relative aspect-[4/5] bg-[#0a0a0a]">
+      <Link href={`/product/${product.id}`} className="block relative aspect-square mb-4 overflow-hidden rounded-sm bg-[#0a0a0a]">
         <Image 
           src={product.image}
           alt={product.name}
           fill
-          className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+          className="object-contain p-6 transition-transform duration-700 group-hover:scale-110"
         />
+        
+        {/* Quick Add Overlay - Slide Up */}
+        <div className={`absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur-md border-t border-white/20 p-3 transition-transform duration-300 ${isHovered ? 'translate-y-0' : 'translate-y-full'}`}>
+           <button 
+             onClick={handleAddToCart}
+             className="w-full bg-[#FFD700] text-black font-bold text-xs py-3 uppercase tracking-widest hover:bg-white transition-colors flex items-center justify-center gap-2"
+           >
+             <IconShoppingBag size={16} />
+             Add to Cart
+           </button>
+        </div>
       </Link>
 
       {/* Product Info */}
-      <div className="p-4 flex flex-col flex-grow space-y-3">
-        {/* Brand & Name */}
-        <div>
-          <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">{product.brand}</p>
-          <Link href={`/product/${product.id}`}>
-            <h3 className="text-sm font-medium text-white leading-snug hover:text-[#FFD700] transition-colors line-clamp-2 min-h-[2.5em]">
-              {product.name}
-            </h3>
-          </Link>
-        </div>
-
-        {/* Price Section */}
-        <div className="flex items-baseline gap-2">
-          <span className="text-lg font-bold text-white">₹{currentVariant.price}</span>
-          {currentVariant.discount > 0 && (
-            <span className="text-xs text-gray-500 line-through">₹{currentVariant.mrp}</span>
-          )}
-          {currentVariant.discount > 0 && (
-            <span className="text-xs text-[#00E054] font-medium ml-auto">
-              {currentVariant.discount}% OFF
-            </span>
-          )}
-        </div>
-
-        {/* Variant Selector - Clean Minimalist */}
-        <div className="relative">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setShowVariants(!showVariants);
-            }}
-            className="w-full flex items-center justify-between text-xs text-gray-400 border-b border-white/10 py-1 hover:text-white hover:border-white/30 transition-colors"
-          >
-            <span>{currentVariant.weight}</span>
-            <IconChevronDown size={14} className={`transition-transform duration-300 ${showVariants ? 'rotate-180' : ''}`} />
-          </button>
-          
-          {/* Dropdown */}
-          {showVariants && (
-            <div className="absolute bottom-full left-0 right-0 mb-1 bg-[#1a1a1a] border border-white/10 shadow-xl z-20 max-h-48 overflow-y-auto">
-              {product.variants.map((variant, index) => (
-                <button
-                  key={index}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setSelectedVariant(index);
-                    setShowVariants(false);
-                  }}
-                  className={`w-full px-3 py-2 text-left text-xs hover:bg-white/5 transition-colors flex justify-between items-center ${
-                    selectedVariant === index ? 'text-[#FFD700] bg-white/5' : 'text-gray-300'
-                  }`}
-                >
-                  <span>{variant.weight}</span>
-                  <span className="font-mono">₹{variant.price}</span>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Action Button */}
+      <div className="flex-1 flex flex-col text-center">
+        <p className="text-[#FFD700] text-[10px] font-bold uppercase tracking-widest mb-2">{product.brand}</p>
+        <Link href={`/product/${product.id}`}>
+          <h3 className="text-white font-medium text-sm leading-snug mb-2 hover:text-[#FFD700] transition-colors line-clamp-2">
+            {product.name}
+          </h3>
+        </Link>
+        
         <div className="mt-auto pt-2">
-          {quantity === 0 ? (
-            <button
-              onClick={handleAddToCart}
-              className="w-full bg-white text-black font-bold text-xs py-2.5 uppercase tracking-wide hover:bg-[#FFD700] transition-colors duration-300"
-            >
-              Add to Cart
-            </button>
-          ) : (
-            <div className="flex items-center justify-between border border-white/20 bg-transparent">
-              <button
-                onClick={handleDecrement}
-                className="px-3 py-2 text-white hover:bg-white hover:text-black transition-colors"
-              >
-                <IconMinus size={14} />
-              </button>
-              <span className="font-medium text-white text-sm">{quantity}</span>
-              <button
-                onClick={handleIncrement}
-                className="px-3 py-2 text-white hover:bg-white hover:text-black transition-colors"
-              >
-                <IconPlus size={14} />
-              </button>
-            </div>
-          )}
+           <div className="flex items-center justify-center gap-2 mb-2">
+              <span className="text-lg font-bold text-white">₹{currentVariant.price}</span>
+              {currentVariant.discount > 0 && (
+                 <span className="text-xs text-gray-500 line-through">₹{currentVariant.mrp}</span>
+              )}
+           </div>
+           
+           {/* Variant Selector - Minimal */}
+           {product.variants.length > 1 && (
+             <div className="flex justify-center flex-wrap gap-1">
+                {product.variants.map((v, i) => (
+                   <button 
+                     key={i}
+                     onClick={(e) => { e.preventDefault(); setSelectedVariant(i); }}
+                     className={`text-[10px] px-2 py-1 border rounded-sm transition-colors ${selectedVariant === i ? 'border-[#FFD700] text-[#FFD700]' : 'border-white/10 text-gray-500 hover:border-white/30'}`}
+                   >
+                     {v.weight}
+                   </button>
+                ))}
+             </div>
+           )}
         </div>
       </div>
     </div>
