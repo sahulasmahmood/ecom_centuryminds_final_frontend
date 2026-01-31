@@ -12,7 +12,7 @@ export interface CartItem {
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (product: Product, variantIndex: number) => void;
+  addToCart: (product: Product, variantIndex: number, quantity?: number) => void;
   removeFromCart: (productId: number, variantIndex: number) => void;
   updateQuantity: (productId: number, variantIndex: number, quantity: number) => void;
   getItemQuantity: (productId: number, variantIndex: number) => number;
@@ -44,7 +44,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('leats-cart', JSON.stringify(items));
   }, [items]);
 
-  const addToCart = (product: Product, variantIndex: number) => {
+  const addToCart = (product: Product, variantIndex: number, quantity: number = 1) => {
     setItems(prev => {
       const existingIndex = prev.findIndex(
         item => item.product.id === product.id && item.variantIndex === variantIndex
@@ -52,7 +52,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       
       if (existingIndex >= 0) {
         const updated = [...prev];
-        updated[existingIndex].quantity += 1;
+        updated[existingIndex].quantity += quantity;
         return updated;
       }
       
@@ -60,7 +60,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         product,
         variant: product.variants[variantIndex],
         variantIndex,
-        quantity: 1
+        quantity
       }];
     });
   };

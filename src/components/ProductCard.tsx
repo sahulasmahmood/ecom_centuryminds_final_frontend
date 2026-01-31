@@ -43,16 +43,16 @@ export default function ProductCard({ product }: ProductCardProps) {
       </button>
 
       {/* Product Image */}
-      <Link href={`/product/${product.id}`} className="block relative aspect-square mb-4 overflow-hidden rounded-sm bg-[#0a0a0a]">
+      <Link href={`/product/${product.id}`} className="block relative aspect-square mb-4 overflow-hidden rounded-sm bg-white shadow-sm">
         <Image 
           src={product.image}
           alt={product.name}
           fill
-          className="object-contain p-6 transition-transform duration-700 group-hover:scale-110"
+          className="object-contain p-8 transition-transform duration-700 group-hover:scale-105"
         />
         
         {/* Quick Add Overlay - Slide Up */}
-        <div className={`absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur-md border-t border-white/20 p-3 transition-transform duration-300 ${isHovered ? 'translate-y-0' : 'translate-y-full'}`}>
+        <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent backdrop-blur-sm p-3 transition-transform duration-300 ${isHovered ? 'translate-y-0' : 'translate-y-full'}`}>
            <button 
              onClick={handleAddToCart}
              className="w-full bg-[#FFD700] text-black font-bold text-xs py-3 uppercase tracking-widest hover:bg-white transition-colors flex items-center justify-center gap-2"

@@ -12,6 +12,7 @@ import {
   IconMenu2,
   IconX,
   IconHome,
+  IconBolt,
 } from '@tabler/icons-react';
 import { categories } from '@/MockData/CategoryData';
 import { useCart } from '@/context/CartContext';
@@ -184,21 +185,29 @@ export default function Header() {
       {/* Category Navigation Bar - Desktop - Sleek Dark */}
       <div className="hidden lg:block bg-[#111] border-t border-white/5">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center gap-8 py-3">
-             <Link href="/" className="text-sm font-bold uppercase tracking-wider text-[#FFD700] hover:text-white transition-colors">
-               Home
-             </Link>
-            {categories.slice(0, 6).map((category) => (
-              <Link 
-                key={category.id}
-                href={`/category/${category.slug}`}
-                className="text-sm font-medium text-gray-400 hover:text-white transition-colors uppercase tracking-wide"
-              >
-                {category.name}
-              </Link>
-            ))}
-            <Link href="/product" className="text-sm font-bold uppercase tracking-wider text-[#E31837] hover:text-white transition-colors">
-               Sale
+          <div className="flex items-center justify-between py-3">
+             <div className="flex items-center gap-8 mx-auto pl-32"> {/* Centered Links with offset to balance */}
+               <Link href="/" className="text-sm font-bold uppercase tracking-wider text-[#FFD700] hover:text-white transition-colors">
+                 Home
+               </Link>
+              {categories.slice(0, 6).map((category) => (
+                <Link 
+                  key={category.id}
+                  href={`/category/${category.slug}`}
+                  className="text-sm font-medium text-gray-400 hover:text-white transition-colors uppercase tracking-wide"
+                >
+                  {category.name}
+                </Link>
+              ))}
+              <Link href="/product" className="text-sm font-bold uppercase tracking-wider text-[#E31837] hover:text-white transition-colors">
+                 Sale
+               </Link>
+             </div>
+             
+             {/* Quick Buy - Right Aligned */}
+             <Link href="/quick-purchase" className="hidden lg:flex text-white hover:text-[#FFD700] transition-colors font-bold tracking-wide uppercase text-xs items-center gap-1 border border-white/20 px-3 py-1.5 rounded-sm hover:border-[#FFD700]">
+                <IconBolt size={16} className="text-[#E31837]" />
+                Quick Purchase
              </Link>
           </div>
         </div>
