@@ -14,7 +14,7 @@ export default function MidBannerCategory() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-[600px] md:h-[500px]">
           {/* Main Featured Category (Left) */}
           <Link 
-            href="/category/aerial-shots"
+            href="/product?category=aerial-shots"
             className="relative group overflow-hidden block h-full bg-[#111]"
           >
             <Image
@@ -38,7 +38,7 @@ export default function MidBannerCategory() {
           <div className="grid grid-rows-2 gap-4 h-full">
             {/* Top Side */}
             <Link 
-              href="/category/sparklers"
+              href="/product?category=sparklers"
               className="relative group overflow-hidden block h-full bg-[#111]"
             >
               <Image
@@ -56,7 +56,7 @@ export default function MidBannerCategory() {
 
             {/* Bottom Side */}
             <Link 
-              href="/category/flower-pots"
+              href="/product?category=flower-pots"
               className="relative group overflow-hidden block h-full bg-[#111]"
             >
               <Image

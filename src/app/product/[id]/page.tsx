@@ -53,7 +53,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
              <div className="inline-flex items-center gap-2 text-xs text-white/50 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full pointer-events-auto">
                 <Link href="/" className="hover:text-[#FFD700] transition-colors">Home</Link>
                 <IconChevronRight size={12} />
-                <Link href={`/category/${category?.slug}`} className="hover:text-[#FFD700] transition-colors">{category?.name}</Link>
+                <Link href={`/product?category=${category?.slug}`} className="hover:text-[#FFD700] transition-colors">{category?.name}</Link>
                 <IconChevronRight size={12} />
                 <span className="text-white">{product.name}</span>
              </div>

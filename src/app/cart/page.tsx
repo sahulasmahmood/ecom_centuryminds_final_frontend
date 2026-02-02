@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer01 from '@/components/Footer01';
 import Footer02 from '@/components/Footer02';
-import { IconMinus, IconPlus, IconX, IconShoppingCart, IconArrowRight, IconTruck } from '@tabler/icons-react';
+import { IconMinus, IconPlus, IconX, IconShoppingCart, IconArrowRight, IconTruck, IconShield, IconClock, IconStar } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 
 export default function CartPage() {
-  const { items, updateQuantity, removeFromCart, totalPrice, totalSavings, totalItems } = useCart();
+  const { items, updateQuantity, removeFromCart, totalPrice, totalSavings, totalItems, clearCart } = useCart();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -25,183 +25,230 @@ export default function CartPage() {
   const progressPercent = Math.min((totalPrice / deliveryThreshold) * 100, 100);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8 uppercase tracking-widest font-bold">
-          <Link href="/" className="hover:text-[#FFD700] transition-colors">Home</Link>
-          <span className="text-gray-700">/</span>
-          <span className="text-white">Cart</span>
-        </nav>
-
-        {items.length === 0 ? (
-          /* Empty Cart Premium State */
-          <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="w-32 h-32 bg-[#111] border border-white/10 rounded-full flex items-center justify-center mb-8 relative group">
-              <div className="absolute inset-0 bg-[#FFD700]/10 rounded-full blur-xl group-hover:blur-2xl transition-all duration-700"></div>
-              <IconShoppingCart size={48} className="text-gray-400 group-hover:text-[#FFD700] transition-colors relative z-10" />
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-[#0a0a0a] via-[#111] to-[#0a0a0a] border-b border-white/5">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-white mb-2">Shopping Cart</h1>
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <Link href="/" className="hover:text-[#FFD700] transition-colors">Home</Link>
+                <span>•</span>
+                <span className="text-white">Cart</span>
+              </div>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">Your Cart is Empty</h2>
-            <p className="text-gray-400 mb-10 max-w-md mx-auto leading-relaxed">
-              Looks like you haven&apos;t added any sparks to your celebration yet. Explore our premium collection using the button below.
+            {items.length > 0 && (
+              <div className="text-right">
+                <p className="text-2xl font-bold text-[#FFD700]">{totalItems} Items</p>
+                <p className="text-sm text-gray-400">Ready to checkout</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <main className="container mx-auto px-4 py-8">
+        {items.length === 0 ? (
+          /* Empty Cart - Modern Design */
+          <div className="max-w-md mx-auto text-center py-16">
+            <div className="relative mb-8">
+              <div className="w-24 h-24 bg-[#0a0a0a] border-2 border-dashed border-white/20 rounded-full flex items-center justify-center mx-auto">
+                <IconShoppingCart size={32} className="text-gray-500" />
+              </div>
+              <div className="absolute -top-2 -right-2 w-8 h-8 bg-[#FFD700] rounded-full flex items-center justify-center">
+                <span className="text-black text-xs font-bold">0</span>
+              </div>
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-3">Your cart is empty</h2>
+            <p className="text-gray-400 mb-8 text-sm leading-relaxed">
+              Add some fireworks to light up your celebration!
             </p>
             <Link 
               href="/product" 
-              className="inline-flex items-center gap-3 bg-[#FFD700] text-black px-10 py-4 rounded-sm font-bold uppercase tracking-[0.15em] hover:bg-white transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,215,0,0.3)]"
+              className="inline-flex items-center gap-2 bg-[#FFD700] text-black px-6 py-3 rounded-full font-semibold text-sm hover:bg-white transition-colors"
             >
-              Start Shopping <IconArrowRight size={18} />
+              Browse Products <IconArrowRight size={16} />
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          /* Cart with Items - Card Layout */
+          <div className="max-w-6xl mx-auto">
             
-            {/* Cart Items List */}
-            <div className="lg:col-span-8 flex flex-col gap-6">
-               <div className="flex items-center justify-between border-b border-white/10 pb-6">
-                  <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Shopping Cart <span className="text-gray-500 text-lg font-normal ml-2">({totalItems} items)</span></h1>
-                  <button className="text-sm font-bold text-[#E31837] uppercase tracking-wider hover:text-white transition-colors underline decoration-white/20 hover:decoration-white">Clear Cart</button>
-               </div>
+            {/* Progress Bar */}
+            <div className="bg-[#0a0a0a] border border-white/10 rounded-lg p-4 mb-6">
+              <div className="flex items-center gap-3 mb-3">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${progressPercent === 100 ? 'bg-green-500' : 'bg-[#FFD700]'}`}>
+                  <IconTruck size={16} className="text-black" />
+                </div>
+                <div className="flex-1">
+                  {progressPercent === 100 ? (
+                    <p className="text-green-400 font-semibold text-sm">🎉 Free delivery unlocked!</p>
+                  ) : (
+                    <p className="text-gray-300 text-sm">
+                      Add <span className="text-[#FFD700] font-bold">₹{(deliveryThreshold - totalPrice).toFixed(0)}</span> more for free delivery
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="w-full bg-white/10 rounded-full h-2">
+                <div 
+                  className={`h-2 rounded-full transition-all duration-500 ${progressPercent === 100 ? 'bg-green-500' : 'bg-[#FFD700]'}`}
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+            </div>
 
-               {/* Free Delivery Bar */}
-               <div className="bg-[#111] border border-white/10 rounded-sm p-6 mb-2">
-                  <div className="flex items-center gap-3 mb-3">
-                     <IconTruck size={20} className={progressPercent === 100 ? "text-[#00E054]" : "text-[#FFD700]"} />
-                     <p className="text-sm font-medium text-gray-300">
-                        {progressPercent === 100 
-                           ? <span className="text-[#00E054] font-bold">You&apos;ve unlocked FREE Delivery!</span> 
-                           : <span>Add <span className="text-[#FFD700] font-bold">₹{(deliveryThreshold - totalPrice).toFixed(0)}</span> more for <span className="text-white font-bold">FREE Delivery</span></span>
-                        }
-                     </p>
-                  </div>
-                  <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                     <div 
-                        className="h-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] transition-all duration-1000 ease-out"
-                        style={{ width: `${progressPercent}%` }}
-                     ></div>
-                  </div>
-               </div>
+            <div className="grid lg:grid-cols-3 gap-6">
+              
+              {/* Cart Items - Left Side */}
+              <div className="lg:col-span-2 space-y-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-white">Cart Items</h3>
+                  <button 
+                    onClick={clearCart}
+                    className="text-xs text-gray-500 hover:text-[#E31837] transition-colors uppercase tracking-wider"
+                  >
+                    Clear All
+                  </button>
+                </div>
 
-               {/* Items */}
-               <div className="space-y-4">
+                {/* Items Grid */}
+                <div className="space-y-3">
                   {items.map((item) => (
                     <div 
                       key={`${item.product.id}-${item.variantIndex}`} 
-                      className="group bg-[#0a0a0a] border border-white/10 rounded-sm p-4 sm:p-6 flex gap-4 sm:gap-6 relative overflow-hidden transition-all hover:border-[#FFD700]/30 hover:bg-[#111]"
+                      className="bg-[#0a0a0a] border border-white/10 rounded-lg p-4 hover:border-[#FFD700]/30 transition-all group"
                     >
-                      {/* Remove Button (Absolute top-right) */}
-                      <button 
-                        onClick={() => removeFromCart(item.product.id, item.variantIndex)}
-                        className="absolute top-4 right-4 text-gray-600 hover:text-[#E31837] transition-colors p-1"
-                      >
-                        <IconX size={18} />
-                      </button>
-
-                      <div className="relative w-24 h-24 sm:w-32 sm:h-32 bg-white/5 rounded-sm flex-shrink-0">
-                        <Image
-                          src={item.product.image}
-                          alt={item.product.name}
-                          fill
-                          className="object-contain p-2 transition-transform group-hover:scale-110 duration-500"
-                        />
-                      </div>
-
-                      <div className="flex-1 flex flex-col justify-between">
-                        <div>
-                          <div className="flex justify-between pr-8">
-                             <div>
-                                <p className="text-[10px] sm:text-xs text-[#FFD700] font-bold uppercase tracking-widest mb-1">{item.product.brand}</p>
-                                <Link href={`/product/${item.product.id}`} className="block">
-                                  <h3 className="font-bold text-white text-base sm:text-lg hover:text-[#FFD700] transition-colors line-clamp-1">{item.product.name}</h3>
-                                </Link>
-                             </div>
-                          </div>
-                          <p className="text-sm text-gray-400 mt-1 font-medium">{item.variant.weight}</p>
+                      <div className="flex gap-4">
+                        {/* Product Image */}
+                        <div className="w-20 h-20 bg-white/5 rounded-lg flex-shrink-0 overflow-hidden">
+                          <Image
+                            src={item.product.image}
+                            alt={item.product.name}
+                            width={80}
+                            height={80}
+                            className="w-full h-full object-contain p-2"
+                          />
                         </div>
 
-                        <div className="flex flex-wrap items-end justify-between gap-4 mt-4">
-                           {/* Quantity Control */}
-                           <div className="flex items-center border border-white/10 rounded-sm bg-black">
+                        {/* Product Info */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1 min-w-0">
+                              <p className="text-[#FFD700] text-xs font-semibold uppercase tracking-wider">{item.product.brand}</p>
+                              <h4 className="text-white font-medium text-sm truncate group-hover:text-[#FFD700] transition-colors">
+                                {item.product.name}
+                              </h4>
+                              <p className="text-gray-500 text-xs mt-1">{item.variant.weight}</p>
+                            </div>
+                            <button 
+                              onClick={() => removeFromCart(item.product.id, item.variantIndex)}
+                              className="text-gray-500 hover:text-[#E31837] transition-colors p-1"
+                            >
+                              <IconX size={16} />
+                            </button>
+                          </div>
+
+                          {/* Quantity and Price */}
+                          <div className="flex items-center justify-between mt-3">
+                            <div className="flex items-center bg-[#111] border border-white/10 rounded-full">
                               <button
                                 onClick={() => updateQuantity(item.product.id, item.variantIndex, item.quantity - 1)}
-                                className="p-2 text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                                className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
                               >
-                                <IconMinus size={14} />
+                                <IconMinus size={12} />
                               </button>
-                              <span className="w-8 text-center text-sm font-bold text-white">{item.quantity}</span>
+                              <span className="w-8 text-center text-sm font-semibold text-white">{item.quantity}</span>
                               <button
                                 onClick={() => updateQuantity(item.product.id, item.variantIndex, item.quantity + 1)}
-                                className="p-2 text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                                className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
                               >
-                                <IconPlus size={14} />
+                                <IconPlus size={12} />
                               </button>
-                           </div>
-
-                           {/* Price */}
-                           <div className="text-right">
-                              <div className="text-lg sm:text-xl font-bold text-white">₹{item.variant.price * item.quantity}</div>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-white font-bold">₹{item.variant.price * item.quantity}</p>
                               {item.variant.mrp > item.variant.price && (
-                                 <div className="text-xs text-gray-500 line-through">₹{item.variant.mrp * item.quantity}</div>
+                                <p className="text-gray-500 text-xs line-through">₹{item.variant.mrp * item.quantity}</p>
                               )}
-                           </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   ))}
-               </div>
-            </div>
-
-            {/* Order Summary Sidebar */}
-            <div className="lg:col-span-4">
-              <div className="sticky top-24 space-y-4">
-                 <div className="bg-[#111] border border-white/10 rounded-sm p-6 overflow-hidden relative">
-                    {/* Decorative Blur */}
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFD700]/5 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
-                    
-                    <h3 className="text-lg font-bold text-white uppercase tracking-widest mb-6 border-b border-white/10 pb-4">Order Summary</h3>
-                    
-                    <div className="space-y-4 text-sm text-gray-300">
-                      <div className="flex justify-between">
-                         <span>Subtotal</span>
-                         <span className="text-white font-bold">₹{totalPrice.toFixed(2)}</span>
-                      </div>
-                      <div className="flex justify-between text-[#E31837]">
-                         <span>Discount</span>
-                         <span className="font-bold">-₹{totalSavings.toFixed(2)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                         <span>Delivery Fee</span>
-                         <span className={deliveryFee === 0 ? "text-[#00E054] font-bold" : "text-white"}>
-                            {deliveryFee === 0 ? "FREE" : `₹${deliveryFee}`}
-                         </span>
-                      </div>
-                    </div>
-
-                    <div className="mt-6 pt-4 border-t border-white/10">
-                       <div className="flex justify-between items-end mb-1">
-                          <span className="font-bold text-white">Grand Total</span>
-                          <span className="text-2xl font-bold text-[#FFD700]">₹{total.toFixed(2)}</span>
-                       </div>
-                       <p className="text-[10px] text-gray-500 text-right uppercase tracking-wider">Inclusive of all taxes</p>
-                    </div>
-
-                    <button className="w-full bg-[#FFD700] text-black font-bold uppercase tracking-[0.2em] py-4 mt-8 hover:bg-white transition-all transform active:scale-[0.98]">
-                       Proceed to Pay
-                    </button>
-                    
-                    <div className="mt-6 flex flex-col items-center gap-3">
-                       <p className="text-[10px] text-gray-500 uppercase tracking-widest">We Accept Secure Payment</p>
-                       <div className="flex gap-2 opacity-50 grayscale hover:grayscale-0 transition-all duration-300">
-                          {['VISA', 'Mastercard', 'UPI', 'RuPay'].map(m => (
-                             <div key={m} className="bg-white px-2 py-1 rounded-[2px] text-[10px] font-bold text-black border border-gray-300">{m}</div>
-                          ))}
-                       </div>
-                    </div>
-                 </div>
+                </div>
               </div>
-            </div>
 
+              {/* Order Summary - Right Side */}
+              <div className="lg:col-span-1">
+                <div className="bg-[#0a0a0a] border border-white/10 rounded-lg p-6 sticky top-24">
+                  <h3 className="text-lg font-semibold text-white mb-6">Order Summary</h3>
+                  
+                  {/* Price Breakdown */}
+                  <div className="space-y-3 text-sm">
+                    <div className="flex justify-between text-gray-300">
+                      <span>Subtotal ({totalItems} items)</span>
+                      <span>₹{totalPrice.toFixed(2)}</span>
+                    </div>
+                    {totalSavings > 0 && (
+                      <div className="flex justify-between text-green-400">
+                        <span>Savings</span>
+                        <span>-₹{totalSavings.toFixed(2)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between text-gray-300">
+                      <span>Delivery</span>
+                      <span className={deliveryFee === 0 ? "text-green-400" : ""}>
+                        {deliveryFee === 0 ? "FREE" : `₹${deliveryFee}`}
+                      </span>
+                    </div>
+                    <hr className="border-white/10" />
+                    <div className="flex justify-between text-white font-bold text-lg">
+                      <span>Total</span>
+                      <span className="text-[#FFD700]">₹{total.toFixed(2)}</span>
+                    </div>
+                  </div>
+
+                  {/* Checkout Button */}
+                  <button className="w-full bg-[#FFD700] text-black font-bold py-4 rounded-lg mt-6 hover:bg-white transition-colors uppercase tracking-wider text-sm">
+                    Proceed to Checkout
+                  </button>
+
+                  {/* Trust Badges */}
+                  <div className="mt-6 space-y-3">
+                    <div className="flex items-center gap-3 text-xs text-gray-400">
+                      <IconShield size={16} className="text-green-400" />
+                      <span>Secure Payment</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs text-gray-400">
+                      <IconClock size={16} className="text-blue-400" />
+                      <span>Fast Delivery</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs text-gray-400">
+                      <IconStar size={16} className="text-yellow-400" />
+                      <span>Quality Assured</span>
+                    </div>
+                  </div>
+
+                  {/* Payment Methods */}
+                  <div className="mt-6 pt-4 border-t border-white/10">
+                    <p className="text-xs text-gray-500 mb-3 uppercase tracking-wider">Accepted Payments</p>
+                    <div className="flex gap-2">
+                      {['VISA', 'MC', 'UPI', 'GPay'].map(method => (
+                        <div key={method} className="bg-white/10 px-2 py-1 rounded text-xs font-semibold text-gray-300">
+                          {method}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
         )}
       </main>

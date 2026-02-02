@@ -17,7 +17,7 @@ export default function DealsSection() {
             {categories.map((category) => (
               <Link 
                 key={category.id}
-                href={`/category/${category.slug}`}
+                href={`/product?category=${category.slug}`}
                 className="group relative h-40 overflow-hidden bg-[#111] block"
               >
                 {/* Background Image */}

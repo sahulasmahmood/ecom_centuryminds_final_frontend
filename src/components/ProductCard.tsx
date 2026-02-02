@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IconHeart, IconShoppingBag } from '@tabler/icons-react';
+import { IconShoppingBag } from '@tabler/icons-react';
 import { Product } from '@/MockData/ProductData';
 import { useCart } from '@/context/CartContext';
 
@@ -36,11 +36,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.badge}
         </span>
       )}
-
-      {/* Wishlist Button - Visible on Hover */}
-      <button className="absolute top-4 right-4 z-20 bg-white text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-lg translate-y-2 group-hover:translate-y-0">
-         <IconHeart size={16} />
-      </button>
 
       {/* Product Image */}
       <Link href={`/product/${product.id}`} className="block relative aspect-square mb-4 overflow-hidden rounded-sm bg-white shadow-sm">

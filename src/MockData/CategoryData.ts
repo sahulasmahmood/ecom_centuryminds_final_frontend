@@ -130,6 +130,62 @@ export const categories: Category[] = [
       { id: 804, name: 'Ultimate Pack', slug: 'ultimate-pack' },
     ]
   },
+  { 
+    id: 9, 
+    name: 'Twinkling Stars', 
+    slug: 'twinkling-stars', 
+    icon: '⭐',
+    description: 'Beautiful twinkling star effects',
+    image: '/assets/images/hero_fireworks.png',
+    subcategories: [
+      { id: 901, name: 'Electric Stars', slug: 'electric-stars' },
+      { id: 902, name: 'Crackling Stars', slug: 'crackling-stars' },
+      { id: 903, name: 'Color Stars', slug: 'color-stars' },
+      { id: 904, name: 'Giant Stars', slug: 'giant-stars' },
+    ]
+  },
+  { 
+    id: 10, 
+    name: 'Fancy Items', 
+    slug: 'fancy-items', 
+    icon: '🎪',
+    description: 'Unique and fancy fireworks',
+    image: '/assets/images/flower_pots.png',
+    subcategories: [
+      { id: 1001, name: 'Fancy Fountains', slug: 'fancy-fountains' },
+      { id: 1002, name: 'Fancy Wheels', slug: 'fancy-wheels' },
+      { id: 1003, name: 'Fancy Novelties', slug: 'fancy-novelties' },
+      { id: 1004, name: 'Fancy Combos', slug: 'fancy-combos' },
+    ]
+  },
+  { 
+    id: 11, 
+    name: 'Crackling Items', 
+    slug: 'crackling-items', 
+    icon: '⚡',
+    description: 'Loud crackling sound effects',
+    image: '/assets/images/ground_chakkars.png',
+    subcategories: [
+      { id: 1101, name: 'Crackling Shots', slug: 'crackling-shots' },
+      { id: 1102, name: 'Crackling Fountains', slug: 'crackling-fountains' },
+      { id: 1103, name: 'Crackling Wheels', slug: 'crackling-wheels' },
+      { id: 1104, name: 'Crackling Combos', slug: 'crackling-combos' },
+    ]
+  },
+  { 
+    id: 12, 
+    name: 'Combo Packs', 
+    slug: 'combo-packs', 
+    icon: '📦',
+    description: 'Value combo packs with variety',
+    image: '/assets/images/sparklers_box.png',
+    subcategories: [
+      { id: 1201, name: 'Budget Combo', slug: 'budget-combo' },
+      { id: 1202, name: 'Premium Combo', slug: 'premium-combo' },
+      { id: 1203, name: 'Deluxe Combo', slug: 'deluxe-combo' },
+      { id: 1204, name: 'Super Combo', slug: 'super-combo' },
+    ]
+  },
 ];
 
 export const getCategoryById = (id: number): Category | undefined => {

@@ -21,7 +21,7 @@ export default function HeroSection() {
       buttonText: 'Shop Crackers',
       buttonColor: 'bg-[#FFD700] text-black hover:bg-yellow-400',
       textPosition: 'left',
-      link: '/category/ground-chakkars',
+      link: '/product?category=ground-chakkars',
     },
     {
       id: 2,
@@ -34,7 +34,7 @@ export default function HeroSection() {
       buttonText: 'Buy Gift Box',
       buttonColor: 'bg-white text-purple-900 hover:bg-gray-100',
       textPosition: 'right',
-      link: '/category/kids-special',
+      link: '/product?category=kids-special',
     },
     {
       id: 3,
@@ -47,7 +47,7 @@ export default function HeroSection() {
       buttonText: 'Order Now',
       buttonColor: 'bg-[#FFD700] text-black hover:bg-yellow-400',
       textPosition: 'left',
-      link: '/category/aerial-shots',
+      link: '/product?category=aerial-shots',
     },
     {
       id: 4,
@@ -60,7 +60,7 @@ export default function HeroSection() {
       buttonText: 'Grab Deal',
       buttonColor: 'bg-[#e63946] text-white hover:bg-[#c1121f]',
       textPosition: 'right',
-      link: '/category/flower-pots',
+      link: '/product?category=flower-pots',
     },
   ];
 

@@ -90,7 +90,7 @@ export default function AboutPage() {
                     {categories.map((category) => (
                       <Link 
                         key={category.id}
-                        href={`/category/${category.slug}`} 
+                        href={`/product?category=${category.slug}`} 
                         className="flex items-center justify-between py-2 group border-b border-white/5 last:border-0"
                       >
                         <div className="flex items-center gap-3">

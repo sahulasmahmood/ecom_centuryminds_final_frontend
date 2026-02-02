@@ -3,7 +3,7 @@
 import Header from '@/components/Header';
 import Footer01 from '@/components/Footer01';
 import Footer02 from '@/components/Footer02';
-import { IconX, IconHeart, IconShoppingCart, IconStar } from '@tabler/icons-react';
+import { IconX, IconShoppingCart, IconStar } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -164,10 +164,6 @@ export default function ComparePage() {
                           <button className="bg-[#e63946] text-white px-4 py-2 rounded-md hover:bg-[#c1121f] transition-colors flex items-center justify-center gap-2 flex-1">
                             <IconShoppingCart size={16} />
                             Add
-                          </button>
-                          <button className="border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 flex-1">
-                            <IconHeart size={16} />
-                            Wishlist
                           </button>
                         </div>
                       </TableCell>

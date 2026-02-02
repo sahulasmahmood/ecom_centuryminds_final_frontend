@@ -28,154 +28,186 @@ export default function Header() {
   return (
     <header className="bg-black text-white sticky top-0 z-50 border-b border-white/10">
       {/* Main Header */}
-      <div className="bg-black/95 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-3 sm:py-4">
-          <div className="flex items-center justify-between gap-4 lg:gap-8">
+      <div className="bg-black/95 backdrop-blur-sm border-b border-white/5">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between gap-6">
             {/* Mobile Menu Button */}
             <button 
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden text-white p-1 hover:text-[#FFD700] transition-colors"
+              className="lg:hidden text-white p-2 hover:bg-white/5 rounded transition-colors"
             >
-              <IconMenu2 size={24} />
+              <IconMenu2 size={20} />
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 md:gap-3 flex-shrink-0 group">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#FFD700] group-hover:shadow-[0_0_10px_rgba(255,215,0,0.3)] transition-shadow">
+            <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
+              <div className="w-9 h-9 rounded-lg overflow-hidden border-2 border-[#FFD700] group-hover:border-white transition-all group-hover:shadow-[0_0_15px_rgba(255,215,0,0.4)]">
                 <Image 
                   src="/assets/images/hero_fireworks.png"
                   alt="SkySpark"
-                  width={40}
-                  height={40}
+                  width={36}
+                  height={36}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="text-xl sm:text-2xl font-bold text-white tracking-tight group-hover:text-[#FFD700] transition-colors">SkySpark</span>
+              <div className="hidden sm:block">
+                <span className="text-xl font-bold text-white tracking-tight block leading-none group-hover:text-[#FFD700] transition-colors">SkySpark</span>
+                <span className="text-[8px] text-gray-500 uppercase tracking-widest">Fireworks Store</span>
+              </div>
             </Link>
 
-            {/* Shop by Category - Desktop Only */}
-            <div 
-              className="relative hidden lg:block"
-              onMouseEnter={() => setShowMegaMenu(true)}
-              onMouseLeave={() => setShowMegaMenu(false)}
-            >
-              <button className="bg-[#FFD700] text-black px-6 py-2.5 rounded-sm flex items-center gap-2 hover:bg-white transition-colors focus:outline-none font-bold tracking-wide uppercase text-sm">
-                <IconMenu2 size={18} />
-                Products
-                <IconChevronDown size={16} className={`transition-transform ${showMegaMenu ? 'rotate-180' : ''}`} />
-              </button>
-
-              {/* Mega Menu */}
-              {showMegaMenu && (
-                <div className="absolute top-full left-0 mt-0 bg-[#0a0a0a] border border-white/10 flex z-50 min-w-[700px] shadow-2xl">
-                  {/* Categories List */}
-                  <div className="w-64 bg-[#111] border-r border-white/5 py-2">
-                    {categories.map((category) => (
-                      <div
-                        key={category.id}
-                        className={`flex items-center justify-between px-6 py-3 cursor-pointer transition-colors ${
-                          activeCategory.id === category.id 
-                            ? 'bg-[#FFD700] text-black' 
-                            : 'hover:bg-white/5 text-gray-300'
-                        }`}
-                        onMouseEnter={() => setActiveCategory(category)}
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-lg opacity-70">{category.icon}</span>
-                          <span className="text-sm font-bold uppercase tracking-wider">{category.name}</span>
-                        </div>
-                        <IconChevronRight size={14} className={activeCategory.id === category.id ? "text-black" : "text-gray-600"} />
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Subcategories */}
-                  <div className="flex-1 p-8 text-white">
-                    <div className="mb-6 pb-4 border-b border-white/10">
-                      <Link 
-                        href={`/category/${activeCategory.slug}`}
-                        className="text-xl font-bold text-white hover:text-[#FFD700] transition-colors"
-                      >
-                        {activeCategory.name}
-                      </Link>
-                      <p className="text-sm text-gray-500 mt-2">{activeCategory.description}</p>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-4">
-                      {activeCategory.subcategories.map((sub) => (
-                        <Link
-                          key={sub.id}
-                          href={`/category/${activeCategory.slug}?sub=${sub.slug}`}
-                          className="text-sm text-gray-400 hover:text-white transition-colors py-1 flex items-center gap-2 group/item"
-                        >
-                          <span className="w-1 h-1 bg-gray-600 rounded-full group-hover/item:bg-[#FFD700] transition-colors"></span>
-                          {sub.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Search Bar - Desktop */}
-            <div className="hidden md:flex flex-1 max-w-xl">
-              <div className="flex items-center bg-[#1a1a1a] border border-white/10 rounded-sm overflow-hidden w-full focus-within:border-[#FFD700] transition-colors">
+            {/* Search Bar - Desktop & Tablet */}
+            <div className="hidden md:flex flex-1 max-w-2xl">
+              <div className="relative w-full group">
                 <input 
                   type="text" 
-                  placeholder="Search firecrackers..."
+                  placeholder="Search for firecrackers, sparklers, rockets..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 px-4 py-2.5 bg-transparent text-white placeholder-gray-500 focus:outline-none text-sm"
+                  className="w-full px-4 py-2.5 pl-11 bg-[#1a1a1a] border border-white/10 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] focus:bg-[#0a0a0a] transition-all text-sm"
                 />
-                <button className="px-4 text-gray-400 hover:text-[#FFD700] transition-colors">
-                  <IconSearch size={20} />
-                </button>
+                <IconSearch size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#FFD700] transition-colors" />
               </div>
             </div>
 
-            {/* Mobile Search Button */}
-            <button 
-              onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
-              className="md:hidden text-white p-1"
-            >
-              <IconSearch size={22} />
-            </button>
+            {/* Right Actions */}
+            <div className="flex items-center gap-2">
+              {/* Mobile Search Button */}
+              <button 
+                onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
+                className="md:hidden text-white p-2 hover:bg-white/5 rounded transition-colors"
+              >
+                <IconSearch size={20} />
+              </button>
 
-            {/* Account Actions - Desktop */}
-            <div className="hidden sm:flex items-center gap-6">
-               <Link href="/login" className="flex flex-col items-center group">
-                  <IconUser size={22} className="text-gray-300 group-hover:text-[#FFD700] transition-colors" />
-                  <span className="text-[10px] uppercase font-bold text-gray-500 mt-0.5 group-hover:text-white">Account</span>
-               </Link>
+              {/* Products Dropdown - Desktop */}
+              <div 
+                className="relative hidden lg:block"
+                onMouseEnter={() => setShowMegaMenu(true)}
+                onMouseLeave={() => setShowMegaMenu(false)}
+              >
+                <button className="flex items-center gap-2 px-4 py-2 bg-[#FFD700] text-black rounded-full hover:bg-white transition-all font-semibold text-xs uppercase tracking-wide">
+                  <IconMenu2 size={16} />
+                  <span>Products</span>
+                  <IconChevronDown size={14} className={`transition-transform ${showMegaMenu ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Mega Menu with Bridge */}
+                {showMegaMenu && (
+                  <>
+                    {/* Invisible bridge to prevent gap issues */}
+                    <div className="absolute top-full right-0 left-0 h-2 bg-transparent"></div>
+                    
+                    <div className="absolute top-full right-0 mt-2 bg-black border border-white/20 z-50 w-[850px] shadow-2xl rounded-lg overflow-hidden">
+                      {/* Header Strip */}
+                      <div className="bg-gradient-to-r from-[#1a1a1a] to-black px-5 py-2 border-b border-white/10">
+                        <p className="text-[10px] uppercase tracking-widest text-gray-500 font-semibold">Browse All Categories</p>
+                      </div>
+
+                      {/* Grid Layout - All Categories Visible */}
+                      <div className="p-5">
+                        <div className="grid grid-cols-4 gap-3">
+                          {categories.map((category) => (
+                            <div
+                              key={category.id}
+                              className="group/item"
+                              onMouseEnter={() => setActiveCategory(category)}
+                            >
+                              {/* Category Card */}
+                              <Link 
+                                href={`/product?category=${category.slug}`}
+                                className={`block p-2.5 rounded border transition-all ${
+                                  activeCategory.id === category.id 
+                                    ? 'bg-[#1a1a1a] border-[#FFD700]/50 shadow-lg' 
+                                    : 'bg-[#0a0a0a] border-white/5 hover:border-white/20'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2 mb-1.5">
+                                  <span className="text-sm opacity-80">{category.icon}</span>
+                                  <span className={`text-[10px] font-semibold uppercase tracking-wide ${
+                                    activeCategory.id === category.id ? 'text-[#FFD700]' : 'text-gray-300'
+                                  }`}>
+                                    {category.name}
+                                  </span>
+                                </div>
+                                <p className="text-[8px] text-gray-600 leading-tight line-clamp-1">{category.description}</p>
+                              </Link>
+
+                              {/* Subcategories Dropdown */}
+                              {activeCategory.id === category.id && (
+                                <div className="mt-1.5 bg-[#0a0a0a] border border-white/10 rounded p-1.5 space-y-0.5">
+                                  {activeCategory.subcategories.slice(0, 3).map((sub) => (
+                                    <Link
+                                      key={sub.id}
+                                      href={`/product?category=${activeCategory.slug}&sub=${sub.slug}`}
+                                      className="block text-[9px] text-gray-500 hover:text-[#FFD700] transition-colors py-0.5 px-1.5 hover:bg-white/5 rounded"
+                                    >
+                                      • {sub.name}
+                                    </Link>
+                                  ))}
+                                  {activeCategory.subcategories.length > 3 && (
+                                    <Link
+                                      href={`/product?category=${activeCategory.slug}`}
+                                      className="block text-[8px] text-[#FFD700] hover:text-white transition-colors py-0.5 px-1.5 font-semibold"
+                                    >
+                                      View All →
+                                    </Link>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Footer Strip */}
+                      <div className="bg-[#0a0a0a] px-5 py-2 border-t border-white/10 flex items-center justify-between">
+                        <Link href="/product" className="text-[10px] text-gray-500 hover:text-white transition-colors uppercase tracking-wider">
+                          View All Products
+                        </Link>
+                        <Link href="/quick-purchase" className="text-[10px] text-[#FFD700] hover:text-white transition-colors uppercase tracking-wider font-semibold">
+                          Quick Purchase →
+                        </Link>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Account - Desktop */}
+              <Link href="/login" className="hidden sm:flex flex-col items-center group px-2">
+                <IconUser size={20} className="text-gray-300 group-hover:text-[#FFD700] transition-colors" />
+                <span className="text-[9px] uppercase font-semibold text-gray-500 mt-0.5 group-hover:text-white transition-colors">Account</span>
+              </Link>
                
-               <Link href="/cart" className="flex flex-col items-center group relative">
-                  <div className="relative">
-                    <IconShoppingCart size={22} className="text-gray-300 group-hover:text-[#FFD700] transition-colors" />
+              {/* Cart */}
+              <Link href="/cart" className="flex flex-col items-center group px-2">
+                <div className="relative">
+                  <IconShoppingCart size={20} className="text-gray-300 group-hover:text-[#FFD700] transition-colors" />
+                  {totalItems > 0 && (
                     <span className="absolute -top-1.5 -right-1.5 bg-[#E31837] text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                       {totalItems}
                     </span>
-                  </div>
-                  <span className="text-[10px] uppercase font-bold text-gray-500 mt-0.5 group-hover:text-white">Cart</span>
-               </Link>
+                  )}
+                </div>
+                <span className="text-[9px] uppercase font-semibold text-gray-500 mt-0.5 group-hover:text-white transition-colors">Cart</span>
+              </Link>
             </div>
           </div>
 
           {/* Mobile Search Bar */}
           {mobileSearchOpen && (
-            <div className="md:hidden mt-4">
-              <div className="flex items-center bg-[#1a1a1a] border border-white/10 rounded-sm overflow-hidden">
+            <div className="md:hidden mt-3 pb-1">
+              <div className="relative">
                 <input 
                   type="text" 
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 px-3 py-2 bg-transparent text-white placeholder-gray-500 focus:outline-none text-sm"
+                  className="w-full px-4 py-2 pl-10 bg-[#1a1a1a] border border-white/10 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] text-sm"
                   autoFocus
                 />
-                <button className="px-3 text-gray-400">
-                  <IconSearch size={18} />
-                </button>
+                <IconSearch size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500" />
               </div>
             </div>
           )}
@@ -193,7 +225,7 @@ export default function Header() {
               {categories.slice(0, 6).map((category) => (
                 <Link 
                   key={category.id}
-                  href={`/category/${category.slug}`}
+                  href={`/product?category=${category.slug}`}
                   className="text-sm font-medium text-gray-400 hover:text-white transition-colors uppercase tracking-wide"
                 >
                   {category.name}
@@ -249,7 +281,7 @@ export default function Header() {
                 {categories.map((category) => (
                   <Link
                     key={category.id}
-                    href={`/category/${category.slug}`}
+                    href={`/product?category=${category.slug}`}
                     className="flex items-center justify-between py-2.5 text-gray-300 hover:text-[#FFD700] border-b border-white/5 last:border-0"
                     onClick={() => setMobileMenuOpen(false)}
                   >
