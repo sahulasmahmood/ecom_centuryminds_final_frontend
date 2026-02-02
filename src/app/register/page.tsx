@@ -1,95 +1,540 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Header from '@/components/Header';
+import Footer01 from '@/components/Footer01';
 import Footer02 from '@/components/Footer02';
+import { IconEye, IconEyeOff, IconMail, IconUser, IconLock, IconSparkles, IconPhone } from '@tabler/icons-react';
+
+interface EyeBallProps {
+  size?: number;
+  pupilSize?: number;
+  maxDistance?: number;
+  eyeColor?: string;
+  pupilColor?: string;
+  isBlinking?: boolean;
+  forceLookX?: number;
+  forceLookY?: number;
+}
+
+const EyeBall = ({ 
+  size = 48, 
+  pupilSize = 16, 
+  maxDistance = 10,
+  eyeColor = "white",
+  pupilColor = "black",
+  isBlinking = false,
+  forceLookX,
+  forceLookY
+}: EyeBallProps) => {
+  const [mouseX, setMouseX] = useState<number>(0);
+  const [mouseY, setMouseY] = useState<number>(0);
+  const eyeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMouseX(e.clientX);
+      setMouseY(e.clientY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  const calculatePupilPosition = () => {
+    if (!eyeRef.current) return { x: 0, y: 0 };
+
+    if (forceLookX !== undefined && forceLookY !== undefined) {
+      return { x: forceLookX, y: forceLookY };
+    }
+
+    const eye = eyeRef.current.getBoundingClientRect();
+    const eyeCenterX = eye.left + eye.width / 2;
+    const eyeCenterY = eye.top + eye.height / 2;
+
+    const deltaX = mouseX - eyeCenterX;
+    const deltaY = mouseY - eyeCenterY;
+    const distance = Math.min(Math.sqrt(deltaX ** 2 + deltaY ** 2), maxDistance);
+
+    const angle = Math.atan2(deltaY, deltaX);
+    const x = Math.cos(angle) * distance;
+    const y = Math.sin(angle) * distance;
+
+    return { x, y };
+  };
+
+  const pupilPosition = calculatePupilPosition();
+
+  return (
+    <div
+      ref={eyeRef}
+      className="rounded-full flex items-center justify-center transition-all duration-150"
+      style={{
+        width: `${size}px`,
+        height: isBlinking ? '2px' : `${size}px`,
+        backgroundColor: eyeColor,
+        overflow: 'hidden',
+      }}
+    >
+      {!isBlinking && (
+        <div
+          className="rounded-full"
+          style={{
+            width: `${pupilSize}px`,
+            height: `${pupilSize}px`,
+            backgroundColor: pupilColor,
+            transform: `translate(${pupilPosition.x}px, ${pupilPosition.y}px)`,
+            transition: 'transform 0.1s ease-out',
+          }}
+        />
+      )}
+    </div>
+  );
+};
 
 export default function RegisterPage() {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    password: ''
+  });
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const [isBlinking1, setIsBlinking1] = useState(false);
+  const [isBlinking2, setIsBlinking2] = useState(false);
+  const [isBlinking3, setIsBlinking3] = useState(false);
+  const [mouseX, setMouseX] = useState<number>(0);
+  const [mouseY, setMouseY] = useState<number>(0);
+  const char1Ref = useRef<HTMLDivElement>(null);
+  const char2Ref = useRef<HTMLDivElement>(null);
+  const char3Ref = useRef<HTMLDivElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMouseX(e.clientX);
+      setMouseY(e.clientY);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Random blinking effects
+  useEffect(() => {
+    const blinkInterval1 = setInterval(() => {
+      setIsBlinking1(true);
+      setTimeout(() => setIsBlinking1(false), 150);
+    }, Math.random() * 4000 + 3000);
+
+    const blinkInterval2 = setInterval(() => {
+      setIsBlinking2(true);
+      setTimeout(() => setIsBlinking2(false), 150);
+    }, Math.random() * 4000 + 3000);
+
+    const blinkInterval3 = setInterval(() => {
+      setIsBlinking3(true);
+      setTimeout(() => setIsBlinking3(false), 150);
+    }, Math.random() * 4000 + 3000);
+
+    return () => {
+      clearInterval(blinkInterval1);
+      clearInterval(blinkInterval2);
+      clearInterval(blinkInterval3);
+    };
+  }, []);
+
+  const calculatePosition = (ref: React.RefObject<HTMLDivElement | null>) => {
+    if (!ref.current) return { faceX: 0, faceY: 0, bodySkew: 0 };
+
+    const rect = ref.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 3;
+
+    const deltaX = mouseX - centerX;
+    const deltaY = mouseY - centerY;
+
+    const faceX = Math.max(-15, Math.min(15, deltaX / 20));
+    const faceY = Math.max(-10, Math.min(10, deltaY / 30));
+    const bodySkew = Math.max(-6, Math.min(6, -deltaX / 120));
+
+    return { faceX, faceY, bodySkew };
+  };
+
+  const char1Pos = calculatePosition(char1Ref);
+  const char2Pos = calculatePosition(char2Ref);
+  const char3Pos = calculatePosition(char3Ref);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Register:', formData);
+    setError('');
+    setIsLoading(true);
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    if (formData.name && formData.email && formData.phone && formData.password) {
+      alert('Account created successfully! Welcome to SkySpark!');
+    } else {
+      setError('Please fill in all fields.');
+    }
+
+    setIsLoading(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
       <Header />
-      <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-16">
-        <div className="max-w-md mx-auto bg-[#0a0a0a] border border-white/10 rounded-sm p-6 sm:p-10 relative overflow-hidden">
-          
-           {/* Decorative background glow */}
-           <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFD700]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-           
-          <div className="text-center mb-8 relative z-10">
-            <h2 className="text-3xl font-bold text-white tracking-tight mb-2">SkySpark</h2>
-            <p className="text-[#FFD700] text-sm font-bold uppercase tracking-widest">Premium Crackers</p>
-          </div>
-          
-          <div className="mb-8 text-center relative z-10">
-            <h1 className="text-xl font-bold text-white mb-2">Create Account</h1>
-            <p className="text-gray-400 text-sm">Join SkySpark for exclusive offers</p>
+      <div className="min-h-screen grid lg:grid-cols-2 bg-black">
+        {/* Left Animated Section */}
+        <div className="relative hidden lg:flex flex-col justify-between bg-gradient-to-br from-[#6C3FF5]/20 via-black to-[#FFD700]/20 p-12 text-white overflow-hidden">
+          {/* Logo */}
+          <div className="relative z-20">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg border-2 border-[#FFD700] overflow-hidden">
+                <Image 
+                  src="/assets/images/hero_fireworks.png"
+                  alt="SkySpark"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <span className="text-xl font-bold text-white">SkySpark</span>
+                <p className="text-xs text-gray-400 uppercase tracking-wider">Fireworks Store</p>
+              </div>
+            </Link>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
-            <div>
-              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
-              <input
-                type="text"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                 className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
-                placeholder="Enter your name"
-                required
-              />
+          {/* Animated Firework Characters - Different arrangement for register */}
+          <div className="relative z-20 flex items-end justify-center h-[500px]">
+            <div className="relative" style={{ width: '550px', height: '400px' }}>
+              
+              {/* Flower Pot Character - Purple (moved to front) */}
+              <div 
+                ref={char1Ref}
+                className="absolute bottom-0 transition-all duration-700 ease-in-out"
+                style={{
+                  left: '80px',
+                  width: '160px',
+                  height: isTyping ? '400px' : '370px',
+                  background: 'linear-gradient(to top, #6C3FF5, #8B5CF6)',
+                  borderRadius: '80px 80px 0 0',
+                  zIndex: 3,
+                  transform: `skewX(${char1Pos.bodySkew}deg)`,
+                  transformOrigin: 'bottom center',
+                }}
+              >
+                {/* Eyes */}
+                <div 
+                  className="absolute flex gap-6 transition-all duration-700 ease-in-out"
+                  style={{
+                    left: `${50 + char1Pos.faceX}px`,
+                    top: `${50 + char1Pos.faceY}px`,
+                  }}
+                >
+                  <EyeBall 
+                    size={20} 
+                    pupilSize={8} 
+                    maxDistance={6} 
+                    eyeColor="white" 
+                    pupilColor="#2D2D2D" 
+                    isBlinking={isBlinking1}
+                  />
+                  <EyeBall 
+                    size={20} 
+                    pupilSize={8} 
+                    maxDistance={6} 
+                    eyeColor="white" 
+                    pupilColor="#2D2D2D" 
+                    isBlinking={isBlinking1}
+                  />
+                </div>
+                {/* Fountain effect */}
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex gap-1">
+                  <div className="w-2 h-8 bg-[#FFD700] rounded-full animate-bounce"></div>
+                  <div className="w-2 h-6 bg-[#E31837] rounded-full animate-bounce delay-100"></div>
+                  <div className="w-2 h-7 bg-[#FFD700] rounded-full animate-bounce delay-200"></div>
+                  <div className="w-2 h-5 bg-[#6C3FF5] rounded-full animate-bounce delay-300"></div>
+                </div>
+              </div>
+
+              {/* Sparkler Character - Gold */}
+              <div 
+                ref={char2Ref}
+                className="absolute bottom-0 transition-all duration-700 ease-in-out"
+                style={{
+                  left: '280px',
+                  width: '110px',
+                  height: '300px',
+                  background: 'linear-gradient(to top, #FFD700, #FFF700)',
+                  borderRadius: '55px 55px 0 0',
+                  zIndex: 2,
+                  transform: `skewX(${char2Pos.bodySkew}deg)`,
+                  transformOrigin: 'bottom center',
+                }}
+              >
+                {/* Eyes */}
+                <div 
+                  className="absolute flex gap-5 transition-all duration-700 ease-in-out"
+                  style={{
+                    left: `${30 + char2Pos.faceX}px`,
+                    top: `${40 + char2Pos.faceY}px`,
+                  }}
+                >
+                  <EyeBall 
+                    size={16} 
+                    pupilSize={6} 
+                    maxDistance={4} 
+                    eyeColor="white" 
+                    pupilColor="#2D2D2D" 
+                    isBlinking={isBlinking2}
+                  />
+                  <EyeBall 
+                    size={16} 
+                    pupilSize={6} 
+                    maxDistance={4} 
+                    eyeColor="white" 
+                    pupilColor="#2D2D2D" 
+                    isBlinking={isBlinking2}
+                  />
+                </div>
+                {/* Sparkles */}
+                <div className="absolute -top-2 -left-3">
+                  <div className="w-3 h-3 bg-white rounded-full animate-ping"></div>
+                </div>
+                <div className="absolute -top-4 -right-2">
+                  <div className="w-2 h-2 bg-[#FFD700] rounded-full animate-pulse"></div>
+                </div>
+                <div className="absolute -top-1 right-2">
+                  <div className="w-1 h-1 bg-white rounded-full animate-bounce"></div>
+                </div>
+              </div>
+
+              {/* Rocket Character - Red (smaller, in back) */}
+              <div 
+                ref={char3Ref}
+                className="absolute bottom-0 transition-all duration-700 ease-in-out"
+                style={{
+                  left: '420px',
+                  width: '100px',
+                  height: '250px',
+                  background: 'linear-gradient(to top, #E31837, #FF4444)',
+                  borderRadius: '50px 50px 0 0',
+                  zIndex: 1,
+                  transform: `skewX(${char3Pos.bodySkew}deg)`,
+                  transformOrigin: 'bottom center',
+                }}
+              >
+                {/* Eyes */}
+                <div 
+                  className="absolute flex gap-4 transition-all duration-700 ease-in-out"
+                  style={{
+                    left: `${25 + char3Pos.faceX}px`,
+                    top: `${35 + char3Pos.faceY}px`,
+                  }}
+                >
+                  <EyeBall 
+                    size={14} 
+                    pupilSize={5} 
+                    maxDistance={3} 
+                    eyeColor="white" 
+                    pupilColor="#2D2D2D" 
+                    isBlinking={isBlinking3}
+                  />
+                  <EyeBall 
+                    size={14} 
+                    pupilSize={5} 
+                    maxDistance={3} 
+                    eyeColor="white" 
+                    pupilColor="#2D2D2D" 
+                    isBlinking={isBlinking3}
+                  />
+                </div>
+                {/* Sparkle effect */}
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <IconSparkles size={18} className="text-[#FFD700] animate-pulse" />
+                </div>
+              </div>
             </div>
-            <div>
-              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Email</label>
-              <input
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                 className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
-                placeholder="Enter email"
-                required
-              />
+          </div>
+
+          {/* Footer Links */}
+          <div className="relative z-20 flex items-center gap-8 text-sm text-gray-400">
+            <Link href="/privacy" className="hover:text-[#FFD700] transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-[#FFD700] transition-colors">Terms of Service</Link>
+            <Link href="/contact" className="hover:text-[#FFD700] transition-colors">Contact</Link>
+          </div>
+
+          {/* Background Effects */}
+          <div className="absolute inset-0 bg-[url('/assets/images/hero_fireworks.png')] bg-cover bg-center opacity-5"></div>
+          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-[#6C3FF5]/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-[#FFD700]/5 rounded-full blur-3xl"></div>
+        </div>
+
+        {/* Right Register Section */}
+        <div className="flex items-center justify-center p-8 bg-[#0a0a0a]">
+          <div className="w-full max-w-[420px]">
+            {/* Mobile Logo */}
+            <div className="lg:hidden flex items-center justify-center gap-3 mb-12">
+              <div className="w-10 h-10 rounded-lg border-2 border-[#FFD700] overflow-hidden">
+                <Image 
+                  src="/assets/images/hero_fireworks.png"
+                  alt="SkySpark"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <span className="text-xl font-bold text-white">SkySpark</span>
+                <p className="text-xs text-gray-400 uppercase tracking-wider">Fireworks Store</p>
+              </div>
             </div>
-            <div>
-              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Phone Number</label>
-              <input
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                 className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
-                placeholder="Enter phone number"
-                required
-              />
+
+            {/* Header */}
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold tracking-tight mb-2 text-white">Join SkySpark!</h1>
+              <p className="text-gray-400 text-sm">Create your account and start celebrating</p>
             </div>
-            <div>
-              <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Password</label>
-              <input
-                type="password"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                 className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
-                placeholder="Create password"
-                required
-              />
+
+            {/* Register Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <label htmlFor="name" className="text-sm font-medium text-gray-300">Full Name</label>
+                <div className="relative">
+                  <IconUser size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    onFocus={() => setIsTyping(true)}
+                    onBlur={() => setIsTyping(false)}
+                    required
+                    className="w-full h-11 pl-10 pr-4 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-medium text-gray-300">Email</label>
+                <div className="relative">
+                  <IconMail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full h-11 pl-10 pr-4 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="phone" className="text-sm font-medium text-gray-300">Phone Number</label>
+                <div className="relative">
+                  <IconPhone size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="Enter your phone number"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                    className="w-full h-11 pl-10 pr-4 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="password" className="text-sm font-medium text-gray-300">Password</label>
+                <div className="relative">
+                  <IconLock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Create a password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                    className="w-full h-11 pl-10 pr-12 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#FFD700] transition-colors"
+                  >
+                    {showPassword ? <IconEyeOff size={18} /> : <IconEye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2 pt-2">
+                <input type="checkbox" required className="w-4 h-4 rounded border-white/10 bg-[#1a1a1a] text-[#FFD700] focus:ring-[#FFD700]" />
+                <span className="text-sm text-gray-300">
+                  I agree to the{" "}
+                  <Link href="/terms" className="text-[#FFD700] hover:underline">Terms of Service</Link>
+                  {" "}and{" "}
+                  <Link href="/privacy" className="text-[#FFD700] hover:underline">Privacy Policy</Link>
+                </span>
+              </div>
+
+              {error && (
+                <div className="p-3 text-sm text-red-400 bg-red-950/20 border border-red-900/30 rounded">
+                  {error}
+                </div>
+              )}
+
+              <button 
+                type="submit" 
+                className="w-full h-12 bg-[#FFD700] text-black font-bold rounded hover:bg-white transition-colors disabled:opacity-50"
+                disabled={isLoading}
+              >
+                {isLoading ? "Creating Account..." : "Create Account"}
+              </button>
+            </form>
+
+            {/* Divider */}
+            <div className="flex items-center my-6">
+              <div className="flex-1 h-px bg-white/10"></div>
+              <span className="px-4 text-xs text-gray-500 uppercase tracking-wider">Or</span>
+              <div className="flex-1 h-px bg-white/10"></div>
             </div>
-            <button type="submit" className="w-full bg-[#FFD700] text-black py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-colors text-sm">
-              Create Account
+
+            {/* Social Login */}
+            <button className="w-full h-12 bg-[#1a1a1a] border border-white/10 text-white rounded hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
+              <IconMail size={18} />
+              Continue with Google
             </button>
-          </form>
 
-          <div className="mt-8 text-center relative z-10">
-            <p className="text-gray-500 text-sm">
-              Already have an account? <Link href="/login" className="text-[#FFD700] font-bold hover:text-white transition-colors">Sign In</Link>
-            </p>
+            {/* Sign In Link */}
+            <div className="text-center text-sm text-gray-400 mt-8">
+              Already have an account?{" "}
+              <Link href="/login" className="text-[#FFD700] font-medium hover:underline">
+                Sign In
+              </Link>
+            </div>
           </div>
         </div>
       </div>
+      <Footer01 />
       <Footer02 />
-    </div>
+    </>
   );
 }

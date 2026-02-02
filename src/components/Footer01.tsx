@@ -40,10 +40,10 @@ export default function Footer01() {
            </div>
         </div>
 
-        {/* Links Grid */}
+        {/* Links Grid - Organized by Topics */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 pt-16 mb-12">
           {/* Brand Column */}
-          <div className="col-span-2 lg:col-span-2 space-y-6 pr-8">
+          <div className="col-span-2 lg:col-span-1 space-y-6">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#FFD700]">
                 <Image 
@@ -57,7 +57,7 @@ export default function Footer01() {
               <span className="text-2xl font-bold text-white tracking-tight">SkySpark</span>
             </Link>
             <p className="text-gray-400 leading-relaxed text-sm max-w-sm">
-              India&apos;s premier destination for premium fireworks. We bring the magic of Sivakasi directly to your doorstep with certified safety and spectacular quality.
+              India&apos;s premier destination for premium fireworks. Bringing Sivakasi magic to your celebrations.
             </p>
             <div className="flex gap-4 pt-2">
               {[IconBrandFacebook, IconBrandInstagram, IconBrandTwitter, IconBrandYoutube].map((Icon, i) => (
@@ -68,48 +68,64 @@ export default function Footer01() {
             </div>
           </div>
 
-          {/* Column 1 */}
+          {/* Categories */}
           <div>
-            <h4 className="text-[#FFD700] font-bold text-xs uppercase tracking-[0.15em] mb-6">Discovery</h4>
-            <ul className="space-y-4 text-sm text-gray-400">
-              {['New Arrivals', 'Best Sellers', 'Kids Special', 'Wedding Collection', 'Gift Boxes'].map((item) => (
-                <li key={item}>
-                   <Link href="/product" className="hover:text-white transition-colors flex items-center gap-2 group">
-                      <span className="w-0 overflow-hidden group-hover:w-3 transition-all duration-300 text-[#FFD700]">→</span>
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">{item}</span>
-                   </Link>
-                </li>
-              ))}
+            <h4 className="text-[#FFD700] font-bold text-sm uppercase tracking-wider mb-6">Categories</h4>
+            <ul className="space-y-3 text-sm text-gray-400">
+              <li><Link href="/product?category=ground-chakkars" className="hover:text-white transition-colors">Ground Chakkars</Link></li>
+              <li><Link href="/product?category=flower-pots" className="hover:text-white transition-colors">Flower Pots</Link></li>
+              <li><Link href="/product?category=sparklers" className="hover:text-white transition-colors">Sparklers</Link></li>
+              <li><Link href="/product?category=aerial-shots" className="hover:text-white transition-colors">Aerial Shots</Link></li>
+              <li><Link href="/product?category=rockets" className="hover:text-white transition-colors">Rockets</Link></li>
+              <li><Link href="/product?category=kids-special" className="hover:text-white transition-colors">Kids Special</Link></li>
+              <li><Link href="/product" className="hover:text-white transition-colors">Shop All</Link></li>
             </ul>
           </div>
 
-          {/* Column 2 */}
+          {/* Account */}
           <div>
-            <h4 className="text-[#FFD700] font-bold text-xs uppercase tracking-[0.15em] mb-6">Company</h4>
-            <ul className="space-y-4 text-sm text-gray-400">
-              {['About Us', 'Contact Us', 'Wholesale', 'Careers', 'Blog'].map((item) => (
-                <li key={item}>
-                   <Link href={`/${item.toLowerCase().replace(' ', '-')}`} className="hover:text-white transition-colors flex items-center gap-2 group">
-                      <span className="w-0 overflow-hidden group-hover:w-3 transition-all duration-300 text-[#FFD700]">→</span>
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">{item}</span>
-                   </Link>
-                </li>
-              ))}
+            <h4 className="text-[#FFD700] font-bold text-sm uppercase tracking-wider mb-6">Account</h4>
+            <ul className="space-y-3 text-sm text-gray-400">
+              <li><Link href="/login" className="hover:text-white transition-colors">Sign In</Link></li>
+              <li><Link href="/register" className="hover:text-white transition-colors">Create Account</Link></li>
+              <li><Link href="/cart" className="hover:text-white transition-colors">My Cart</Link></li>
+              <li><Link href="/order-tracking" className="hover:text-white transition-colors">Track Order</Link></li>
+              <li><Link href="/quick-purchase" className="hover:text-white transition-colors">Quick Purchase</Link></li>
             </ul>
           </div>
 
-           {/* Column 3 */}
+          {/* Company */}
           <div>
-            <h4 className="text-[#FFD700] font-bold text-xs uppercase tracking-[0.15em] mb-6">Support</h4>
+            <h4 className="text-[#FFD700] font-bold text-sm uppercase tracking-wider mb-6">Company</h4>
+            <ul className="space-y-3 text-sm text-gray-400">
+              <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
+              <li><Link href="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
+              <li><Link href="/shipping" className="hover:text-white transition-colors">Shipping Policy</Link></li>
+              <li><Link href="/returns" className="hover:text-white transition-colors">Returns & Refunds</Link></li>
+              <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
+              <li><Link href="/cookie" className="hover:text-white transition-colors">Cookie Policy</Link></li>
+            </ul>
+          </div>
+
+          {/* Contact Info Only */}
+          <div>
+            <h4 className="text-[#FFD700] font-bold text-sm uppercase tracking-wider mb-6">Contact</h4>
             <ul className="space-y-4 text-sm text-gray-400">
-              {['Order Tracking', 'Shipping Policy', 'Returns & Refunds', 'Privacy Policy', 'Terms of Service'].map((item) => (
-                <li key={item}>
-                   <Link href={item === 'Order Tracking' ? '/order-tracking' : item === 'Shipping Policy' ? '/shipping' : item === 'Returns & Refunds' ? '/returns' : item === 'Privacy Policy' ? '/privacy' : '/terms'} className="hover:text-white transition-colors flex items-center gap-2 group">
-                      <span className="w-0 overflow-hidden group-hover:w-3 transition-all duration-300 text-[#FFD700]">→</span>
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">{item}</span>
-                   </Link>
-                </li>
-              ))}
+              <li>
+                <span className="block text-xs text-gray-500 uppercase tracking-wider mb-1">Phone</span>
+                <a href="tel:+918148559768" className="hover:text-white transition-colors">+91 8148559768</a>
+              </li>
+              <li>
+                <span className="block text-xs text-gray-500 uppercase tracking-wider mb-1">Address</span>
+                <span className="block leading-relaxed">
+                  3/267-A2, Sivakasi – Sattur Rd,<br />
+                  near Sri Sangam Mahal,<br />
+                  Chinnakarampatti, Sivakasi,<br />
+                  Tamil Nadu 626189
+                </span>
+              </li>
             </ul>
           </div>
         </div>
