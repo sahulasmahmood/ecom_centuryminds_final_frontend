@@ -1,12 +1,22 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import Header from '@/components/Header';
-import Footer01 from '@/components/Footer01';
-import Footer02 from '@/components/Footer02';
-import { IconEye, IconEyeOff, IconMail, IconUser, IconLock, IconSparkles, IconPhone } from '@tabler/icons-react';
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
+import Header from "@/components/Header";
+import Footer01 from "@/components/Footer01";
+import Footer02 from "@/components/Footer02";
+import {
+  IconEye,
+  IconEyeOff,
+  IconMail,
+  IconUser,
+  IconLock,
+  IconSparkles,
+  IconPhone,
+} from "@tabler/icons-react";
 
 interface EyeBallProps {
   size?: number;
@@ -19,15 +29,15 @@ interface EyeBallProps {
   forceLookY?: number;
 }
 
-const EyeBall = ({ 
-  size = 48, 
-  pupilSize = 16, 
+const EyeBall = ({
+  size = 48,
+  pupilSize = 16,
   maxDistance = 10,
   eyeColor = "white",
   pupilColor = "black",
   isBlinking = false,
   forceLookX,
-  forceLookY
+  forceLookY,
 }: EyeBallProps) => {
   const [mouseX, setMouseX] = useState<number>(0);
   const [mouseY, setMouseY] = useState<number>(0);
@@ -56,7 +66,10 @@ const EyeBall = ({
 
     const deltaX = mouseX - eyeCenterX;
     const deltaY = mouseY - eyeCenterY;
-    const distance = Math.min(Math.sqrt(deltaX ** 2 + deltaY ** 2), maxDistance);
+    const distance = Math.min(
+      Math.sqrt(deltaX ** 2 + deltaY ** 2),
+      maxDistance,
+    );
 
     const angle = Math.atan2(deltaY, deltaX);
     const x = Math.cos(angle) * distance;
@@ -73,9 +86,9 @@ const EyeBall = ({
       className="rounded-full flex items-center justify-center transition-all duration-150"
       style={{
         width: `${size}px`,
-        height: isBlinking ? '2px' : `${size}px`,
+        height: isBlinking ? "2px" : `${size}px`,
         backgroundColor: eyeColor,
-        overflow: 'hidden',
+        overflow: "hidden",
       }}
     >
       {!isBlinking && (
@@ -86,7 +99,7 @@ const EyeBall = ({
             height: `${pupilSize}px`,
             backgroundColor: pupilColor,
             transform: `translate(${pupilPosition.x}px, ${pupilPosition.y}px)`,
-            transition: 'transform 0.1s ease-out',
+            transition: "transform 0.1s ease-out",
           }}
         />
       )}
@@ -97,12 +110,12 @@ const EyeBall = ({
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    password: ''
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [isBlinking1, setIsBlinking1] = useState(false);
@@ -125,20 +138,29 @@ export default function RegisterPage() {
 
   // Random blinking effects
   useEffect(() => {
-    const blinkInterval1 = setInterval(() => {
-      setIsBlinking1(true);
-      setTimeout(() => setIsBlinking1(false), 150);
-    }, Math.random() * 4000 + 3000);
+    const blinkInterval1 = setInterval(
+      () => {
+        setIsBlinking1(true);
+        setTimeout(() => setIsBlinking1(false), 150);
+      },
+      Math.random() * 4000 + 3000,
+    );
 
-    const blinkInterval2 = setInterval(() => {
-      setIsBlinking2(true);
-      setTimeout(() => setIsBlinking2(false), 150);
-    }, Math.random() * 4000 + 3000);
+    const blinkInterval2 = setInterval(
+      () => {
+        setIsBlinking2(true);
+        setTimeout(() => setIsBlinking2(false), 150);
+      },
+      Math.random() * 4000 + 3000,
+    );
 
-    const blinkInterval3 = setInterval(() => {
-      setIsBlinking3(true);
-      setTimeout(() => setIsBlinking3(false), 150);
-    }, Math.random() * 4000 + 3000);
+    const blinkInterval3 = setInterval(
+      () => {
+        setIsBlinking3(true);
+        setTimeout(() => setIsBlinking3(false), 150);
+      },
+      Math.random() * 4000 + 3000,
+    );
 
     return () => {
       clearInterval(blinkInterval1);
@@ -168,25 +190,41 @@ export default function RegisterPage() {
   const char2Pos = calculatePosition(char2Ref);
   const char3Pos = calculatePosition(char3Ref);
 
+  const router = useRouter();
+  const { register: registerUser } = useAuth();
+  const [showEmailSent, setShowEmailSent] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setIsLoading(true);
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    if (formData.name && formData.email && formData.phone && formData.password) {
-      alert('Account created successfully! Welcome to SkySpark!');
-    } else {
-      setError('Please fill in all fields.');
+    try {
+      await registerUser({
+        email: formData.email,
+        password: formData.password,
+        name: formData.name,
+        phoneNumber: formData.phone,
+      });
+      setShowEmailSent(true);
+      // Redirect after 5 seconds
+      setTimeout(() => {
+        router.push("/");
+      }, 5000);
+    } catch (err) {
+      console.error(err);
+      const errorMessage = err instanceof Error && 'response' in err 
+        ? (err as { response?: { data?: { message?: string } } }).response?.data?.message 
+        : undefined;
+      setError(errorMessage || "Registration failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -199,7 +237,7 @@ export default function RegisterPage() {
           <div className="relative z-20">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg border-2 border-[#FFD700] overflow-hidden">
-                <Image 
+                <Image
                   src="/assets/images/hero_fireworks.png"
                   alt="SkySpark"
                   width={40}
@@ -209,52 +247,56 @@ export default function RegisterPage() {
               </div>
               <div>
                 <span className="text-xl font-bold text-white">SkySpark</span>
-                <p className="text-xs text-gray-400 uppercase tracking-wider">Fireworks Store</p>
+                <p className="text-xs text-gray-400 uppercase tracking-wider">
+                  Fireworks Store
+                </p>
               </div>
             </Link>
           </div>
 
           {/* Animated Firework Characters - Different arrangement for register */}
           <div className="relative z-20 flex items-end justify-center h-[500px]">
-            <div className="relative" style={{ width: '550px', height: '400px' }}>
-              
+            <div
+              className="relative"
+              style={{ width: "550px", height: "400px" }}
+            >
               {/* Flower Pot Character - Purple (moved to front) */}
-              <div 
+              <div
                 ref={char1Ref}
                 className="absolute bottom-0 transition-all duration-700 ease-in-out"
                 style={{
-                  left: '80px',
-                  width: '160px',
-                  height: isTyping ? '400px' : '370px',
-                  background: 'linear-gradient(to top, #6C3FF5, #8B5CF6)',
-                  borderRadius: '80px 80px 0 0',
+                  left: "80px",
+                  width: "160px",
+                  height: isTyping ? "400px" : "370px",
+                  background: "linear-gradient(to top, #6C3FF5, #8B5CF6)",
+                  borderRadius: "80px 80px 0 0",
                   zIndex: 3,
                   transform: `skewX(${char1Pos.bodySkew}deg)`,
-                  transformOrigin: 'bottom center',
+                  transformOrigin: "bottom center",
                 }}
               >
                 {/* Eyes */}
-                <div 
+                <div
                   className="absolute flex gap-6 transition-all duration-700 ease-in-out"
                   style={{
                     left: `${50 + char1Pos.faceX}px`,
                     top: `${50 + char1Pos.faceY}px`,
                   }}
                 >
-                  <EyeBall 
-                    size={20} 
-                    pupilSize={8} 
-                    maxDistance={6} 
-                    eyeColor="white" 
-                    pupilColor="#2D2D2D" 
+                  <EyeBall
+                    size={20}
+                    pupilSize={8}
+                    maxDistance={6}
+                    eyeColor="white"
+                    pupilColor="#2D2D2D"
                     isBlinking={isBlinking1}
                   />
-                  <EyeBall 
-                    size={20} 
-                    pupilSize={8} 
-                    maxDistance={6} 
-                    eyeColor="white" 
-                    pupilColor="#2D2D2D" 
+                  <EyeBall
+                    size={20}
+                    pupilSize={8}
+                    maxDistance={6}
+                    eyeColor="white"
+                    pupilColor="#2D2D2D"
                     isBlinking={isBlinking1}
                   />
                 </div>
@@ -268,42 +310,42 @@ export default function RegisterPage() {
               </div>
 
               {/* Sparkler Character - Gold */}
-              <div 
+              <div
                 ref={char2Ref}
                 className="absolute bottom-0 transition-all duration-700 ease-in-out"
                 style={{
-                  left: '280px',
-                  width: '110px',
-                  height: '300px',
-                  background: 'linear-gradient(to top, #FFD700, #FFF700)',
-                  borderRadius: '55px 55px 0 0',
+                  left: "280px",
+                  width: "110px",
+                  height: "300px",
+                  background: "linear-gradient(to top, #FFD700, #FFF700)",
+                  borderRadius: "55px 55px 0 0",
                   zIndex: 2,
                   transform: `skewX(${char2Pos.bodySkew}deg)`,
-                  transformOrigin: 'bottom center',
+                  transformOrigin: "bottom center",
                 }}
               >
                 {/* Eyes */}
-                <div 
+                <div
                   className="absolute flex gap-5 transition-all duration-700 ease-in-out"
                   style={{
                     left: `${30 + char2Pos.faceX}px`,
                     top: `${40 + char2Pos.faceY}px`,
                   }}
                 >
-                  <EyeBall 
-                    size={16} 
-                    pupilSize={6} 
-                    maxDistance={4} 
-                    eyeColor="white" 
-                    pupilColor="#2D2D2D" 
+                  <EyeBall
+                    size={16}
+                    pupilSize={6}
+                    maxDistance={4}
+                    eyeColor="white"
+                    pupilColor="#2D2D2D"
                     isBlinking={isBlinking2}
                   />
-                  <EyeBall 
-                    size={16} 
-                    pupilSize={6} 
-                    maxDistance={4} 
-                    eyeColor="white" 
-                    pupilColor="#2D2D2D" 
+                  <EyeBall
+                    size={16}
+                    pupilSize={6}
+                    maxDistance={4}
+                    eyeColor="white"
+                    pupilColor="#2D2D2D"
                     isBlinking={isBlinking2}
                   />
                 </div>
@@ -320,48 +362,51 @@ export default function RegisterPage() {
               </div>
 
               {/* Rocket Character - Red (smaller, in back) */}
-              <div 
+              <div
                 ref={char3Ref}
                 className="absolute bottom-0 transition-all duration-700 ease-in-out"
                 style={{
-                  left: '420px',
-                  width: '100px',
-                  height: '250px',
-                  background: 'linear-gradient(to top, #E31837, #FF4444)',
-                  borderRadius: '50px 50px 0 0',
+                  left: "420px",
+                  width: "100px",
+                  height: "250px",
+                  background: "linear-gradient(to top, #E31837, #FF4444)",
+                  borderRadius: "50px 50px 0 0",
                   zIndex: 1,
                   transform: `skewX(${char3Pos.bodySkew}deg)`,
-                  transformOrigin: 'bottom center',
+                  transformOrigin: "bottom center",
                 }}
               >
                 {/* Eyes */}
-                <div 
+                <div
                   className="absolute flex gap-4 transition-all duration-700 ease-in-out"
                   style={{
                     left: `${25 + char3Pos.faceX}px`,
                     top: `${35 + char3Pos.faceY}px`,
                   }}
                 >
-                  <EyeBall 
-                    size={14} 
-                    pupilSize={5} 
-                    maxDistance={3} 
-                    eyeColor="white" 
-                    pupilColor="#2D2D2D" 
+                  <EyeBall
+                    size={14}
+                    pupilSize={5}
+                    maxDistance={3}
+                    eyeColor="white"
+                    pupilColor="#2D2D2D"
                     isBlinking={isBlinking3}
                   />
-                  <EyeBall 
-                    size={14} 
-                    pupilSize={5} 
-                    maxDistance={3} 
-                    eyeColor="white" 
-                    pupilColor="#2D2D2D" 
+                  <EyeBall
+                    size={14}
+                    pupilSize={5}
+                    maxDistance={3}
+                    eyeColor="white"
+                    pupilColor="#2D2D2D"
                     isBlinking={isBlinking3}
                   />
                 </div>
                 {/* Sparkle effect */}
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <IconSparkles size={18} className="text-[#FFD700] animate-pulse" />
+                  <IconSparkles
+                    size={18}
+                    className="text-[#FFD700] animate-pulse"
+                  />
                 </div>
               </div>
             </div>
@@ -369,9 +414,24 @@ export default function RegisterPage() {
 
           {/* Footer Links */}
           <div className="relative z-20 flex items-center gap-8 text-sm text-gray-400">
-            <Link href="/privacy" className="hover:text-[#FFD700] transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-[#FFD700] transition-colors">Terms of Service</Link>
-            <Link href="/contact" className="hover:text-[#FFD700] transition-colors">Contact</Link>
+            <Link
+              href="/privacy"
+              className="hover:text-[#FFD700] transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="hover:text-[#FFD700] transition-colors"
+            >
+              Terms of Service
+            </Link>
+            <Link
+              href="/contact"
+              className="hover:text-[#FFD700] transition-colors"
+            >
+              Contact
+            </Link>
           </div>
 
           {/* Background Effects */}
@@ -386,7 +446,7 @@ export default function RegisterPage() {
             {/* Mobile Logo */}
             <div className="lg:hidden flex items-center justify-center gap-3 mb-12">
               <div className="w-10 h-10 rounded-lg border-2 border-[#FFD700] overflow-hidden">
-                <Image 
+                <Image
                   src="/assets/images/hero_fireworks.png"
                   alt="SkySpark"
                   width={40}
@@ -396,22 +456,58 @@ export default function RegisterPage() {
               </div>
               <div>
                 <span className="text-xl font-bold text-white">SkySpark</span>
-                <p className="text-xs text-gray-400 uppercase tracking-wider">Fireworks Store</p>
+                <p className="text-xs text-gray-400 uppercase tracking-wider">
+                  Fireworks Store
+                </p>
               </div>
             </div>
 
             {/* Header */}
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold tracking-tight mb-2 text-white">Join SkySpark!</h1>
-              <p className="text-gray-400 text-sm">Create your account and start celebrating</p>
+              <h1 className="text-3xl font-bold tracking-tight mb-2 text-white">
+                Join SkySpark!
+              </h1>
+              <p className="text-gray-400 text-sm">
+                Create your account and start celebrating
+              </p>
             </div>
 
             {/* Register Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
+              {showEmailSent ? (
+                <div className="text-center space-y-4 py-8">
+                  <div className="flex justify-center">
+                    <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center">
+                      <IconMail size={32} className="text-green-500" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-2">Check Your Email!</h3>
+                    <p className="text-gray-400 text-sm">
+                      We&apos;ve sent a verification link to <span className="text-[#FFD700]">{formData.email}</span>
+                    </p>
+                    <p className="text-gray-500 text-xs mt-2">
+                      Please verify your email to complete registration.
+                    </p>
+                  </div>
+                  <div className="pt-4">
+                    <p className="text-xs text-gray-500">Redirecting to home page...</p>
+                  </div>
+                </div>
+              ) : (
+                <>
               <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium text-gray-300">Full Name</label>
+                <label
+                  htmlFor="name"
+                  className="text-sm font-medium text-gray-300"
+                >
+                  Full Name
+                </label>
                 <div className="relative">
-                  <IconUser size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <IconUser
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                  />
                   <input
                     id="name"
                     name="name"
@@ -428,9 +524,17 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-gray-300">Email</label>
+                <label
+                  htmlFor="email"
+                  className="text-sm font-medium text-gray-300"
+                >
+                  Email
+                </label>
                 <div className="relative">
-                  <IconMail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <IconMail
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                  />
                   <input
                     id="email"
                     name="email"
@@ -445,9 +549,17 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="phone" className="text-sm font-medium text-gray-300">Phone Number</label>
+                <label
+                  htmlFor="phone"
+                  className="text-sm font-medium text-gray-300"
+                >
+                  Phone Number
+                </label>
                 <div className="relative">
-                  <IconPhone size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <IconPhone
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                  />
                   <input
                     id="phone"
                     name="phone"
@@ -462,9 +574,17 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium text-gray-300">Password</label>
+                <label
+                  htmlFor="password"
+                  className="text-sm font-medium text-gray-300"
+                >
+                  Password
+                </label>
                 <div className="relative">
-                  <IconLock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                  <IconLock
+                    size={18}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                  />
                   <input
                     id="password"
                     name="password"
@@ -480,18 +600,36 @@ export default function RegisterPage() {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#FFD700] transition-colors"
                   >
-                    {showPassword ? <IconEyeOff size={18} /> : <IconEye size={18} />}
+                    {showPassword ? (
+                      <IconEyeOff size={18} />
+                    ) : (
+                      <IconEye size={18} />
+                    )}
                   </button>
                 </div>
               </div>
 
               <div className="flex items-center space-x-2 pt-2">
-                <input type="checkbox" required className="w-4 h-4 rounded border-white/10 bg-[#1a1a1a] text-[#FFD700] focus:ring-[#FFD700]" />
+                <input
+                  type="checkbox"
+                  required
+                  className="w-4 h-4 rounded border-white/10 bg-[#1a1a1a] text-[#FFD700] focus:ring-[#FFD700]"
+                />
                 <span className="text-sm text-gray-300">
                   I agree to the{" "}
-                  <Link href="/terms" className="text-[#FFD700] hover:underline">Terms of Service</Link>
-                  {" "}and{" "}
-                  <Link href="/privacy" className="text-[#FFD700] hover:underline">Privacy Policy</Link>
+                  <Link
+                    href="/terms"
+                    className="text-[#FFD700] hover:underline"
+                  >
+                    Terms of Service
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    href="/privacy"
+                    className="text-[#FFD700] hover:underline"
+                  >
+                    Privacy Policy
+                  </Link>
                 </span>
               </div>
 
@@ -501,35 +639,69 @@ export default function RegisterPage() {
                 </div>
               )}
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="w-full h-12 bg-[#FFD700] text-black font-bold rounded hover:bg-white transition-colors disabled:opacity-50"
                 disabled={isLoading}
               >
                 {isLoading ? "Creating Account..." : "Create Account"}
               </button>
+              </>
+              )}
             </form>
 
             {/* Divider */}
+            {!showEmailSent && (
+            <>
             <div className="flex items-center my-6">
               <div className="flex-1 h-px bg-white/10"></div>
-              <span className="px-4 text-xs text-gray-500 uppercase tracking-wider">Or</span>
+              <span className="px-4 text-xs text-gray-500 uppercase tracking-wider">
+                Or
+              </span>
               <div className="flex-1 h-px bg-white/10"></div>
             </div>
 
             {/* Social Login */}
-            <button className="w-full h-12 bg-[#1a1a1a] border border-white/10 text-white rounded hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
-              <IconMail size={18} />
+            <button
+              type="button"
+              onClick={() => {
+                window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/google`;
+              }}
+              className="w-full h-12 bg-[#1a1a1a] border border-white/10 text-white rounded hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                />
+                <path
+                  fill="currentColor"
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                />
+                <path
+                  fill="currentColor"
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                />
+                <path
+                  fill="currentColor"
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                />
+              </svg>
               Continue with Google
             </button>
 
             {/* Sign In Link */}
             <div className="text-center text-sm text-gray-400 mt-8">
               Already have an account?{" "}
-              <Link href="/login" className="text-[#FFD700] font-medium hover:underline">
+              <Link
+                href="/login"
+                className="text-[#FFD700] font-medium hover:underline"
+              >
                 Sign In
               </Link>
             </div>
+            </>
+            )}
           </div>
         </div>
       </div>

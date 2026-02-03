@@ -29,4 +29,16 @@ next-env.d.ts
 
 /references/
 
+# Backend
+/backend/node_modules
+/backend/.env
+
+# Prisma
+/backend/prisma/migrations
+/node_modules/.prisma
+
+# Documentation (keep only essential ones)
 *.md
+!README.md
+!SETUP.md
+*.txt
