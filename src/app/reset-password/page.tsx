@@ -93,7 +93,10 @@ function ResetPasswordContent() {
     setIsLoading(true);
 
     try {
-      const response = await authService.resetPassword(token, formData.password);
+      const response = await authService.resetPassword(
+        token,
+        formData.password,
+      );
 
       if (response.success) {
         setIsSuccess(true);
@@ -128,14 +131,14 @@ function ResetPasswordContent() {
       <div className="min-h-screen flex items-center justify-center p-4 bg-black">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-[url('/assets/images/hero_fireworks.png')] bg-cover bg-center opacity-5"></div>
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-[#FFD700]/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-[#E31837]/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
 
-        <Card className="w-full max-w-md bg-[#0a0a0a] border-white/10 relative z-10">
+        <Card className="w-full max-w-md bg-card border-white/10 relative z-10">
           <CardHeader className="text-center">
             {/* Logo */}
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg border-2 border-[#FFD700] overflow-hidden">
+              <div className="w-10 h-10 rounded-lg border-2 border-primary overflow-hidden">
                 <Image
                   src="/assets/images/hero_fireworks.png"
                   alt="SkySpark"
@@ -156,7 +159,8 @@ function ResetPasswordContent() {
               Password Reset Successful
             </CardTitle>
             <CardDescription className="text-gray-400">
-              Your password has been successfully reset. You will be redirected to the sign-in page.
+              Your password has been successfully reset. You will be redirected
+              to the sign-in page.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -167,7 +171,10 @@ function ResetPasswordContent() {
               </div>
             </div>
 
-            <Button asChild className="w-full bg-[#FFD700] text-black hover:bg-white font-bold">
+            <Button
+              asChild
+              className="w-full bg-primary text-black hover:bg-white font-bold"
+            >
               <Link href="/login">Go to Sign In</Link>
             </Button>
           </CardContent>
@@ -180,14 +187,14 @@ function ResetPasswordContent() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-black">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[url('/assets/images/hero_fireworks.png')] bg-cover bg-center opacity-5"></div>
-      <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-[#FFD700]/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-[#E31837]/5 rounded-full blur-3xl"></div>
+      <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
 
-      <Card className="w-full max-w-md bg-[#0a0a0a] border-white/10 relative z-10">
+      <Card className="w-full max-w-md bg-card border-white/10 relative z-10">
         <CardHeader className="text-center">
           {/* Logo */}
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-lg border-2 border-[#FFD700] overflow-hidden">
+            <div className="w-10 h-10 rounded-lg border-2 border-primary overflow-hidden">
               <Image
                 src="/assets/images/hero_fireworks.png"
                 alt="SkySpark"
@@ -212,7 +219,10 @@ function ResetPasswordContent() {
         <CardContent className="space-y-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium text-gray-300">
+              <label
+                htmlFor="password"
+                className="text-sm font-medium text-gray-300"
+              >
                 New Password
               </label>
               <div className="relative">
@@ -228,14 +238,18 @@ function ResetPasswordContent() {
                   value={formData.password}
                   onChange={handleInputChange}
                   disabled={isLoading}
-                  className="w-full h-12 pl-10 pr-12 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors disabled:opacity-50"
+                  className="w-full h-12 pl-10 pr-12 bg-muted border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors disabled:opacity-50"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#FFD700] transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary transition-colors"
                 >
-                  {showPassword ? <IconEyeOff size={18} /> : <IconEye size={18} />}
+                  {showPassword ? (
+                    <IconEyeOff size={18} />
+                  ) : (
+                    <IconEye size={18} />
+                  )}
                 </button>
               </div>
               {errors.password && (
@@ -247,7 +261,10 @@ function ResetPasswordContent() {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-300">
+              <label
+                htmlFor="confirmPassword"
+                className="text-sm font-medium text-gray-300"
+              >
                 Confirm Password
               </label>
               <div className="relative">
@@ -263,14 +280,18 @@ function ResetPasswordContent() {
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
                   disabled={isLoading}
-                  className="w-full h-12 pl-10 pr-12 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors disabled:opacity-50"
+                  className="w-full h-12 pl-10 pr-12 bg-muted border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors disabled:opacity-50"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#FFD700] transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary transition-colors"
                 >
-                  {showConfirmPassword ? <IconEyeOff size={18} /> : <IconEye size={18} />}
+                  {showConfirmPassword ? (
+                    <IconEyeOff size={18} />
+                  ) : (
+                    <IconEye size={18} />
+                  )}
                 </button>
               </div>
               {errors.confirmPassword && (
@@ -280,7 +301,7 @@ function ResetPasswordContent() {
 
             <Button
               type="submit"
-              className="w-full h-12 bg-[#FFD700] text-black hover:bg-white font-bold disabled:opacity-50"
+              className="w-full h-12 bg-primary text-black hover:bg-white font-bold disabled:opacity-50"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -295,7 +316,10 @@ function ResetPasswordContent() {
           </form>
 
           <div className="text-center text-sm">
-            <Link href="/login" className="text-[#FFD700] font-medium hover:underline">
+            <Link
+              href="/login"
+              className="text-primary font-medium hover:underline"
+            >
               Back to Sign In
             </Link>
           </div>
@@ -311,10 +335,10 @@ export default function ResetPasswordPage() {
       fallback={
         <div className="min-h-screen flex items-center justify-center bg-black">
           <div className="relative">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-white/10 border-t-[#FFD700]"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-4 border-white/10 border-t-primary"></div>
             <IconSparkles
               size={24}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#FFD700] animate-pulse"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary animate-pulse"
             />
           </div>
         </div>

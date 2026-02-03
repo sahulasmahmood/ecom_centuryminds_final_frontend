@@ -120,7 +120,7 @@ export default function LoginPage() {
   const char1Ref = useRef<HTMLDivElement>(null);
   const char2Ref = useRef<HTMLDivElement>(null);
   const char3Ref = useRef<HTMLDivElement>(null);
-  
+
   const router = useRouter();
   const { login } = useAuth();
 
@@ -197,11 +197,16 @@ export default function LoginPage() {
       router.push("/");
     } catch (err) {
       // Suppress console error logging for expected authentication failures
-      if (err && typeof err === 'object' && 'response' in err) {
-        const axiosError = err as { response?: { status?: number; data?: { error?: string } } };
+      if (err && typeof err === "object" && "response" in err) {
+        const axiosError = err as {
+          response?: { status?: number; data?: { error?: string } };
+        };
         if (axiosError.response?.status === 401) {
           // Expected authentication error - don't log to console
-          setError(axiosError.response.data?.error || "Invalid email or password. Please try again.");
+          setError(
+            axiosError.response.data?.error ||
+              "Invalid email or password. Please try again.",
+          );
         } else {
           // Unexpected error - log it
           console.error("Login error:", err);
@@ -221,11 +226,11 @@ export default function LoginPage() {
       <Header />
       <div className="min-h-screen grid lg:grid-cols-2 bg-black">
         {/* Left Animated Section */}
-        <div className="relative hidden lg:flex flex-col justify-between bg-gradient-to-br from-[#FFD700]/20 via-black to-[#E31837]/20 p-12 text-white overflow-hidden">
+        <div className="relative hidden lg:flex flex-col justify-between bg-gradient-to-br from-primary/20 via-black to-secondary/20 p-12 text-white overflow-hidden">
           {/* Logo */}
           <div className="relative z-20">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg border-2 border-[#FFD700] overflow-hidden">
+              <div className="w-10 h-10 rounded-lg border-2 border-primary overflow-hidden">
                 <Image
                   src="/assets/images/hero_fireworks.png"
                   alt="SkySpark"
@@ -257,7 +262,8 @@ export default function LoginPage() {
                   left: "50px",
                   width: "120px",
                   height: isTyping ? "380px" : "350px",
-                  background: "linear-gradient(to top, #E31837, #FF4444)",
+                  background:
+                    "linear-gradient(to top, hsl(var(--secondary)), #FF4444)",
                   borderRadius: "60px 60px 0 0",
                   zIndex: 1,
                   transform: `skewX(${char1Pos.bodySkew}deg)`,
@@ -297,7 +303,7 @@ export default function LoginPage() {
                 <div className="absolute -top-2 left-1/2 -translate-x-1/2">
                   <IconSparkles
                     size={20}
-                    className="text-[#FFD700] animate-pulse"
+                    className="text-primary animate-pulse"
                   />
                 </div>
               </div>
@@ -310,7 +316,8 @@ export default function LoginPage() {
                   left: "200px",
                   width: "100px",
                   height: "280px",
-                  background: "linear-gradient(to top, #FFD700, #FFF700)",
+                  background:
+                    "linear-gradient(to top, hsl(var(--primary)), #FFF700)",
                   borderRadius: "50px 50px 0 0",
                   zIndex: 2,
                   transform: `skewX(${char2Pos.bodySkew}deg)`,
@@ -351,7 +358,7 @@ export default function LoginPage() {
                   <div className="w-2 h-2 bg-white rounded-full animate-ping"></div>
                 </div>
                 <div className="absolute -top-3 -right-1">
-                  <div className="w-1 h-1 bg-[#FFD700] rounded-full animate-pulse"></div>
+                  <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
                 </div>
               </div>
 
@@ -397,31 +404,31 @@ export default function LoginPage() {
                 </div>
                 {/* Fountain effect */}
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex gap-1">
-                  <div className="w-1 h-6 bg-[#FFD700] rounded-full animate-bounce"></div>
-                  <div className="w-1 h-4 bg-[#E31837] rounded-full animate-bounce delay-100"></div>
-                  <div className="w-1 h-5 bg-[#FFD700] rounded-full animate-bounce delay-200"></div>
+                  <div className="w-1 h-6 bg-primary rounded-full animate-bounce"></div>
+                  <div className="w-1 h-4 bg-secondary rounded-full animate-bounce delay-100"></div>
+                  <div className="w-1 h-5 bg-primary rounded-full animate-bounce delay-200"></div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Footer Links */}
-          <div className="relative z-20 flex items-center gap-8 text-sm text-gray-400">
+          <div className="relative z-20 flex items-center gap-8 text-sm text-muted-foreground">
             <Link
               href="/privacy"
-              className="hover:text-[#FFD700] transition-colors"
+              className="hover:text-primary transition-colors"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="hover:text-[#FFD700] transition-colors"
+              className="hover:text-primary transition-colors"
             >
               Terms of Service
             </Link>
             <Link
               href="/contact"
-              className="hover:text-[#FFD700] transition-colors"
+              className="hover:text-primary transition-colors"
             >
               Contact
             </Link>
@@ -429,16 +436,16 @@ export default function LoginPage() {
 
           {/* Background Effects */}
           <div className="absolute inset-0 bg-[url('/assets/images/hero_fireworks.png')] bg-cover bg-center opacity-5"></div>
-          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-[#FFD700]/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-[#E31837]/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
         </div>
 
         {/* Right Login Section */}
-        <div className="flex items-center justify-center p-8 bg-[#0a0a0a]">
+        <div className="flex items-center justify-center p-8 bg-card">
           <div className="w-full max-w-[420px]">
             {/* Mobile Logo */}
             <div className="lg:hidden flex items-center justify-center gap-3 mb-12">
-              <div className="w-10 h-10 rounded-lg border-2 border-[#FFD700] overflow-hidden">
+              <div className="w-10 h-10 rounded-lg border-2 border-primary overflow-hidden">
                 <Image
                   src="/assets/images/hero_fireworks.png"
                   alt="SkySpark"
@@ -468,14 +475,14 @@ export default function LoginPage() {
               <div className="space-y-2">
                 <label
                   htmlFor="email"
-                  className="text-sm font-medium text-gray-300"
+                  className="text-sm font-medium text-muted-foreground"
                 >
                   Email
                 </label>
                 <div className="relative">
                   <IconMail
                     size={18}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                   />
                   <input
                     id="email"
@@ -486,7 +493,7 @@ export default function LoginPage() {
                     onFocus={() => setIsTyping(true)}
                     onBlur={() => setIsTyping(false)}
                     required
-                    className="w-full h-12 pl-10 pr-4 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
+                    className="w-full h-12 pl-10 pr-4 bg-muted border border-white/10 rounded text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                   />
                 </div>
               </div>
@@ -494,14 +501,14 @@ export default function LoginPage() {
               <div className="space-y-2">
                 <label
                   htmlFor="password"
-                  className="text-sm font-medium text-gray-300"
+                  className="text-sm font-medium text-muted-foreground"
                 >
                   Password
                 </label>
                 <div className="relative">
                   <IconLock
                     size={18}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                   />
                   <input
                     id="password"
@@ -510,12 +517,12 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full h-12 pl-10 pr-12 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
+                    className="w-full h-12 pl-10 pr-12 bg-muted border border-white/10 rounded text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#FFD700] transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors"
                   >
                     {showPassword ? (
                       <IconEyeOff size={18} />
@@ -530,13 +537,15 @@ export default function LoginPage() {
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input
                     type="checkbox"
-                    className="w-4 h-4 rounded border-white/10 bg-[#1a1a1a] text-[#FFD700] focus:ring-[#FFD700]"
+                    className="w-4 h-4 rounded border-white/10 bg-muted text-primary focus:ring-primary"
                   />
-                  <span className="text-sm text-gray-300">Remember me</span>
+                  <span className="text-sm text-muted-foreground">
+                    Remember me
+                  </span>
                 </label>
                 <Link
                   href="/forgot-password"
-                  className="text-sm text-[#FFD700] hover:underline font-medium"
+                  className="text-sm text-primary hover:underline font-medium"
                 >
                   Forgot password?
                 </Link>
@@ -550,7 +559,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="w-full h-12 bg-[#FFD700] text-black font-bold rounded hover:bg-white transition-colors disabled:opacity-50"
+                className="w-full h-12 bg-primary text-black font-bold rounded hover:bg-white transition-colors disabled:opacity-50"
                 disabled={isLoading}
               >
                 {isLoading ? "Signing in..." : "Sign In"}
@@ -560,7 +569,7 @@ export default function LoginPage() {
             {/* Divider */}
             <div className="flex items-center my-6">
               <div className="flex-1 h-px bg-white/10"></div>
-              <span className="px-4 text-xs text-gray-500 uppercase tracking-wider">
+              <span className="px-4 text-xs text-muted-foreground uppercase tracking-wider">
                 Or
               </span>
               <div className="flex-1 h-px bg-white/10"></div>
@@ -570,9 +579,9 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => {
-                window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/google`;
+                window.location.href = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/auth/google`;
               }}
-              className="w-full h-12 bg-[#1a1a1a] border border-white/10 text-white rounded hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+              className="w-full h-12 bg-muted border border-white/10 text-white rounded hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path
@@ -596,11 +605,11 @@ export default function LoginPage() {
             </button>
 
             {/* Sign Up Link */}
-            <div className="text-center text-sm text-gray-400 mt-8">
+            <div className="text-center text-sm text-muted-foreground mt-8">
               Don&apos;t have an account?{" "}
               <Link
                 href="/register"
-                className="text-[#FFD700] font-medium hover:underline"
+                className="text-primary font-medium hover:underline"
               >
                 Create Account
               </Link>

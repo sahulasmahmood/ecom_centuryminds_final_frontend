@@ -1,32 +1,44 @@
-'use client';
+"use client";
 
-import Header from '@/components/Header';
-import Footer01 from '@/components/Footer01';
-import Footer02 from '@/components/Footer02';
-import { IconMapPin, IconPhone, IconMail } from '@tabler/icons-react';
-import { useState } from 'react';
-import Link from 'next/link';
+import Header from "@/components/Header";
+import Footer01 from "@/components/Footer01";
+import Footer02 from "@/components/Footer02";
+import { IconMapPin, IconPhone, IconMail } from "@tabler/icons-react";
+import { useState } from "react";
+import Link from "next/link";
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log("Form submitted:", formData);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
-      <div className="bg-[#0a0a0a] border-b border-white/5">
+
+      <div className="bg-card border-b border-white/5">
         <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
           <div className="flex items-center gap-2 text-xs sm:text-sm">
-            <Link href="/" className="text-gray-400 hover:text-[#FFD700] transition-colors">Home</Link>
+            <Link
+              href="/"
+              className="text-gray-400 hover:text-primary transition-colors"
+            >
+              Home
+            </Link>
             <span className="text-gray-600">/</span>
             <span className="text-white font-medium">Contact Us</span>
           </div>
@@ -35,41 +47,62 @@ export default function ContactPage() {
 
       <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-12">
         <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">Get in Touch</h1>
-          <p className="text-gray-400">We are here to help you light up your celebrations</p>
+          <h1 className="text-3xl font-bold text-white mb-2 tracking-tight">
+            Get in Touch
+          </h1>
+          <p className="text-gray-400">
+            We are here to help you light up your celebrations
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-          <div className="bg-[#0a0a0a] border border-white/10 rounded-sm p-8 text-center hover:border-[#FFD700]/50 transition-colors group">
-            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#FFD700] transition-colors">
-              <IconPhone size={24} className="text-[#FFD700] group-hover:text-black transition-colors" />
+          <div className="bg-card border border-white/10 rounded-sm p-8 text-center hover:border-primary/50 transition-colors group">
+            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors">
+              <IconPhone
+                size={24}
+                className="text-primary group-hover:text-black transition-colors"
+              />
             </div>
-            <h3 className="font-bold text-white mb-2 uppercase tracking-wide">Call Us</h3>
+            <h3 className="font-bold text-white mb-2 uppercase tracking-wide">
+              Call Us
+            </h3>
             <p className="text-gray-400 mb-1">1800-SKY-SPARK</p>
             <p className="text-gray-500 text-xs">Mon-Sat, 9am-9pm</p>
           </div>
-          <div className="bg-[#0a0a0a] border border-white/10 rounded-sm p-8 text-center hover:border-[#FFD700]/50 transition-colors group">
-            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#FFD700] transition-colors">
-              <IconMail size={24} className="text-[#FFD700] group-hover:text-black transition-colors" />
+          <div className="bg-card border border-white/10 rounded-sm p-8 text-center hover:border-primary/50 transition-colors group">
+            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors">
+              <IconMail
+                size={24}
+                className="text-primary group-hover:text-black transition-colors"
+              />
             </div>
-            <h3 className="font-bold text-white mb-2 uppercase tracking-wide">Email Us</h3>
+            <h3 className="font-bold text-white mb-2 uppercase tracking-wide">
+              Email Us
+            </h3>
             <p className="text-gray-400 mb-1">support@skyspark.com</p>
             <p className="text-gray-500 text-xs">We reply within 24 hrs</p>
           </div>
-          <div className="bg-[#0a0a0a] border border-white/10 rounded-sm p-8 text-center hover:border-[#FFD700]/50 transition-colors group">
-            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-[#FFD700] transition-colors">
-              <IconMapPin size={24} className="text-[#FFD700] group-hover:text-black transition-colors" />
+          <div className="bg-card border border-white/10 rounded-sm p-8 text-center hover:border-primary/50 transition-colors group">
+            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors">
+              <IconMapPin
+                size={24}
+                className="text-primary group-hover:text-black transition-colors"
+              />
             </div>
-            <h3 className="font-bold text-white mb-2 uppercase tracking-wide">Visit Us</h3>
+            <h3 className="font-bold text-white mb-2 uppercase tracking-wide">
+              Visit Us
+            </h3>
             <p className="text-gray-400 mb-1">123 Firework Lane, Sivakasi</p>
             <p className="text-gray-500 text-xs">Tamil Nadu 626123</p>
           </div>
         </div>
 
-        <div className="max-w-2xl mx-auto bg-[#0a0a0a] border border-white/10 rounded-sm p-8 sm:p-10 relative overflow-hidden">
-           <div className="absolute top-0 right-0 w-64 h-64 bg-[#FFD700]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-           
-          <h2 className="text-2xl font-bold text-white mb-6 tracking-tight relative z-10">Send us a Message</h2>
+        <div className="max-w-2xl mx-auto bg-card border border-white/10 rounded-sm p-8 sm:p-10 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+
+          <h2 className="text-2xl font-bold text-white mb-6 tracking-tight relative z-10">
+            Send us a Message
+          </h2>
           <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
@@ -78,7 +111,7 @@ export default function ContactPage() {
                 placeholder="Your Name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
+                className="w-full px-4 py-3 bg-muted border border-white/10 rounded-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-white text-sm transition-colors placeholder:text-muted-foreground"
                 required
               />
               <input
@@ -87,7 +120,7 @@ export default function ContactPage() {
                 placeholder="Your Email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
+                className="w-full px-4 py-3 bg-muted border border-white/10 rounded-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-white text-sm transition-colors placeholder:text-muted-foreground"
                 required
               />
             </div>
@@ -97,7 +130,7 @@ export default function ContactPage() {
               placeholder="Your Phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600"
+              className="w-full px-4 py-3 bg-muted border border-white/10 rounded-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-white text-sm transition-colors placeholder:text-muted-foreground"
             />
             <textarea
               name="message"
@@ -105,12 +138,12 @@ export default function ContactPage() {
               value={formData.message}
               onChange={handleChange}
               rows={5}
-              className="w-full px-4 py-3 bg-[#1a1a1a] border border-white/10 rounded-sm focus:outline-none focus:border-[#FFD700] focus:ring-1 focus:ring-[#FFD700] text-white text-sm transition-colors placeholder-gray-600 resize-none"
+              className="w-full px-4 py-3 bg-muted border border-white/10 rounded-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-white text-sm transition-colors placeholder:text-muted-foreground resize-none"
               required
             ></textarea>
             <button
               type="submit"
-              className="w-full bg-[#FFD700] text-black py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-colors"
+              className="w-full bg-primary text-black py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-colors"
             >
               Send Message
             </button>

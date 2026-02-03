@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import ProductCard from './ProductCard';
-import { getAllProducts } from '@/MockData/ProductData';
+import Link from "next/link";
+import ProductCard from "./ProductCard";
+import { getAllProducts } from "@/MockData/ProductData";
 
 export default function TrendingProducts() {
   const allProducts = getAllProducts();
@@ -21,12 +21,16 @@ export default function TrendingProducts() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
-            <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">Trending Now</h2>
-            <p className="text-gray-400 text-sm">Best deals with maximum savings</p>
+            <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">
+              Trending Now
+            </h2>
+            <p className="text-gray-400 text-sm">
+              Best deals with maximum savings
+            </p>
           </div>
-          <Link 
-            href="/product" 
-            className="text-sm font-bold text-[#FFD700] hover:text-white transition-colors whitespace-nowrap flex items-center gap-1"
+          <Link
+            href="/product"
+            className="text-sm font-bold text-primary hover:text-white transition-colors whitespace-nowrap flex items-center gap-1"
           >
             View All Deals <span className="text-lg">→</span>
           </Link>

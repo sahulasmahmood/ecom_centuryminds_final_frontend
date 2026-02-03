@@ -10,9 +10,9 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 6%;
     --popover-foreground: 0 0% 98%;
-    --primary: 45 100% 50%; /* Gold */
+    --primary: 51 100% 50%; /* Gold */
     --primary-foreground: 240 10% 4%;
-    --secondary: 350 89% 60%; /* Festive Red */
+    --secondary: 351 81% 49%; /* Festive Red */
     --secondary-foreground: 0 0% 98%;
     --muted: 240 10% 12%;
     --muted-foreground: 240 5% 65%;
@@ -22,19 +22,16 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 10% 12%;
     --input: 240 10% 12%;
-    --ring: 45 100% 50%;
-    --chart-1: 45 100% 50%;
-    --chart-2: 350 89% 60%;
+    --ring: 51 100% 50%;
+    --chart-1: 51 100% 50%;
+    --chart-2: 351 81% 49%;
     --chart-3: 280 70% 60%;
     --chart-4: 240 10% 4%;
     --chart-5: 0 0% 98%;
+    --success: 142 100% 44%; /* Vibrant Green #00E054 */
     --radius: 0.5rem;
 
-    /* Crackers Brand Colors */
-    --cracker-gold: #ffd700;
-    --cracker-red: #e31837;
-    --cracker-dark: #0a0a0a;
-    --cracker-purple: #9b59b6;
+
   }
 }
 
@@ -54,16 +51,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: hsl(var(--muted));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #FFD700;
+  background: hsl(var(--primary));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #e6c200;
+  background: hsl(var(--primary) / 0.8);
 }
 
 /* Weight selector dropdown */

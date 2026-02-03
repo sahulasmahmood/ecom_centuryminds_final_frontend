@@ -12,7 +12,8 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "SkySpark - Premium Fireworks & Celebrations",
-  description: "SkySpark - Your trusted online store for premium fireworks, crackers, and celebration supplies. Safe delivery, best prices, and quality assured directly from Sivakasi.",
+  description:
+    "SkySpark - Your trusted online store for premium fireworks, crackers, and celebration supplies. Safe delivery, best prices, and quality assured directly from Sivakasi.",
 };
 
 export default function RootLayout({
@@ -24,9 +25,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} font-sans antialiased`}>
         <AuthProvider>
-          <CartProvider>
-            {children}
-          </CartProvider>
+          <CartProvider>{children}</CartProvider>
         </AuthProvider>
       </body>
     </html>

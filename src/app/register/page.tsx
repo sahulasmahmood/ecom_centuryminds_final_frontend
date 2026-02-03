@@ -213,9 +213,11 @@ export default function RegisterPage() {
       }, 5000);
     } catch (err) {
       console.error(err);
-      const errorMessage = err instanceof Error && 'response' in err 
-        ? (err as { response?: { data?: { message?: string } } }).response?.data?.message 
-        : undefined;
+      const errorMessage =
+        err instanceof Error && "response" in err
+          ? (err as { response?: { data?: { message?: string } } }).response
+              ?.data?.message
+          : undefined;
       setError(errorMessage || "Registration failed. Please try again.");
     } finally {
       setIsLoading(false);
@@ -232,11 +234,11 @@ export default function RegisterPage() {
       <Header />
       <div className="min-h-screen grid lg:grid-cols-2 bg-black">
         {/* Left Animated Section */}
-        <div className="relative hidden lg:flex flex-col justify-between bg-gradient-to-br from-[#6C3FF5]/20 via-black to-[#FFD700]/20 p-12 text-white overflow-hidden">
+        <div className="relative hidden lg:flex flex-col justify-between bg-gradient-to-br from-[#6C3FF5]/20 via-black to-primary/20 p-12 text-white overflow-hidden">
           {/* Logo */}
           <div className="relative z-20">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg border-2 border-[#FFD700] overflow-hidden">
+              <div className="w-10 h-10 rounded-lg border-2 border-primary overflow-hidden">
                 <Image
                   src="/assets/images/hero_fireworks.png"
                   alt="SkySpark"
@@ -302,9 +304,9 @@ export default function RegisterPage() {
                 </div>
                 {/* Fountain effect */}
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex gap-1">
-                  <div className="w-2 h-8 bg-[#FFD700] rounded-full animate-bounce"></div>
-                  <div className="w-2 h-6 bg-[#E31837] rounded-full animate-bounce delay-100"></div>
-                  <div className="w-2 h-7 bg-[#FFD700] rounded-full animate-bounce delay-200"></div>
+                  <div className="w-2 h-8 bg-primary rounded-full animate-bounce"></div>
+                  <div className="w-2 h-6 bg-secondary rounded-full animate-bounce delay-100"></div>
+                  <div className="w-2 h-7 bg-primary rounded-full animate-bounce delay-200"></div>
                   <div className="w-2 h-5 bg-[#6C3FF5] rounded-full animate-bounce delay-300"></div>
                 </div>
               </div>
@@ -317,7 +319,8 @@ export default function RegisterPage() {
                   left: "280px",
                   width: "110px",
                   height: "300px",
-                  background: "linear-gradient(to top, #FFD700, #FFF700)",
+                  background:
+                    "linear-gradient(to top, hsl(var(--primary)), #FFF700)",
                   borderRadius: "55px 55px 0 0",
                   zIndex: 2,
                   transform: `skewX(${char2Pos.bodySkew}deg)`,
@@ -354,7 +357,7 @@ export default function RegisterPage() {
                   <div className="w-3 h-3 bg-white rounded-full animate-ping"></div>
                 </div>
                 <div className="absolute -top-4 -right-2">
-                  <div className="w-2 h-2 bg-[#FFD700] rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
                 </div>
                 <div className="absolute -top-1 right-2">
                   <div className="w-1 h-1 bg-white rounded-full animate-bounce"></div>
@@ -369,7 +372,8 @@ export default function RegisterPage() {
                   left: "420px",
                   width: "100px",
                   height: "250px",
-                  background: "linear-gradient(to top, #E31837, #FF4444)",
+                  background:
+                    "linear-gradient(to top, hsl(var(--secondary)), #FF4444)",
                   borderRadius: "50px 50px 0 0",
                   zIndex: 1,
                   transform: `skewX(${char3Pos.bodySkew}deg)`,
@@ -404,8 +408,8 @@ export default function RegisterPage() {
                 {/* Sparkle effect */}
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <IconSparkles
-                    size={18}
-                    className="text-[#FFD700] animate-pulse"
+                    size={20}
+                    className="text-primary animate-pulse"
                   />
                 </div>
               </div>
@@ -413,22 +417,22 @@ export default function RegisterPage() {
           </div>
 
           {/* Footer Links */}
-          <div className="relative z-20 flex items-center gap-8 text-sm text-gray-400">
+          <div className="relative z-20 flex items-center gap-8 text-sm text-muted-foreground">
             <Link
               href="/privacy"
-              className="hover:text-[#FFD700] transition-colors"
+              className="hover:text-primary transition-colors"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="hover:text-[#FFD700] transition-colors"
+              className="hover:text-primary transition-colors"
             >
               Terms of Service
             </Link>
             <Link
               href="/contact"
-              className="hover:text-[#FFD700] transition-colors"
+              className="hover:text-primary transition-colors"
             >
               Contact
             </Link>
@@ -437,15 +441,15 @@ export default function RegisterPage() {
           {/* Background Effects */}
           <div className="absolute inset-0 bg-[url('/assets/images/hero_fireworks.png')] bg-cover bg-center opacity-5"></div>
           <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-[#6C3FF5]/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-[#FFD700]/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
         </div>
 
         {/* Right Register Section */}
-        <div className="flex items-center justify-center p-8 bg-[#0a0a0a]">
+        <div className="flex items-center justify-center p-8 bg-card">
           <div className="w-full max-w-[420px]">
             {/* Mobile Logo */}
             <div className="lg:hidden flex items-center justify-center gap-3 mb-12">
-              <div className="w-10 h-10 rounded-lg border-2 border-[#FFD700] overflow-hidden">
+              <div className="w-10 h-10 rounded-lg border-2 border-primary overflow-hidden">
                 <Image
                   src="/assets/images/hero_fireworks.png"
                   alt="SkySpark"
@@ -482,225 +486,230 @@ export default function RegisterPage() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-2">Check Your Email!</h3>
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      Check Your Email!
+                    </h3>
                     <p className="text-gray-400 text-sm">
-                      We&apos;ve sent a verification link to <span className="text-[#FFD700]">{formData.email}</span>
+                      We&apos;ve sent a verification link to{" "}
+                      <span className="text-primary">{formData.email}</span>
                     </p>
-                    <p className="text-gray-500 text-xs mt-2">
+                    <p className="text-muted-foreground text-xs mt-2">
                       Please verify your email to complete registration.
                     </p>
                   </div>
                   <div className="pt-4">
-                    <p className="text-xs text-gray-500">Redirecting to home page...</p>
+                    <p className="text-xs text-muted-foreground">
+                      Redirecting to home page...
+                    </p>
                   </div>
                 </div>
               ) : (
                 <>
-              <div className="space-y-2">
-                <label
-                  htmlFor="name"
-                  className="text-sm font-medium text-gray-300"
-                >
-                  Full Name
-                </label>
-                <div className="relative">
-                  <IconUser
-                    size={18}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
-                  />
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Enter your full name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    onFocus={() => setIsTyping(true)}
-                    onBlur={() => setIsTyping(false)}
-                    required
-                    className="w-full h-11 pl-10 pr-4 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                  />
-                </div>
-              </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="name"
+                      className="text-sm font-medium text-muted-foreground"
+                    >
+                      Full Name
+                    </label>
+                    <div className="relative">
+                      <IconUser
+                        size={18}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                      />
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="Enter your full name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        onFocus={() => setIsTyping(true)}
+                        onBlur={() => setIsTyping(false)}
+                        required
+                        className="w-full h-11 pl-10 pr-4 bg-muted border border-white/10 rounded text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                      />
+                    </div>
+                  </div>
 
-              <div className="space-y-2">
-                <label
-                  htmlFor="email"
-                  className="text-sm font-medium text-gray-300"
-                >
-                  Email
-                </label>
-                <div className="relative">
-                  <IconMail
-                    size={18}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
-                  />
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full h-11 pl-10 pr-4 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                  />
-                </div>
-              </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="email"
+                      className="text-sm font-medium text-muted-foreground"
+                    >
+                      Email
+                    </label>
+                    <div className="relative">
+                      <IconMail
+                        size={18}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                      />
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Enter your email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="w-full h-11 pl-10 pr-4 bg-muted border border-white/10 rounded text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                      />
+                    </div>
+                  </div>
 
-              <div className="space-y-2">
-                <label
-                  htmlFor="phone"
-                  className="text-sm font-medium text-gray-300"
-                >
-                  Phone Number
-                </label>
-                <div className="relative">
-                  <IconPhone
-                    size={18}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
-                  />
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="Enter your phone number"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className="w-full h-11 pl-10 pr-4 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                  />
-                </div>
-              </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="phone"
+                      className="text-sm font-medium text-muted-foreground"
+                    >
+                      Phone Number
+                    </label>
+                    <div className="relative">
+                      <IconPhone
+                        size={18}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                      />
+                      <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        placeholder="Enter your phone number"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                        className="w-full h-11 pl-10 pr-4 bg-muted border border-white/10 rounded text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                      />
+                    </div>
+                  </div>
 
-              <div className="space-y-2">
-                <label
-                  htmlFor="password"
-                  className="text-sm font-medium text-gray-300"
-                >
-                  Password
-                </label>
-                <div className="relative">
-                  <IconLock
-                    size={18}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
-                  />
-                  <input
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Create a password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                    className="w-full h-11 pl-10 pr-12 bg-[#1a1a1a] border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] transition-colors"
-                  />
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="password"
+                      className="text-sm font-medium text-muted-foreground"
+                    >
+                      Password
+                    </label>
+                    <div className="relative">
+                      <IconLock
+                        size={18}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                      />
+                      <input
+                        id="password"
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Create a password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                        className="w-full h-11 pl-10 pr-12 bg-muted border border-white/10 rounded text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {showPassword ? (
+                          <IconEyeOff size={18} />
+                        ) : (
+                          <IconEye size={18} />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2 pt-2">
+                    <input
+                      type="checkbox"
+                      required
+                      className="w-4 h-4 rounded border-white/10 bg-muted text-primary focus:ring-primary"
+                    />
+                    <span className="text-sm text-gray-300">
+                      I agree to the{" "}
+                      <Link
+                        href="/terms"
+                        className="text-primary hover:underline"
+                      >
+                        Terms of Service
+                      </Link>{" "}
+                      and{" "}
+                      <Link
+                        href="/privacy"
+                        className="text-primary hover:underline"
+                      >
+                        Privacy Policy
+                      </Link>
+                    </span>
+                  </div>
+
+                  {error && (
+                    <div className="p-3 text-sm text-red-400 bg-red-950/20 border border-red-900/30 rounded">
+                      {error}
+                    </div>
+                  )}
+
                   <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#FFD700] transition-colors"
+                    type="submit"
+                    className="w-full h-12 bg-primary text-black font-bold rounded hover:bg-white transition-colors disabled:opacity-50"
+                    disabled={isLoading}
                   >
-                    {showPassword ? (
-                      <IconEyeOff size={18} />
-                    ) : (
-                      <IconEye size={18} />
-                    )}
+                    {isLoading ? "Creating Account..." : "Create Account"}
                   </button>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-2 pt-2">
-                <input
-                  type="checkbox"
-                  required
-                  className="w-4 h-4 rounded border-white/10 bg-[#1a1a1a] text-[#FFD700] focus:ring-[#FFD700]"
-                />
-                <span className="text-sm text-gray-300">
-                  I agree to the{" "}
-                  <Link
-                    href="/terms"
-                    className="text-[#FFD700] hover:underline"
-                  >
-                    Terms of Service
-                  </Link>{" "}
-                  and{" "}
-                  <Link
-                    href="/privacy"
-                    className="text-[#FFD700] hover:underline"
-                  >
-                    Privacy Policy
-                  </Link>
-                </span>
-              </div>
-
-              {error && (
-                <div className="p-3 text-sm text-red-400 bg-red-950/20 border border-red-900/30 rounded">
-                  {error}
-                </div>
-              )}
-
-              <button
-                type="submit"
-                className="w-full h-12 bg-[#FFD700] text-black font-bold rounded hover:bg-white transition-colors disabled:opacity-50"
-                disabled={isLoading}
-              >
-                {isLoading ? "Creating Account..." : "Create Account"}
-              </button>
-              </>
+                </>
               )}
             </form>
 
             {/* Divider */}
             {!showEmailSent && (
-            <>
-            <div className="flex items-center my-6">
-              <div className="flex-1 h-px bg-white/10"></div>
-              <span className="px-4 text-xs text-gray-500 uppercase tracking-wider">
-                Or
-              </span>
-              <div className="flex-1 h-px bg-white/10"></div>
-            </div>
+              <>
+                <div className="flex items-center my-6">
+                  <div className="flex-1 h-px bg-white/10"></div>
+                  <span className="px-4 text-xs text-muted-foreground uppercase tracking-wider">
+                    Or
+                  </span>
+                  <div className="flex-1 h-px bg-white/10"></div>
+                </div>
 
-            {/* Social Login */}
-            <button
-              type="button"
-              onClick={() => {
-                window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/google`;
-              }}
-              className="w-full h-12 bg-[#1a1a1a] border border-white/10 text-white rounded hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                />
-                <path
-                  fill="currentColor"
-                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                />
-                <path
-                  fill="currentColor"
-                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                />
-                <path
-                  fill="currentColor"
-                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                />
-              </svg>
-              Continue with Google
-            </button>
+                {/* Social Login */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.location.href = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/auth/google`;
+                  }}
+                  className="w-full h-12 bg-muted border border-white/10 text-white rounded hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24">
+                    <path
+                      fill="currentColor"
+                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                    />
+                  </svg>
+                  Continue with Google
+                </button>
 
-            {/* Sign In Link */}
-            <div className="text-center text-sm text-gray-400 mt-8">
-              Already have an account?{" "}
-              <Link
-                href="/login"
-                className="text-[#FFD700] font-medium hover:underline"
-              >
-                Sign In
-              </Link>
-            </div>
-            </>
+                {/* Sign In Link */}
+                <div className="text-center text-sm text-muted-foreground mt-8">
+                  Already have an account?{" "}
+                  <Link
+                    href="/login"
+                    className="text-primary font-medium hover:underline"
+                  >
+                    Sign In
+                  </Link>
+                </div>
+              </>
             )}
           </div>
         </div>

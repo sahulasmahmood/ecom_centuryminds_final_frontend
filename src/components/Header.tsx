@@ -47,7 +47,7 @@ export default function Header() {
               href="/"
               className="flex items-center gap-2.5 flex-shrink-0 group"
             >
-              <div className="w-9 h-9 rounded-lg overflow-hidden border-2 border-[#FFD700] group-hover:border-white transition-all group-hover:shadow-[0_0_15px_rgba(255,215,0,0.4)]">
+              <div className="w-9 h-9 rounded-lg overflow-hidden border-2 border-primary group-hover:border-white transition-all group-hover:shadow-[0_0_15px_rgba(255,215,0,0.4)]">
                 <Image
                   src="/assets/images/hero_fireworks.png"
                   alt="SkySpark"
@@ -57,10 +57,10 @@ export default function Header() {
                 />
               </div>
               <div className="hidden sm:block">
-                <span className="text-xl font-bold text-white tracking-tight block leading-none group-hover:text-[#FFD700] transition-colors">
+                <span className="text-xl font-bold text-white tracking-tight block leading-none group-hover:text-primary transition-colors">
                   SkySpark
                 </span>
-                <span className="text-[8px] text-gray-500 uppercase tracking-widest">
+                <span className="text-[8px] text-muted-foreground uppercase tracking-widest">
                   Fireworks Store
                 </span>
               </div>
@@ -74,11 +74,11 @@ export default function Header() {
                   placeholder="Search for firecrackers, sparklers, rockets..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2.5 pl-11 bg-[#1a1a1a] border border-white/10 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] focus:bg-[#0a0a0a] transition-all text-sm"
+                  className="w-full px-4 py-2.5 pl-11 bg-muted border border-white/10 rounded-full text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:bg-card transition-all text-sm"
                 />
                 <IconSearch
                   size={18}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#FFD700] transition-colors"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors"
                 />
               </div>
             </div>
@@ -99,7 +99,7 @@ export default function Header() {
                 onMouseEnter={() => setShowMegaMenu(true)}
                 onMouseLeave={() => setShowMegaMenu(false)}
               >
-                <button className="flex items-center gap-2 px-4 py-2 bg-[#FFD700] text-black rounded-full hover:bg-white transition-all font-semibold text-xs uppercase tracking-wide">
+                <button className="flex items-center gap-2 px-4 py-2 bg-primary text-black rounded-full hover:bg-white transition-all font-semibold text-xs uppercase tracking-wide">
                   <IconMenu2 size={16} />
                   <span>Products</span>
                   <IconChevronDown
@@ -116,8 +116,8 @@ export default function Header() {
 
                     <div className="absolute top-full right-0 mt-2 bg-black border border-white/20 z-50 w-[850px] shadow-2xl rounded-lg overflow-hidden">
                       {/* Header Strip */}
-                      <div className="bg-gradient-to-r from-[#1a1a1a] to-black px-5 py-2 border-b border-white/10">
-                        <p className="text-[10px] uppercase tracking-widest text-gray-500 font-semibold">
+                      <div className="bg-gradient-to-r from-muted to-black px-5 py-2 border-b border-white/10">
+                        <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">
                           Browse All Categories
                         </p>
                       </div>
@@ -136,8 +136,8 @@ export default function Header() {
                                 href={`/product?category=${category.slug}`}
                                 className={`block p-2.5 rounded border transition-all ${
                                   activeCategory.id === category.id
-                                    ? "bg-[#1a1a1a] border-[#FFD700]/50 shadow-lg"
-                                    : "bg-[#0a0a0a] border-white/5 hover:border-white/20"
+                                    ? "bg-muted border-primary/50 shadow-lg"
+                                    : "bg-card border-white/5 hover:border-white/20"
                                 }`}
                               >
                                 <div className="flex items-center gap-2 mb-1.5">
@@ -147,28 +147,28 @@ export default function Header() {
                                   <span
                                     className={`text-[10px] font-semibold uppercase tracking-wide ${
                                       activeCategory.id === category.id
-                                        ? "text-[#FFD700]"
-                                        : "text-gray-300"
+                                        ? "text-primary"
+                                        : "text-muted-foreground"
                                     }`}
                                   >
                                     {category.name}
                                   </span>
                                 </div>
-                                <p className="text-[8px] text-gray-600 leading-tight line-clamp-1">
+                                <p className="text-[8px] text-muted-foreground/80 leading-tight line-clamp-1">
                                   {category.description}
                                 </p>
                               </Link>
 
                               {/* Subcategories Dropdown */}
                               {activeCategory.id === category.id && (
-                                <div className="mt-1.5 bg-[#0a0a0a] border border-white/10 rounded p-1.5 space-y-0.5">
+                                <div className="mt-1.5 bg-card border border-white/10 rounded p-1.5 space-y-0.5">
                                   {activeCategory.subcategories
                                     .slice(0, 3)
                                     .map((sub) => (
                                       <Link
                                         key={sub.id}
                                         href={`/product?category=${activeCategory.slug}&sub=${sub.slug}`}
-                                        className="block text-[9px] text-gray-500 hover:text-[#FFD700] transition-colors py-0.5 px-1.5 hover:bg-white/5 rounded"
+                                        className="block text-[9px] text-muted-foreground hover:text-primary transition-colors py-0.5 px-1.5 hover:bg-white/5 rounded"
                                       >
                                         • {sub.name}
                                       </Link>
@@ -176,7 +176,7 @@ export default function Header() {
                                   {activeCategory.subcategories.length > 3 && (
                                     <Link
                                       href={`/product?category=${activeCategory.slug}`}
-                                      className="block text-[8px] text-[#FFD700] hover:text-white transition-colors py-0.5 px-1.5 font-semibold"
+                                      className="block text-[8px] text-primary hover:text-white transition-colors py-0.5 px-1.5 font-semibold"
                                     >
                                       View All →
                                     </Link>
@@ -189,16 +189,16 @@ export default function Header() {
                       </div>
 
                       {/* Footer Strip */}
-                      <div className="bg-[#0a0a0a] px-5 py-2 border-t border-white/10 flex items-center justify-between">
+                      <div className="bg-card px-5 py-2 border-t border-white/10 flex items-center justify-between">
                         <Link
                           href="/product"
-                          className="text-[10px] text-gray-500 hover:text-white transition-colors uppercase tracking-wider"
+                          className="text-[10px] text-muted-foreground hover:text-white transition-colors uppercase tracking-wider"
                         >
                           View All Products
                         </Link>
                         <Link
                           href="/quick-purchase"
-                          className="text-[10px] text-[#FFD700] hover:text-white transition-colors uppercase tracking-wider font-semibold"
+                          className="text-[10px] text-primary hover:text-white transition-colors uppercase tracking-wider font-semibold"
                         >
                           Quick Purchase →
                         </Link>
@@ -211,7 +211,7 @@ export default function Header() {
               {/* Account - Desktop */}
               {loading ? (
                 <div className="hidden sm:flex flex-col items-center px-2">
-                  <div className="w-5 h-5 border-2 border-gray-600 border-t-[#FFD700] rounded-full animate-spin"></div>
+                  <div className="w-5 h-5 border-2 border-gray-600 border-t-primary rounded-full animate-spin"></div>
                 </div>
               ) : user ? (
                 <div
@@ -221,9 +221,9 @@ export default function Header() {
                 >
                   <IconUser
                     size={20}
-                    className="text-[#FFD700] transition-colors"
+                    className="text-primary transition-colors"
                   />
-                  <span className="text-[9px] uppercase font-semibold text-[#FFD700] mt-0.5 transition-colors truncate max-w-[60px]">
+                  <span className="text-[9px] uppercase font-semibold text-primary mt-0.5 transition-colors truncate max-w-[60px]">
                     {user.name?.split(" ")[0] || "User"}
                   </span>
 
@@ -232,13 +232,13 @@ export default function Header() {
                     <>
                       {/* Invisible bridge to prevent gap issues */}
                       <div className="absolute top-full right-0 left-0 h-2 bg-transparent"></div>
-                      
+
                       <div className="absolute top-full right-0 mt-2 bg-black border border-white/20 z-50 w-40 shadow-xl rounded-lg overflow-hidden">
                         <div className="px-4 py-3 border-b border-white/10">
                           <p className="text-xs text-white font-medium truncate">
                             {user.name}
                           </p>
-                          <p className="text-[10px] text-gray-500 truncate">
+                          <p className="text-[10px] text-muted-foreground truncate">
                             {user.email}
                           </p>
                         </div>
@@ -262,9 +262,9 @@ export default function Header() {
                 >
                   <IconUser
                     size={20}
-                    className="text-gray-300 group-hover:text-[#FFD700] transition-colors"
+                    className="text-muted-foreground group-hover:text-primary transition-colors"
                   />
-                  <span className="text-[9px] uppercase font-semibold text-gray-500 mt-0.5 group-hover:text-white transition-colors">
+                  <span className="text-[9px] uppercase font-semibold text-muted-foreground mt-0.5 group-hover:text-white transition-colors">
                     Login
                   </span>
                 </Link>
@@ -278,15 +278,15 @@ export default function Header() {
                 <div className="relative">
                   <IconShoppingCart
                     size={20}
-                    className="text-gray-300 group-hover:text-[#FFD700] transition-colors"
+                    className="text-muted-foreground group-hover:text-primary transition-colors"
                   />
                   {totalItems > 0 && (
-                    <span className="absolute -top-1.5 -right-1.5 bg-[#E31837] text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                    <span className="absolute -top-1.5 -right-1.5 bg-secondary text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                       {totalItems}
                     </span>
                   )}
                 </div>
-                <span className="text-[9px] uppercase font-semibold text-gray-500 mt-0.5 group-hover:text-white transition-colors">
+                <span className="text-[9px] uppercase font-semibold text-muted-foreground mt-0.5 group-hover:text-white transition-colors">
                   Cart
                 </span>
               </Link>
@@ -302,12 +302,12 @@ export default function Header() {
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2 pl-10 bg-[#1a1a1a] border border-white/10 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-[#FFD700] text-sm"
+                  className="w-full px-4 py-2 pl-10 bg-muted border border-white/10 rounded-full text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary text-sm"
                   autoFocus
                 />
                 <IconSearch
                   size={16}
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500"
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
                 />
               </div>
             </div>
@@ -316,7 +316,7 @@ export default function Header() {
       </div>
 
       {/* Category Navigation Bar - Desktop - Sleek Dark */}
-      <div className="hidden lg:block bg-[#111] border-t border-white/5">
+      <div className="hidden lg:block bg-background border-t border-white/5">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-3">
             <div className="flex items-center gap-8 mx-auto pl-32">
@@ -324,7 +324,7 @@ export default function Header() {
               {/* Centered Links with offset to balance */}
               <Link
                 href="/"
-                className="text-sm font-bold uppercase tracking-wider text-[#FFD700] hover:text-white transition-colors"
+                className="text-sm font-bold uppercase tracking-wider text-primary hover:text-white transition-colors"
               >
                 Home
               </Link>
@@ -332,14 +332,14 @@ export default function Header() {
                 <Link
                   key={category.id}
                   href={`/product?category=${category.slug}`}
-                  className="text-sm font-medium text-gray-400 hover:text-white transition-colors uppercase tracking-wide"
+                  className="text-sm font-medium text-muted-foreground hover:text-white transition-colors uppercase tracking-wide"
                 >
                   {category.name}
                 </Link>
               ))}
               <Link
                 href="/product"
-                className="text-sm font-bold uppercase tracking-wider text-[#E31837] hover:text-white transition-colors"
+                className="text-sm font-bold uppercase tracking-wider text-secondary hover:text-white transition-colors"
               >
                 Sale
               </Link>
@@ -348,9 +348,9 @@ export default function Header() {
             {/* Quick Buy - Right Aligned */}
             <Link
               href="/quick-purchase"
-              className="hidden lg:flex text-white hover:text-[#FFD700] transition-colors font-bold tracking-wide uppercase text-xs items-center gap-1 border border-white/20 px-3 py-1.5 rounded-sm hover:border-[#FFD700]"
+              className="hidden lg:flex text-white hover:text-primary transition-colors font-bold tracking-wide uppercase text-xs items-center gap-1 border border-white/20 px-3 py-1.5 rounded-sm hover:border-primary"
             >
-              <IconBolt size={16} className="text-[#E31837]" />
+              <IconBolt size={16} className="text-secondary" />
               Quick Purchase
             </Link>
           </div>
@@ -364,11 +364,11 @@ export default function Header() {
           onClick={() => setMobileMenuOpen(false)}
         >
           <div
-            className="absolute left-0 top-0 h-full w-[80%] max-w-sm bg-[#111] border-r border-white/10 overflow-y-auto"
+            className="absolute left-0 top-0 h-full w-[80%] max-w-sm bg-background border-r border-white/10 overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Menu Header */}
-            <div className="bg-[#0a0a0a] p-4 flex items-center justify-between border-b border-white/10">
+            <div className="bg-card p-4 flex items-center justify-between border-b border-white/10">
               <div className="flex items-center gap-2">
                 <span className="text-xl font-bold text-white tracking-tight">
                   SkySpark
@@ -376,7 +376,7 @@ export default function Header() {
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-white p-1 hover:text-[#E31837]"
+                className="text-white p-1 hover:text-secondary"
               >
                 <IconX size={24} />
               </button>
@@ -385,12 +385,12 @@ export default function Header() {
             {/* Mobile Menu Links */}
             <div className="p-4 space-y-2">
               <div className="mb-6">
-                <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">
+                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">
                   Account
                 </h3>
                 <Link
                   href="/login"
-                  className="flex items-center gap-3 py-2 text-gray-300 hover:text-white"
+                  className="flex items-center gap-3 py-2 text-muted-foreground hover:text-white"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <IconUser size={18} />
@@ -398,7 +398,7 @@ export default function Header() {
                 </Link>
                 <Link
                   href="/order-tracking"
-                  className="flex items-center gap-3 py-2 text-gray-300 hover:text-white"
+                  className="flex items-center gap-3 py-2 text-muted-foreground hover:text-white"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <IconHome size={18} />
@@ -407,18 +407,21 @@ export default function Header() {
               </div>
 
               <div>
-                <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">
+                <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">
                   Categories
                 </h3>
                 {categories.map((category) => (
                   <Link
                     key={category.id}
                     href={`/product?category=${category.slug}`}
-                    className="flex items-center justify-between py-2.5 text-gray-300 hover:text-[#FFD700] border-b border-white/5 last:border-0"
+                    className="flex items-center justify-between py-2.5 text-muted-foreground hover:text-primary border-b border-white/5 last:border-0"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="text-sm font-medium">{category.name}</span>
-                    <IconChevronRight size={14} className="text-gray-600" />
+                    <IconChevronRight
+                      size={14}
+                      className="text-muted-foreground"
+                    />
                   </Link>
                 ))}
               </div>
