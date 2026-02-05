@@ -36,7 +36,7 @@ export default function ProductDetailPage({
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <Header />
-        <div className="flex-1 flex flex-col items-center justify-center text-white">
+        <div className="flex-1 flex flex-col items-center justify-center text-foreground">
           <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
           <Link href="/" className="text-primary hover:underline">
             Return to Home
@@ -63,7 +63,7 @@ export default function ProductDetailPage({
         {/* Cinematic Breadcrumb - Floating */}
         <div className="absolute top-24 left-0 right-0 z-10 pointer-events-none">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="inline-flex items-center gap-2 text-xs text-white/50 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full pointer-events-auto">
+            <div className="inline-flex items-center gap-2 text-xs text-foreground/80 bg-background/80 border border-border backdrop-blur-sm px-4 py-2 rounded-full pointer-events-auto shadow-sm">
               <Link href="/" className="hover:text-primary transition-colors">
                 Home
               </Link>
@@ -75,7 +75,7 @@ export default function ProductDetailPage({
                 {category?.name}
               </Link>
               <IconChevronRight size={12} />
-              <span className="text-white">{product.name}</span>
+              <span className="text-foreground">{product.name}</span>
             </div>
           </div>
         </div>
@@ -109,37 +109,37 @@ export default function ProductDetailPage({
           </div>
 
           {/* Right Column: Product Details (Scrollable) */}
-          <div className="w-full lg:w-[45%] bg-background border-l border-white/5 relative z-10">
+          <div className="w-full lg:w-[45%] bg-background border-l border-border relative z-10">
             <div className="px-6 py-24 sm:px-12 sm:py-32 max-w-2xl mx-auto">
               {/* Brand & Title */}
               <div className="mb-8">
                 <p className="text-primary text-sm font-bold uppercase tracking-[0.2em] mb-4">
                   {product.brand}
                 </p>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
                   {product.name}
                 </h1>
                 <div className="flex items-center gap-4 text-sm">
                   <div className="flex text-primary">
                     <IconStarFilled size={16} />
-                    <span className="ml-2 font-bold text-white">
+                    <span className="ml-2 font-bold text-foreground">
                       {product.rating}
                     </span>
                   </div>
-                  <span className="text-gray-500">|</span>
-                  <span className="text-gray-400">
+                  <span className="text-muted-foreground">|</span>
+                  <span className="text-muted-foreground">
                     {product.reviews} Reviews
                   </span>
                 </div>
               </div>
 
               {/* Price */}
-              <div className="mb-10 py-6 border-y border-white/5 flex items-center gap-6">
-                <span className="text-5xl font-bold text-white">
+              <div className="mb-10 py-6 border-y border-border flex items-center gap-6">
+                <span className="text-5xl font-bold text-foreground">
                   ₹{currentVariant.price}
                 </span>
                 <div className="flex flex-col">
-                  <span className="text-gray-500 line-through text-lg">
+                  <span className="text-muted-foreground line-through text-lg">
                     ₹{currentVariant.mrp}
                   </span>
                   <span className="text-success font-bold uppercase tracking-wider text-sm">
@@ -150,7 +150,7 @@ export default function ProductDetailPage({
 
               {/* Variant Selector */}
               <div className="mb-10">
-                <p className="text-xs text-gray-500 uppercase tracking-widest font-bold mb-4">
+                <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold mb-4">
                   Pack Size
                 </p>
                 <div className="flex flex-wrap gap-3">
@@ -161,7 +161,7 @@ export default function ProductDetailPage({
                       className={`px-6 py-3 border text-sm font-bold transition-all min-w-[100px] ${
                         selectedVariant === i
                           ? "border-primary text-primary bg-primary/10"
-                          : "border-white/10 text-gray-400 hover:border-white/30"
+                          : "border-border text-muted-foreground hover:border-foreground/30"
                       }`}
                     >
                       {v.weight}
@@ -172,25 +172,25 @@ export default function ProductDetailPage({
 
               {/* Actions */}
               <div className="flex gap-4 mb-16">
-                <div className="flex items-center border border-white/10 h-14">
+                <div className="flex items-center border border-border h-14">
                   <button
                     onClick={() =>
                       quantity > 0 &&
                       updateQuantity(product.id, selectedVariant, quantity - 1)
                     }
-                    className="w-12 h-full flex items-center justify-center text-white hover:bg-white/5 transition-colors"
+                    className="w-12 h-full flex items-center justify-center text-foreground hover:bg-muted transition-colors"
                     disabled={quantity === 0}
                   >
                     <IconMinus size={18} />
                   </button>
-                  <span className="w-12 text-center font-bold text-white">
+                  <span className="w-12 text-center font-bold text-foreground">
                     {quantity}
                   </span>
                   <button
                     onClick={() =>
                       updateQuantity(product.id, selectedVariant, quantity + 1)
                     }
-                    className="w-12 h-full flex items-center justify-center text-white hover:bg-white/5 transition-colors"
+                    className="w-12 h-full flex items-center justify-center text-foreground hover:bg-muted transition-colors"
                   >
                     <IconPlus size={18} />
                   </button>
@@ -198,12 +198,12 @@ export default function ProductDetailPage({
 
                 <button
                   onClick={() => addToCart(product, selectedVariant)}
-                  className="flex-1 bg-white text-black h-14 font-bold uppercase tracking-widest hover:bg-primary transition-colors flex items-center justify-center gap-3"
+                  className="flex-1 bg-primary text-primary-foreground h-14 font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors flex items-center justify-center gap-3"
                 >
                   {quantity > 0 ? "Update Cart" : "Add to Cart"}
                 </button>
 
-                <button className="w-14 h-14 border border-white/10 flex items-center justify-center text-white hover:text-secondary hover:border-secondary transition-colors">
+                <button className="w-14 h-14 border border-border flex items-center justify-center text-foreground hover:text-secondary hover:border-secondary transition-colors">
                   <IconHeart size={20} />
                 </button>
               </div>
@@ -211,30 +211,32 @@ export default function ProductDetailPage({
               {/* Description Features */}
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-white font-bold uppercase tracking-wider mb-4">
+                  <h3 className="text-foreground font-bold uppercase tracking-wider mb-4">
                     Description
                   </h3>
-                  <p className="text-gray-400 leading-relaxed text-sm lg:text-base">
+                  <p className="text-muted-foreground leading-relaxed text-sm lg:text-base">
                     {product.description}
                   </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-card p-4 border border-white/5">
+                  <div className="bg-card p-4 border border-border">
                     <IconTruck className="text-primary mb-3" />
-                    <p className="text-white font-bold text-sm">
+                    <p className="text-foreground font-bold text-sm">
                       Express Shipping
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-muted-foreground mt-1">
                       Safe & Secure Delivery
                     </p>
                   </div>
-                  <div className="bg-card p-4 border border-white/5">
+                  <div className="bg-card p-4 border border-border">
                     <IconShieldCheck className="text-primary mb-3" />
-                    <p className="text-white font-bold text-sm">
+                    <p className="text-foreground font-bold text-sm">
                       Quality Assured
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">Factory Direct</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Factory Direct
+                    </p>
                   </div>
                 </div>
               </div>
@@ -244,10 +246,10 @@ export default function ProductDetailPage({
 
         {/* Similar Products Section */}
         {relatedProducts.length > 0 && (
-          <div className="bg-background border-t border-white/5 py-24">
+          <div className="bg-background border-t border-border py-24">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
                   You May Also Like
                 </h2>
                 <Link

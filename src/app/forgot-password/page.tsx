@@ -59,13 +59,13 @@ export default function ForgotPasswordPage() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-black">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-background">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-[url('/assets/images/hero_fireworks.png')] bg-cover bg-center opacity-5"></div>
         <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
 
-        <Card className="w-full max-w-md bg-card border-white/10 relative z-10">
+        <Card className="w-full max-w-md bg-card border-border relative z-10">
           <CardHeader className="text-center">
             {/* Logo */}
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -79,17 +79,19 @@ export default function ForgotPasswordPage() {
                 />
               </div>
               <div>
-                <span className="text-xl font-bold text-white">SkySpark</span>
-                <p className="text-xs text-gray-400 uppercase tracking-wider">
+                <span className="text-xl font-bold text-foreground">
+                  SkySpark
+                </span>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider">
                   Fireworks Store
                 </p>
               </div>
             </div>
 
-            <CardTitle className="text-2xl text-white">
+            <CardTitle className="text-2xl text-foreground">
               Check Your Email
             </CardTitle>
-            <CardDescription className="text-gray-400">
+            <CardDescription className="text-muted-foreground">
               We&apos;ve sent a password reset link to{" "}
               <span className="text-primary font-medium">{email}</span>
             </CardDescription>
@@ -102,14 +104,14 @@ export default function ForgotPasswordPage() {
               </div>
             </div>
 
-            <p className="text-sm text-gray-500 text-center">
+            <p className="text-sm text-muted-foreground text-center">
               If you don&apos;t see the email, check your spam folder or try
               again.
             </p>
 
             <Button
               asChild
-              className="w-full bg-primary text-black hover:bg-white font-bold"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold"
             >
               <Link href="/login">
                 <IconArrowLeft size={18} className="mr-2" />
@@ -123,13 +125,13 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-black">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[url('/assets/images/hero_fireworks.png')] bg-cover bg-center opacity-5"></div>
       <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
 
-      <Card className="w-full max-w-md bg-card border-white/10 relative z-10">
+      <Card className="w-full max-w-md bg-card border-border relative z-10">
         <CardHeader className="text-center">
           {/* Logo */}
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -143,15 +145,19 @@ export default function ForgotPasswordPage() {
               />
             </div>
             <div>
-              <span className="text-xl font-bold text-white">SkySpark</span>
-              <p className="text-xs text-gray-400 uppercase tracking-wider">
+              <span className="text-xl font-bold text-foreground">
+                SkySpark
+              </span>
+              <p className="text-xs text-muted-foreground uppercase tracking-wider">
                 Fireworks Store
               </p>
             </div>
           </div>
 
-          <CardTitle className="text-2xl text-white">Forgot Password</CardTitle>
-          <CardDescription className="text-gray-400">
+          <CardTitle className="text-2xl text-foreground">
+            Forgot Password
+          </CardTitle>
+          <CardDescription className="text-muted-foreground">
             Enter your email address and we&apos;ll send you a link to reset
             your password
           </CardDescription>
@@ -168,7 +174,7 @@ export default function ForgotPasswordPage() {
               <div className="relative">
                 <IconMail
                   size={18}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                 />
                 <input
                   id="email"
@@ -181,7 +187,7 @@ export default function ForgotPasswordPage() {
                     if (error) setError("");
                   }}
                   disabled={isLoading}
-                  className="w-full h-12 pl-10 pr-4 bg-muted border border-white/10 rounded text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors disabled:opacity-50"
+                  className="w-full h-12 pl-10 pr-4 bg-muted border border-border rounded text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors disabled:opacity-50"
                 />
               </div>
               {error && <p className="text-sm text-red-400">{error}</p>}
@@ -189,7 +195,7 @@ export default function ForgotPasswordPage() {
 
             <Button
               type="submit"
-              className="w-full h-12 bg-primary text-black hover:bg-white font-bold disabled:opacity-50"
+              className="w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-bold disabled:opacity-50"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -204,7 +210,9 @@ export default function ForgotPasswordPage() {
           </form>
 
           <div className="text-center text-sm">
-            <span className="text-gray-400">Remember your password? </span>
+            <span className="text-muted-foreground">
+              Remember your password?{" "}
+            </span>
             <Link
               href="/login"
               className="text-primary font-medium hover:underline"

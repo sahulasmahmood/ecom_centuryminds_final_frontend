@@ -5,9 +5,9 @@ import Link from "next/link";
 
 export default function MidBannerCategory() {
   return (
-    <section className="py-12 bg-background border-b border-white/5">
+    <section className="py-12 bg-background border-b border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-8 tracking-tight">
           Collection Spotlight
         </h2>
 

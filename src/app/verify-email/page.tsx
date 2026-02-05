@@ -103,13 +103,13 @@ function VerifyEmailContent() {
   }, [searchParams]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-black">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[url('/assets/images/hero_fireworks.png')] bg-cover bg-center opacity-5"></div>
       <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
 
-      <Card className="w-full max-w-md bg-card border-white/10 relative z-10">
+      <Card className="w-full max-w-md bg-card border-border relative z-10">
         <CardHeader className="text-center">
           {/* Logo */}
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -123,25 +123,29 @@ function VerifyEmailContent() {
               />
             </div>
             <div>
-              <span className="text-xl font-bold text-white">SkySpark</span>
-              <p className="text-xs text-gray-400 uppercase tracking-wider">
+              <span className="text-xl font-bold text-foreground">
+                SkySpark
+              </span>
+              <p className="text-xs text-muted-foreground uppercase tracking-wider">
                 Fireworks Store
               </p>
             </div>
           </div>
 
-          <CardTitle className="text-2xl text-white">
+          <CardTitle className="text-2xl text-foreground">
             {status === "loading" && "Verifying Email"}
             {status === "success" && "Email Verified"}
             {status === "error" && "Verification Failed"}
           </CardTitle>
-          <CardDescription className="text-gray-400">{message}</CardDescription>
+          <CardDescription className="text-muted-foreground">
+            {message}
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {status === "loading" && (
             <div className="flex justify-center py-8">
               <div className="relative">
-                <div className="animate-spin rounded-full h-16 w-16 border-4 border-white/10 border-t-primary"></div>
+                <div className="animate-spin rounded-full h-16 w-16 border-4 border-border border-t-primary"></div>
                 <IconSparkles
                   size={24}
                   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary animate-pulse"
@@ -160,7 +164,7 @@ function VerifyEmailContent() {
               </div>
               <Button
                 asChild
-                className="w-full bg-primary text-black hover:bg-white font-bold"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold"
               >
                 <Link href="/login">Go to Sign In</Link>
               </Button>
@@ -179,17 +183,17 @@ function VerifyEmailContent() {
                 <Button
                   asChild
                   variant="outline"
-                  className="w-full border-white/10 text-white hover:bg-white/5"
+                  className="w-full border-border text-foreground hover:bg-muted"
                 >
                   <Link href="/login">Back to Sign In</Link>
                 </Button>
                 <Button
                   asChild
-                  className="w-full bg-primary text-black hover:bg-white font-bold"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold"
                 >
                   <Link href="/register">Register Again</Link>
                 </Button>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-muted-foreground">
                   Need help?{" "}
                   <Link
                     href="/contact"
@@ -211,20 +215,20 @@ export default function VerifyEmailPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center p-4 bg-black">
-          <Card className="w-full max-w-md bg-card border-white/10">
+        <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+          <Card className="w-full max-w-md bg-card border-border">
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl text-white">
+              <CardTitle className="text-2xl text-foreground">
                 Verifying Email
               </CardTitle>
-              <CardDescription className="text-gray-400">
+              <CardDescription className="text-muted-foreground">
                 Please wait...
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex justify-center py-8">
                 <div className="relative">
-                  <div className="animate-spin rounded-full h-16 w-16 border-4 border-white/10 border-t-primary"></div>
+                  <div className="animate-spin rounded-full h-16 w-16 border-4 border-border border-t-primary"></div>
                   <IconSparkles
                     size={24}
                     className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary animate-pulse"

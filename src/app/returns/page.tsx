@@ -10,9 +10,9 @@ export default function ReturnsPage() {
       <Header />
       <div className="min-h-screen bg-background">
         {/* Breadcrumb */}
-        <div className="bg-card border-b border-white/5">
+        <div className="bg-card border-b border-border">
           <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center gap-2 text-sm text-gray-400">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Link href="/" className="hover:text-primary transition-colors">
                 Home
               </Link>
@@ -26,20 +26,20 @@ export default function ReturnsPage() {
 
         {/* Content */}
         <div className="container mx-auto px-4 py-12">
-          <div className="max-w-[90rem] mx-auto bg-card border border-white/10 rounded-sm p-8 sm:p-12">
-            <h1 className="text-4xl font-bold text-white mb-4 tracking-tight">
+          <div className="max-w-[90rem] mx-auto bg-card border border-border rounded-sm p-8 sm:p-12">
+            <h1 className="text-4xl font-bold text-foreground mb-4 tracking-tight">
               Returns & Exchanges Policy
             </h1>
-            <p className="text-gray-500 mb-10">
+            <p className="text-muted-foreground mb-10">
               Last updated: December 16, 2024
             </p>
 
             <div className="prose prose-invert max-w-none">
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   Our Commitment
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   At SkySpark, we strive to deliver premium quality fireworks.
                   Due to the nature of our products (Explosives Class 1.4/1.3),
                   we have strict safety and return guidelines to ensure the
@@ -48,17 +48,19 @@ export default function ReturnsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   Return Eligibility
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   Fireworks are sensitive goods. We generally{" "}
-                  <strong className="text-white">do not accept returns</strong>{" "}
+                  <strong className="text-foreground">
+                    do not accept returns
+                  </strong>{" "}
                   once the package has been opened or used, for safety reasons.
                   However, returns are accepted under the following specific
                   conditions:
                 </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-400 mb-4 marker:text-primary">
+                <ul className="list-disc pl-6 space-y-2 text-muted-foreground mb-4 marker:text-primary">
                   <li>
                     The package was received in a damaged condition (External
                     damage).
@@ -76,13 +78,13 @@ export default function ReturnsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   Non-Returnable Items
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   For safety compliance, the following cannot be returned:
                 </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-400 mb-4 marker:text-primary">
+                <ul className="list-disc pl-6 space-y-2 text-muted-foreground mb-4 marker:text-primary">
                   <li>
                     Any firework item that has been lit or attempted to be lit.
                   </li>
@@ -96,36 +98,36 @@ export default function ReturnsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   How to Return an Item
                 </h2>
                 <div className="space-y-6">
-                  <div className="bg-muted p-6 border border-white/5 rounded-sm">
+                  <div className="bg-muted p-6 border border-border rounded-sm">
                     <h3 className="text-lg font-bold text-primary mb-2 uppercase">
                       Step 1: Report Issue
                     </h3>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-muted-foreground text-sm">
                       Contact our support team within 24 hours of delivery. Send
                       photos/videos of the damaged box/item to
                       support@skyspark.com.
                     </p>
                   </div>
-                  <div className="bg-muted p-6 border border-white/5 rounded-sm">
+                  <div className="bg-muted p-6 border border-border rounded-sm">
                     <h3 className="text-lg font-bold text-primary mb-2 uppercase">
                       Step 2: Verification
                     </h3>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-muted-foreground text-sm">
                       Our quality team will review your claim. Since fireworks
                       cannot be easily shipped back by customers via standard
                       courier, we may offer a refund or replacement without
                       requiring a return shipment, depending on the severity.
                     </p>
                   </div>
-                  <div className="bg-muted p-6 border border-white/5 rounded-sm">
+                  <div className="bg-muted p-6 border border-border rounded-sm">
                     <h3 className="text-lg font-bold text-primary mb-2 uppercase">
                       Step 3: Resolution
                     </h3>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-muted-foreground text-sm">
                       Approved refunds are processed within 5-7 business days to
                       the original payment method. Replacements are shipped
                       immediately if stock is available.
@@ -135,10 +137,10 @@ export default function ReturnsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   Damaged or Defective Items
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   If a cracker fails to light (dud), please soak it in water and
                   dispose of it safely. We do not ask customers to return live
                   duds for safety reasons. We will issue a partial refund or
@@ -146,14 +148,14 @@ export default function ReturnsPage() {
                 </p>
               </section>
 
-              <section className="mb-8 p-6 bg-muted border border-white/10 rounded-sm">
-                <h2 className="text-xl font-bold text-white mb-4">
+              <section className="mb-8 p-6 bg-muted border border-border rounded-sm">
+                <h2 className="text-xl font-bold text-foreground mb-4">
                   Contact Support
                 </h2>
-                <p className="text-gray-400 text-sm mb-4">
+                <p className="text-muted-foreground text-sm mb-4">
                   For return requests:
                 </p>
-                <ul className="list-none space-y-2 text-gray-300 text-sm">
+                <ul className="list-none space-y-2 text-muted-foreground text-sm">
                   <li>
                     <span className="text-primary mr-2">✉️</span>{" "}
                     support@skyspark.com

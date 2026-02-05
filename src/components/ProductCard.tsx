@@ -26,7 +26,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div
-      className="group relative bg-transparent hover:bg-card transition-colors duration-300 rounded-sm p-4 h-full flex flex-col"
+      className="group relative bg-transparent hover:bg-muted/50 transition-colors duration-300 rounded-sm p-4 h-full flex flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -69,14 +69,14 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.brand}
         </p>
         <Link href={`/product/${product.id}`}>
-          <h3 className="text-white font-medium text-sm leading-snug mb-2 hover:text-primary transition-colors line-clamp-2">
+          <h3 className="text-foreground font-medium text-sm leading-snug mb-2 hover:text-primary transition-colors line-clamp-2">
             {product.name}
           </h3>
         </Link>
 
         <div className="mt-auto pt-2">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <span className="text-lg font-bold text-white">
+            <span className="text-lg font-bold text-foreground">
               ₹{currentVariant.price}
             </span>
             {currentVariant.discount > 0 && (
@@ -96,7 +96,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     e.preventDefault();
                     setSelectedVariant(i);
                   }}
-                  className={`text-[10px] px-2 py-1 border rounded-sm transition-colors ${selectedVariant === i ? "border-primary text-primary" : "border-white/10 text-muted-foreground hover:border-white/30"}`}
+                  className={`text-[10px] px-2 py-1 border rounded-sm transition-colors ${selectedVariant === i ? "border-primary text-primary" : "border-border text-muted-foreground hover:border-muted-foreground"}`}
                 >
                   {v.weight}
                 </button>

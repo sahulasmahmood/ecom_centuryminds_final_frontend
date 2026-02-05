@@ -196,15 +196,15 @@ export default function ProductPage() {
             <span className="text-secondary font-bold tracking-[0.2em] uppercase text-sm sm:text-base mb-4 block">
               Premium Collection
             </span>
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold text-white tracking-tight mb-6">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold text-foreground tracking-tight mb-6">
               ALL PRODUCTS
             </h1>
-            <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
+            <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
               <Link href="/" className="hover:text-primary transition-colors">
                 Home
               </Link>
               <span className="text-primary">•</span>
-              <span className="text-white">Shop</span>
+              <span className="text-foreground">Shop</span>
             </div>
           </div>
         </div>
@@ -212,15 +212,15 @@ export default function ProductPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-20">
           {/* Horizontal Chip-Based Filter Bar */}
           <div className="mb-8">
-            <div className="bg-card border border-white/10 rounded-sm p-4">
+            <div className="bg-card border border-border rounded-sm p-4">
               {/* Filter Header */}
-              <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/5">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-border">
                 <div className="flex items-center gap-2">
                   <IconAdjustmentsHorizontal
                     size={18}
                     className="text-primary"
                   />
-                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                     Filters
                   </span>
                 </div>
@@ -234,8 +234,8 @@ export default function ProductPage() {
                       Clear All
                     </button>
                   )}
-                  <p className="text-gray-500 text-xs">
-                    <span className="text-white font-bold">
+                  <p className="text-muted-foreground text-xs">
+                    <span className="text-foreground font-bold">
                       {filteredProducts.length}
                     </span>{" "}
                     products
@@ -253,8 +253,8 @@ export default function ProductPage() {
                     onClick={() => handleCategorySelect(null)}
                     className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide transition-all border ${
                       selectedCategory === null
-                        ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
-                        : "bg-muted text-muted-foreground border-white/10 hover:border-primary hover:text-white"
+                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                        : "bg-muted text-muted-foreground border-border hover:border-primary hover:text-foreground"
                     }`}
                   >
                     All
@@ -265,8 +265,8 @@ export default function ProductPage() {
                       onClick={() => handleCategorySelect(category.id)}
                       className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide transition-all border flex items-center gap-2 ${
                         selectedCategory === category.id
-                          ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
-                          : "bg-muted text-muted-foreground border-white/10 hover:border-primary hover:text-white"
+                          ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                          : "bg-muted text-muted-foreground border-border hover:border-primary hover:text-foreground"
                       }`}
                     >
                       <span>{category.icon}</span>
@@ -286,8 +286,8 @@ export default function ProductPage() {
                     onClick={() => handlePriceRangeSelect("all")}
                     className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide transition-all border ${
                       priceRange === "all"
-                        ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
-                        : "bg-muted text-muted-foreground border-white/10 hover:border-primary hover:text-white"
+                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                        : "bg-muted text-muted-foreground border-border hover:border-primary hover:text-foreground"
                     }`}
                   >
                     All Prices
@@ -296,8 +296,8 @@ export default function ProductPage() {
                     onClick={() => handlePriceRangeSelect("under-500")}
                     className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all border ${
                       priceRange === "under-500"
-                        ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
-                        : "bg-muted text-muted-foreground border-white/10 hover:border-primary hover:text-white"
+                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                        : "bg-muted text-muted-foreground border-border hover:border-primary hover:text-foreground"
                     }`}
                   >
                     Under ₹500
@@ -306,8 +306,8 @@ export default function ProductPage() {
                     onClick={() => handlePriceRangeSelect("500-1000")}
                     className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all border ${
                       priceRange === "500-1000"
-                        ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
-                        : "bg-muted text-muted-foreground border-white/10 hover:border-primary hover:text-white"
+                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                        : "bg-muted text-muted-foreground border-border hover:border-primary hover:text-foreground"
                     }`}
                   >
                     ₹500 - ₹1000
@@ -316,8 +316,8 @@ export default function ProductPage() {
                     onClick={() => handlePriceRangeSelect("1000-2000")}
                     className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all border ${
                       priceRange === "1000-2000"
-                        ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
-                        : "bg-muted text-muted-foreground border-white/10 hover:border-primary hover:text-white"
+                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                        : "bg-muted text-muted-foreground border-border hover:border-primary hover:text-foreground"
                     }`}
                   >
                     ₹1000 - ₹2000
@@ -326,8 +326,8 @@ export default function ProductPage() {
                     onClick={() => handlePriceRangeSelect("2000-5000")}
                     className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all border ${
                       priceRange === "2000-5000"
-                        ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
-                        : "bg-muted text-muted-foreground border-white/10 hover:border-primary hover:text-white"
+                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                        : "bg-muted text-muted-foreground border-border hover:border-primary hover:text-foreground"
                     }`}
                   >
                     ₹2000 - ₹5000
@@ -336,8 +336,8 @@ export default function ProductPage() {
                     onClick={() => handlePriceRangeSelect("above-5000")}
                     className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all border ${
                       priceRange === "above-5000"
-                        ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
-                        : "bg-muted text-muted-foreground border-white/10 hover:border-primary hover:text-white"
+                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                        : "bg-muted text-muted-foreground border-border hover:border-primary hover:text-foreground"
                     }`}
                   >
                     Above ₹5000
@@ -346,8 +346,8 @@ export default function ProductPage() {
                     onClick={() => handlePriceRangeSelect("custom")}
                     className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide transition-all border ${
                       priceRange === "custom"
-                        ? "bg-primary text-black border-primary shadow-lg shadow-primary/20"
-                        : "bg-muted text-muted-foreground border-white/10 hover:border-primary hover:text-white"
+                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                        : "bg-muted text-muted-foreground border-border hover:border-primary hover:text-foreground"
                     }`}
                   >
                     Custom Range
@@ -356,8 +356,8 @@ export default function ProductPage() {
 
                 {/* Custom Price Input */}
                 {showCustomPrice && (
-                  <div className="bg-muted border border-white/10 rounded-sm p-4 mt-2">
-                    <h5 className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                  <div className="bg-muted border border-border rounded-sm p-4 mt-2">
+                    <h5 className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-3">
                       Custom Price Range
                     </h5>
                     <div className="flex items-center gap-3">
@@ -374,7 +374,7 @@ export default function ProductPage() {
                             value={customMinPrice}
                             onChange={(e) => setCustomMinPrice(e.target.value)}
                             placeholder="0"
-                            className="w-full bg-card border border-white/10 rounded px-3 pl-6 py-2 text-xs text-white focus:outline-none focus:border-primary transition-colors"
+                            className="w-full bg-card border border-border text-foreground focus:outline-none focus:border-primary transition-colors"
                           />
                         </div>
                       </div>
@@ -392,7 +392,7 @@ export default function ProductPage() {
                             value={customMaxPrice}
                             onChange={(e) => setCustomMaxPrice(e.target.value)}
                             placeholder="10000"
-                            className="w-full bg-card border border-white/10 rounded px-3 pl-6 py-2 text-xs text-white focus:outline-none focus:border-primary transition-colors"
+                            className="w-full bg-card border border-border text-foreground focus:outline-none focus:border-primary transition-colors"
                           />
                         </div>
                       </div>
@@ -412,14 +412,14 @@ export default function ProductPage() {
           {/* Top Bar - Results & Sort */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-4 flex-wrap">
-              <p className="text-gray-400 text-sm">
+              <p className="text-muted-foreground text-sm">
                 Showing{" "}
                 <span className="text-primary font-bold">
                   {startIndex + 1}-
                   {Math.min(startIndex + itemsPerPage, filteredProducts.length)}
                 </span>{" "}
                 of{" "}
-                <span className="text-white font-bold">
+                <span className="text-foreground font-bold">
                   {filteredProducts.length}
                 </span>
               </p>
@@ -430,7 +430,7 @@ export default function ProductPage() {
                       {categories.find((c) => c.id === selectedCategory)?.name}
                       <button
                         onClick={() => handleCategorySelect(null)}
-                        className="hover:text-white"
+                        className="hover:text-foreground"
                       >
                         <IconX size={12} />
                       </button>
@@ -471,7 +471,7 @@ export default function ProductPage() {
               <div className="relative flex-1 sm:flex-none z-20">
                 <button
                   onClick={() => setIsSortOpen(!isSortOpen)}
-                  className="w-full sm:w-[180px] flex items-center justify-between bg-card border border-white/10 rounded-full px-4 py-2.5 text-xs text-white focus:outline-none focus:border-primary hover:border-white/30 transition-colors font-semibold"
+                  className="w-full sm:w-[180px] flex items-center justify-between bg-card border border-border rounded-full px-4 py-2.5 text-xs text-foreground focus:outline-none focus:border-primary hover:border-foreground/30 transition-colors font-semibold"
                 >
                   <span className="truncate mr-2">
                     {sortBy === "relevance" && "Relevance"}
@@ -486,7 +486,7 @@ export default function ProductPage() {
                 </button>
 
                 {isSortOpen && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-white/10 rounded-sm shadow-2xl overflow-hidden">
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-sm shadow-2xl overflow-hidden">
                     {[
                       { value: "relevance", label: "Relevance" },
                       { value: "price-low", label: "Price: Low to High" },
@@ -501,8 +501,8 @@ export default function ProductPage() {
                         }}
                         className={`w-full text-left px-4 py-2.5 text-xs transition-colors hover:bg-white/5 ${
                           sortBy === option.value
-                            ? "text-primary font-bold bg-white/5"
-                            : "text-gray-300"
+                            ? "text-primary font-bold bg-muted"
+                            : "text-muted-foreground"
                         }`}
                       >
                         {option.label}
@@ -522,9 +522,9 @@ export default function ProductPage() {
               ))}
             </div>
           ) : (
-            <div className="py-20 text-center border border-white/10 rounded-sm bg-card">
+            <div className="py-20 text-center border border-border rounded-sm bg-card">
               <div className="text-4xl mb-4">🎆</div>
-              <h3 className="text-lg font-bold text-white mb-2">
+              <h3 className="text-lg font-bold text-foreground mb-2">
                 No products found
               </h3>
               <p className="text-sm text-gray-500 mb-4">

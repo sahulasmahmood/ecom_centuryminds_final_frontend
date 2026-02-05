@@ -87,41 +87,41 @@ export default function FAQPage() {
     <>
       <Header />
       <div className="min-h-screen bg-background">
-        <div className="bg-card border-b border-white/5">
+        <div className="bg-card border-b border-border">
           <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
             <div className="flex items-center gap-2 text-xs sm:text-sm">
               <Link
                 href="/"
-                className="text-gray-400 hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
                 Home
               </Link>
-              <span className="text-gray-600">/</span>
-              <span className="text-white font-medium">FAQ</span>
+              <span className="text-muted-foreground">/</span>
+              <span className="text-foreground font-medium">FAQ</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-card border-b border-white/5 py-10 sm:py-16 relative overflow-hidden">
+        <div className="bg-card border-b border-border py-10 sm:py-16 relative overflow-hidden">
           <div className="absolute top-0 left-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
           <div className="container mx-auto px-3 sm:px-4 text-center relative z-10">
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-2 tracking-tight">
               Frequently Asked Questions
             </h1>
-            <p className="text-gray-400 mb-8 text-sm sm:text-base">
+            <p className="text-muted-foreground mb-8 text-sm sm:text-base">
               Find answers to common questions about your fireworks orders
             </p>
             <div className="max-w-md mx-auto relative">
               <IconSearch
                 size={20}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
               />
               <input
                 type="text"
                 placeholder="Search for answers..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-muted border border-white/10 rounded-sm focus:outline-none focus:border-primary text-sm text-white placeholder:text-muted-foreground transition-colors"
+                className="w-full pl-12 pr-4 py-3 bg-muted border border-border rounded-sm focus:outline-none focus:border-primary text-sm text-foreground placeholder:text-muted-foreground transition-colors"
               />
             </div>
           </div>
@@ -132,9 +132,9 @@ export default function FAQPage() {
             {filteredCategories.map((category) => (
               <div
                 key={category.id}
-                className="bg-card border border-white/10 rounded-sm p-6"
+                className="bg-card border border-border rounded-sm p-6"
               >
-                <h2 className="text-lg font-bold text-white mb-4 uppercase tracking-wide border-b border-white/5 pb-2">
+                <h2 className="text-lg font-bold text-foreground mb-4 uppercase tracking-wide border-b border-border pb-2">
                   {category.title}
                 </h2>
                 <div className="space-y-2">
@@ -144,22 +144,22 @@ export default function FAQPage() {
                     return (
                       <div
                         key={index}
-                        className="border-b border-white/5 last:border-0 pb-2 last:pb-0"
+                        className="border-b border-border last:border-0 pb-2 last:pb-0"
                       >
                         <button
                           onClick={() => toggleFAQ(category.id, index)}
                           className="w-full flex items-center justify-between text-left py-3 hover:text-primary transition-colors group"
                         >
-                          <span className="font-medium text-gray-200 text-sm sm:text-base pr-4 group-hover:text-primary transition-colors">
+                          <span className="font-medium text-foreground text-sm sm:text-base pr-4 group-hover:text-primary transition-colors">
                             {faq.question}
                           </span>
                           <IconChevronDown
                             size={18}
-                            className={`text-gray-500 transition-transform flex-shrink-0 ${isOpen ? "rotate-180 text-primary" : ""}`}
+                            className={`text-muted-foreground transition-transform flex-shrink-0 ${isOpen ? "rotate-180 text-primary" : ""}`}
                           />
                         </button>
                         {isOpen && (
-                          <p className="text-gray-400 text-sm leading-relaxed pb-3">
+                          <p className="text-muted-foreground text-sm leading-relaxed pb-3">
                             {faq.answer}
                           </p>
                         )}
@@ -172,15 +172,15 @@ export default function FAQPage() {
           </div>
 
           <div className="max-w-2xl mx-auto mt-12 bg-muted border border-dashed border-white/20 rounded-sm p-8 text-center">
-            <h3 className="text-lg font-bold text-white mb-2">
+            <h3 className="text-lg font-bold text-foreground mb-2">
               Still have questions?
             </h3>
-            <p className="mb-6 text-gray-400 text-sm">
+            <p className="mb-6 text-muted-foreground text-sm">
               Our support team is here to help you celebrate safely.
             </p>
             <Link
               href="/contact"
-              className="inline-block bg-primary text-black px-8 py-3 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-colors text-sm"
+              className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-sm font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors text-sm"
             >
               Contact Support
             </Link>

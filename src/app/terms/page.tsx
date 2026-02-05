@@ -10,34 +10,36 @@ export default function TermsPage() {
       <Header />
       <div className="min-h-screen bg-background">
         {/* Breadcrumb */}
-        <div className="bg-card border-b border-white/5">
+        <div className="bg-card border-b border-border">
           <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center gap-2 text-sm text-gray-400">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Link href="/" className="hover:text-primary transition-colors">
                 Home
               </Link>
               <IconChevronRight size={16} className="text-gray-600" />
-              <span className="text-white font-medium">Terms & Conditions</span>
+              <span className="text-foreground font-medium">
+                Terms & Conditions
+              </span>
             </div>
           </div>
         </div>
 
         {/* Content */}
         <div className="container mx-auto px-4 py-12">
-          <div className="max-w-[90rem] mx-auto bg-card border border-white/10 rounded-sm p-8 sm:p-12">
-            <h1 className="text-4xl font-bold text-white mb-4 tracking-tight">
+          <div className="max-w-[90rem] mx-auto bg-card border border-border rounded-sm p-8 sm:p-12">
+            <h1 className="text-4xl font-bold text-foreground mb-4 tracking-tight">
               Terms & Conditions
             </h1>
-            <p className="text-gray-500 mb-10">
+            <p className="text-muted-foreground mb-10">
               Last updated: December 16, 2024
             </p>
 
             <div className="prose prose-invert max-w-none">
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   1. Agreement to Terms
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   By accessing and using SkySpark website and services, you
                   accept and agree to be bound by the terms and provision of
                   this agreement. Purchasing fireworks from our platform implies
@@ -46,14 +48,14 @@ export default function TermsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   2. Use of Our Service
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   You agree to use our service only for lawful purposes.
                   Specifically concerning fireworks:
                 </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-400 mb-4 marker:text-primary">
+                <ul className="list-disc pl-6 space-y-2 text-muted-foreground mb-4 marker:text-primary">
                   <li>
                     You must be at least 18 years of age to purchase from our
                     store.
@@ -73,14 +75,14 @@ export default function TermsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   3. Account Registration
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   To place orders, you may be required to register. You agree
                   to:
                 </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-400 mb-4 marker:text-primary">
+                <ul className="list-disc pl-6 space-y-2 text-muted-foreground mb-4 marker:text-primary">
                   <li>Provide accurate legal name and contact information.</li>
                   <li>
                     Maintain the confidentiality of your account credentials.
@@ -93,14 +95,14 @@ export default function TermsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   4. Products and Pricing
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   We sell Class 1.4/1.3 explosives (consumer fireworks). We
                   reserve the right to:
                 </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-400 mb-4 marker:text-primary">
+                <ul className="list-disc pl-6 space-y-2 text-muted-foreground mb-4 marker:text-primary">
                   <li>
                     Limit quantities to ensure compliance with storage
                     regulations.
@@ -110,20 +112,20 @@ export default function TermsPage() {
                   </li>
                   <li>Refuse orders to restricted pincodes.</li>
                 </ul>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   Prices are in Indian Rupees (₹) and may fluctuate based on raw
                   material costs in Sivakasi.
                 </p>
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   5. Orders and Payment
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   By placing an order, you warrant that:
                 </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-400 mb-4 marker:text-primary">
+                <ul className="list-disc pl-6 space-y-2 text-muted-foreground mb-4 marker:text-primary">
                   <li>
                     You are legally capable of entering into binding contracts.
                   </li>
@@ -137,10 +139,10 @@ export default function TermsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   6. Delivery
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   Delivery times are estimates. Unlike standard courier
                   products, fireworks require specialized transport. We are not
                   liable for delays caused by regulatory checks, weather
@@ -149,20 +151,20 @@ export default function TermsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   7. Intellectual Property
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   The service, content, and branding of SkySpark are owned by us
                   and are protected by valid copyright and trademark laws.
                 </p>
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   8. Limitation of Liability
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   SkySpark shall not be liable for any injury, damage, or loss
                   resulting from the improper use, storage, or handling of our
                   products. The user assumes all risks associated with the use
@@ -171,10 +173,10 @@ export default function TermsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   9. Governing Law
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   These Terms shall be governed by the laws of India.
                   Jurisdiction for any disputes shall be with the courts in
                   Sivakasi, Tamil Nadu.
@@ -182,10 +184,10 @@ export default function TermsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   10. Changes to Terms
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   We reserve the right to modify these Terms. Continued use of
                   the service after changes constitutes acceptance of the new
                   Terms.
@@ -193,14 +195,14 @@ export default function TermsPage() {
               </section>
 
               <section className="mb-10">
-                <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide border-b border-white/10 pb-2">
+                <h2 className="text-2xl font-bold text-foreground mb-6 uppercase tracking-wide border-b border-border pb-2">
                   Contact Information
                 </h2>
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   If you have any questions about these Terms, please contact
                   us:
                 </p>
-                <ul className="list-none space-y-2 text-gray-400">
+                <ul className="list-none space-y-2 text-muted-foreground">
                   <li>
                     <strong className="text-primary">Email:</strong>{" "}
                     legal@skyspark.com

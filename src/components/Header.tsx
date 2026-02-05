@@ -17,6 +17,7 @@ import {
 import { categories } from "@/MockData/CategoryData";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
+import ThemeSwitch from "@/components/theme-switch";
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,15 +30,15 @@ export default function Header() {
   const { user, logout, loading } = useAuth();
 
   return (
-    <header className="bg-black text-white sticky top-0 z-50 border-b border-white/10">
+    <header className="bg-background text-foreground sticky top-0 z-50 border-b border-border">
       {/* Main Header */}
-      <div className="bg-black/95 backdrop-blur-sm border-b border-white/5">
+      <div className="bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between gap-6">
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden text-white p-2 hover:bg-white/5 rounded transition-colors"
+              className="lg:hidden text-foreground p-2 hover:bg-muted rounded transition-colors"
             >
               <IconMenu2 size={20} />
             </button>
@@ -57,7 +58,7 @@ export default function Header() {
                 />
               </div>
               <div className="hidden sm:block">
-                <span className="text-xl font-bold text-white tracking-tight block leading-none group-hover:text-primary transition-colors">
+                <span className="text-xl font-bold text-foreground tracking-tight block leading-none group-hover:text-primary transition-colors">
                   SkySpark
                 </span>
                 <span className="text-[8px] text-muted-foreground uppercase tracking-widest">
@@ -74,7 +75,7 @@ export default function Header() {
                   placeholder="Search for firecrackers, sparklers, rockets..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2.5 pl-11 bg-muted border border-white/10 rounded-full text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:bg-card transition-all text-sm"
+                  className="w-full px-4 py-2.5 pl-11 bg-muted border border-border rounded-full text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:bg-card transition-all text-sm"
                 />
                 <IconSearch
                   size={18}
@@ -88,7 +89,7 @@ export default function Header() {
               {/* Mobile Search Button */}
               <button
                 onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
-                className="md:hidden text-white p-2 hover:bg-white/5 rounded transition-colors"
+                className="md:hidden text-foreground p-2 hover:bg-muted rounded transition-colors"
               >
                 <IconSearch size={20} />
               </button>
@@ -99,7 +100,7 @@ export default function Header() {
                 onMouseEnter={() => setShowMegaMenu(true)}
                 onMouseLeave={() => setShowMegaMenu(false)}
               >
-                <button className="flex items-center gap-2 px-4 py-2 bg-primary text-black rounded-full hover:bg-white transition-all font-semibold text-xs uppercase tracking-wide">
+                <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full hover:bg-foreground hover:text-background transition-all font-semibold text-xs uppercase tracking-wide">
                   <IconMenu2 size={16} />
                   <span>Products</span>
                   <IconChevronDown
@@ -114,9 +115,9 @@ export default function Header() {
                     {/* Invisible bridge to prevent gap issues */}
                     <div className="absolute top-full right-0 left-0 h-2 bg-transparent"></div>
 
-                    <div className="absolute top-full right-0 mt-2 bg-black border border-white/20 z-50 w-[850px] shadow-2xl rounded-lg overflow-hidden">
+                    <div className="absolute top-full right-0 mt-2 bg-background border border-border z-50 w-[850px] shadow-2xl rounded-lg overflow-hidden">
                       {/* Header Strip */}
-                      <div className="bg-gradient-to-r from-muted to-black px-5 py-2 border-b border-white/10">
+                      <div className="bg-gradient-to-r from-muted to-background px-5 py-2 border-b border-border">
                         <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">
                           Browse All Categories
                         </p>
@@ -137,7 +138,7 @@ export default function Header() {
                                 className={`block p-2.5 rounded border transition-all ${
                                   activeCategory.id === category.id
                                     ? "bg-muted border-primary/50 shadow-lg"
-                                    : "bg-card border-white/5 hover:border-white/20"
+                                    : "bg-card border-border hover:border-border"
                                 }`}
                               >
                                 <div className="flex items-center gap-2 mb-1.5">
@@ -161,14 +162,14 @@ export default function Header() {
 
                               {/* Subcategories Dropdown */}
                               {activeCategory.id === category.id && (
-                                <div className="mt-1.5 bg-card border border-white/10 rounded p-1.5 space-y-0.5">
+                                <div className="mt-1.5 bg-card border border-border rounded p-1.5 space-y-0.5">
                                   {activeCategory.subcategories
                                     .slice(0, 3)
                                     .map((sub) => (
                                       <Link
                                         key={sub.id}
                                         href={`/product?category=${activeCategory.slug}&sub=${sub.slug}`}
-                                        className="block text-[9px] text-muted-foreground hover:text-primary transition-colors py-0.5 px-1.5 hover:bg-white/5 rounded"
+                                        className="block text-[9px] text-muted-foreground hover:text-primary transition-colors py-0.5 px-1.5 hover:bg-muted rounded"
                                       >
                                         • {sub.name}
                                       </Link>
@@ -176,7 +177,7 @@ export default function Header() {
                                   {activeCategory.subcategories.length > 3 && (
                                     <Link
                                       href={`/product?category=${activeCategory.slug}`}
-                                      className="block text-[8px] text-primary hover:text-white transition-colors py-0.5 px-1.5 font-semibold"
+                                      className="block text-[8px] text-primary hover:text-foreground transition-colors py-0.5 px-1.5 font-semibold"
                                     >
                                       View All →
                                     </Link>
@@ -189,16 +190,16 @@ export default function Header() {
                       </div>
 
                       {/* Footer Strip */}
-                      <div className="bg-card px-5 py-2 border-t border-white/10 flex items-center justify-between">
+                      <div className="bg-card px-5 py-2 border-t border-border flex items-center justify-between">
                         <Link
                           href="/product"
-                          className="text-[10px] text-muted-foreground hover:text-white transition-colors uppercase tracking-wider"
+                          className="text-[10px] text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wider"
                         >
                           View All Products
                         </Link>
                         <Link
                           href="/quick-purchase"
-                          className="text-[10px] text-primary hover:text-white transition-colors uppercase tracking-wider font-semibold"
+                          className="text-[10px] text-primary hover:text-foreground transition-colors uppercase tracking-wider font-semibold"
                         >
                           Quick Purchase →
                         </Link>
@@ -233,9 +234,9 @@ export default function Header() {
                       {/* Invisible bridge to prevent gap issues */}
                       <div className="absolute top-full right-0 left-0 h-2 bg-transparent"></div>
 
-                      <div className="absolute top-full right-0 mt-2 bg-black border border-white/20 z-50 w-40 shadow-xl rounded-lg overflow-hidden">
-                        <div className="px-4 py-3 border-b border-white/10">
-                          <p className="text-xs text-white font-medium truncate">
+                      <div className="absolute top-full right-0 mt-2 bg-background border border-border z-50 w-40 shadow-xl rounded-lg overflow-hidden">
+                        <div className="px-4 py-3 border-b border-border">
+                          <p className="text-xs text-foreground font-medium truncate">
                             {user.name}
                           </p>
                           <p className="text-[10px] text-muted-foreground truncate">
@@ -247,7 +248,7 @@ export default function Header() {
                             await logout();
                             window.location.href = "/";
                           }}
-                          className="w-full text-left px-4 py-2 text-xs text-red-500 hover:bg-white/5 transition-colors font-medium uppercase tracking-wide"
+                          className="w-full text-left px-4 py-2 text-xs text-red-500 hover:bg-muted transition-colors font-medium uppercase tracking-wide"
                         >
                           Logout
                         </button>
@@ -264,11 +265,16 @@ export default function Header() {
                     size={20}
                     className="text-muted-foreground group-hover:text-primary transition-colors"
                   />
-                  <span className="text-[9px] uppercase font-semibold text-muted-foreground mt-0.5 group-hover:text-white transition-colors">
+                  <span className="text-[9px] uppercase font-semibold text-muted-foreground mt-0.5 group-hover:text-foreground transition-colors">
                     Login
                   </span>
                 </Link>
               )}
+
+              {/* Theme Switch */}
+              <div className="flex items-center px-2">
+                <ThemeSwitch className="scale-75 origin-right" />
+              </div>
 
               {/* Cart */}
               <Link
@@ -281,12 +287,12 @@ export default function Header() {
                     className="text-muted-foreground group-hover:text-primary transition-colors"
                   />
                   {totalItems > 0 && (
-                    <span className="absolute -top-1.5 -right-1.5 bg-secondary text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                    <span className="absolute -top-1.5 -right-1.5 bg-secondary text-foreground text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                       {totalItems}
                     </span>
                   )}
                 </div>
-                <span className="text-[9px] uppercase font-semibold text-muted-foreground mt-0.5 group-hover:text-white transition-colors">
+                <span className="text-[9px] uppercase font-semibold text-muted-foreground mt-0.5 group-hover:text-foreground transition-colors">
                   Cart
                 </span>
               </Link>
@@ -302,7 +308,7 @@ export default function Header() {
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2 pl-10 bg-muted border border-white/10 rounded-full text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary text-sm"
+                  className="w-full px-4 py-2 pl-10 bg-muted border border-border rounded-full text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary text-sm"
                   autoFocus
                 />
                 <IconSearch
@@ -316,7 +322,7 @@ export default function Header() {
       </div>
 
       {/* Category Navigation Bar - Desktop - Sleek Dark */}
-      <div className="hidden lg:block bg-background border-t border-white/5">
+      <div className="hidden lg:block bg-muted/50 border-t border-border">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-3">
             <div className="flex items-center gap-8 mx-auto pl-32">
@@ -324,7 +330,7 @@ export default function Header() {
               {/* Centered Links with offset to balance */}
               <Link
                 href="/"
-                className="text-sm font-bold uppercase tracking-wider text-primary hover:text-white transition-colors"
+                className="text-sm font-bold uppercase tracking-wider text-primary hover:text-foreground transition-colors"
               >
                 Home
               </Link>
@@ -332,14 +338,14 @@ export default function Header() {
                 <Link
                   key={category.id}
                   href={`/product?category=${category.slug}`}
-                  className="text-sm font-medium text-muted-foreground hover:text-white transition-colors uppercase tracking-wide"
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wide"
                 >
                   {category.name}
                 </Link>
               ))}
               <Link
                 href="/product"
-                className="text-sm font-bold uppercase tracking-wider text-secondary hover:text-white transition-colors"
+                className="text-sm font-bold uppercase tracking-wider text-secondary hover:text-foreground transition-colors"
               >
                 Sale
               </Link>
@@ -348,7 +354,7 @@ export default function Header() {
             {/* Quick Buy - Right Aligned */}
             <Link
               href="/quick-purchase"
-              className="hidden lg:flex text-white hover:text-primary transition-colors font-bold tracking-wide uppercase text-xs items-center gap-1 border border-white/20 px-3 py-1.5 rounded-sm hover:border-primary"
+              className="hidden lg:flex text-foreground hover:text-primary transition-colors font-bold tracking-wide uppercase text-xs items-center gap-1 border border-border px-3 py-1.5 rounded-sm hover:border-primary"
             >
               <IconBolt size={16} className="text-secondary" />
               Quick Purchase
@@ -360,23 +366,23 @@ export default function Header() {
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 lg:hidden"
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
         >
           <div
-            className="absolute left-0 top-0 h-full w-[80%] max-w-sm bg-background border-r border-white/10 overflow-y-auto"
+            className="absolute left-0 top-0 h-full w-[80%] max-w-sm bg-background border-r border-border overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Menu Header */}
-            <div className="bg-card p-4 flex items-center justify-between border-b border-white/10">
+            <div className="bg-card p-4 flex items-center justify-between border-b border-border">
               <div className="flex items-center gap-2">
-                <span className="text-xl font-bold text-white tracking-tight">
+                <span className="text-xl font-bold text-foreground tracking-tight">
                   SkySpark
                 </span>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-white p-1 hover:text-secondary"
+                className="text-foreground p-1 hover:text-secondary"
               >
                 <IconX size={24} />
               </button>
@@ -390,7 +396,7 @@ export default function Header() {
                 </h3>
                 <Link
                   href="/login"
-                  className="flex items-center gap-3 py-2 text-muted-foreground hover:text-white"
+                  className="flex items-center gap-3 py-2 text-muted-foreground hover:text-foreground"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <IconUser size={18} />
@@ -398,7 +404,7 @@ export default function Header() {
                 </Link>
                 <Link
                   href="/order-tracking"
-                  className="flex items-center gap-3 py-2 text-muted-foreground hover:text-white"
+                  className="flex items-center gap-3 py-2 text-muted-foreground hover:text-foreground"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <IconHome size={18} />
@@ -414,7 +420,7 @@ export default function Header() {
                   <Link
                     key={category.id}
                     href={`/product?category=${category.slug}`}
-                    className="flex items-center justify-between py-2.5 text-muted-foreground hover:text-primary border-b border-white/5 last:border-0"
+                    className="flex items-center justify-between py-2.5 text-muted-foreground hover:text-primary border-b border-border last:border-0"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <span className="text-sm font-medium">{category.name}</span>

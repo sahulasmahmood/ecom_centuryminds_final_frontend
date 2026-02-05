@@ -9,10 +9,10 @@ import Header from "@/components/Header";
 import Footer01 from "@/components/Footer01";
 import Footer02 from "@/components/Footer02";
 import {
-  IconEye,
-  IconEyeOff,
   IconMail,
   IconLock,
+  IconEye,
+  IconEyeOff,
   IconSparkles,
 } from "@tabler/icons-react";
 
@@ -224,220 +224,186 @@ export default function LoginPage() {
   return (
     <>
       <Header />
-      <div className="min-h-screen grid lg:grid-cols-2 bg-black">
+      <div className="min-h-screen grid lg:grid-cols-2 bg-background">
         {/* Left Animated Section */}
-        <div className="relative hidden lg:flex flex-col justify-between bg-gradient-to-br from-primary/20 via-black to-secondary/20 p-12 text-white overflow-hidden">
-          {/* Logo */}
-          <div className="relative z-20">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg border-2 border-primary overflow-hidden">
-                <Image
-                  src="/assets/images/hero_fireworks.png"
-                  alt="SkySpark"
-                  width={40}
-                  height={40}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div>
-                <span className="text-xl font-bold text-white">SkySpark</span>
-                <p className="text-xs text-gray-400 uppercase tracking-wider">
-                  Fireworks Store
-                </p>
-              </div>
-            </Link>
-          </div>
+        <div className="relative hidden lg:block bg-black overflow-hidden bg-[radial-gradient(169.40%_89.55%_at_94.76%_6.29%,rgba(0,0,0,0.40)_0%,rgba(255,255,255,0.00)_100%)]">
+          <div className="absolute inset-0 bg-[url('/assets/images/hero_fireworks.png')] bg-cover bg-center opacity-70 mix-blend-screen"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent opacity-50"></div>
 
-          {/* Animated Firework Characters */}
-          <div className="relative z-20 flex items-end justify-center h-[500px]">
-            <div
-              className="relative"
-              style={{ width: "550px", height: "400px" }}
-            >
-              {/* Rocket Character - Red */}
+          <div className="relative z-10 flex flex-col justify-end h-full p-12">
+            {/* Animated Firework Characters */}
+            <div className="relative z-20 flex items-end justify-center h-[500px] mb-8">
               <div
-                ref={char1Ref}
-                className="absolute bottom-0 transition-all duration-700 ease-in-out"
-                style={{
-                  left: "50px",
-                  width: "120px",
-                  height: isTyping ? "380px" : "350px",
-                  background:
-                    "linear-gradient(to top, hsl(var(--secondary)), #FF4444)",
-                  borderRadius: "60px 60px 0 0",
-                  zIndex: 1,
-                  transform: `skewX(${char1Pos.bodySkew}deg)`,
-                  transformOrigin: "bottom center",
-                }}
+                className="relative"
+                style={{ width: "550px", height: "400px" }}
               >
-                {/* Eyes */}
+                {/* Rocket Character - Red */}
                 <div
-                  className="absolute flex gap-6 transition-all duration-700 ease-in-out"
+                  ref={char1Ref}
+                  className="absolute bottom-0 transition-all duration-700 ease-in-out"
                   style={{
-                    left: `${30 + char1Pos.faceX}px`,
-                    top: `${40 + char1Pos.faceY}px`,
+                    left: "50px",
+                    width: "120px",
+                    height: isTyping ? "380px" : "350px",
+                    background:
+                      "linear-gradient(to top, hsl(var(--secondary)), #FF4444)",
+                    borderRadius: "60px 60px 0 0",
+                    zIndex: 1,
+                    transform: `skewX(${char1Pos.bodySkew}deg)`,
+                    transformOrigin: "bottom center",
                   }}
                 >
-                  <EyeBall
-                    size={16}
-                    pupilSize={6}
-                    maxDistance={4}
-                    eyeColor="white"
-                    pupilColor="#2D2D2D"
-                    isBlinking={isBlinking1}
-                    forceLookX={showPassword ? 5 : undefined}
-                    forceLookY={showPassword ? -2 : undefined}
-                  />
-                  <EyeBall
-                    size={16}
-                    pupilSize={6}
-                    maxDistance={4}
-                    eyeColor="white"
-                    pupilColor="#2D2D2D"
-                    isBlinking={isBlinking1}
-                    forceLookX={showPassword ? 5 : undefined}
-                    forceLookY={showPassword ? -2 : undefined}
-                  />
+                  {/* Eyes */}
+                  <div
+                    className="absolute flex gap-6 transition-all duration-700 ease-in-out"
+                    style={{
+                      left: `${30 + char1Pos.faceX}px`,
+                      top: `${40 + char1Pos.faceY}px`,
+                    }}
+                  >
+                    <EyeBall
+                      size={16}
+                      pupilSize={6}
+                      maxDistance={4}
+                      eyeColor="white"
+                      pupilColor="#2D2D2D"
+                      isBlinking={isBlinking1}
+                      forceLookX={showPassword ? 5 : undefined}
+                      forceLookY={showPassword ? -2 : undefined}
+                    />
+                    <EyeBall
+                      size={16}
+                      pupilSize={6}
+                      maxDistance={4}
+                      eyeColor="white"
+                      pupilColor="#2D2D2D"
+                      isBlinking={isBlinking1}
+                      forceLookX={showPassword ? 5 : undefined}
+                      forceLookY={showPassword ? -2 : undefined}
+                    />
+                  </div>
+                  {/* Sparkle effect */}
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2">
+                    <IconSparkles
+                      size={20}
+                      className="text-primary animate-pulse"
+                    />
+                  </div>
                 </div>
-                {/* Sparkle effect */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2">
-                  <IconSparkles
-                    size={20}
-                    className="text-primary animate-pulse"
-                  />
-                </div>
-              </div>
 
-              {/* Sparkler Character - Gold */}
-              <div
-                ref={char2Ref}
-                className="absolute bottom-0 transition-all duration-700 ease-in-out"
-                style={{
-                  left: "200px",
-                  width: "100px",
-                  height: "280px",
-                  background:
-                    "linear-gradient(to top, hsl(var(--primary)), #FFF700)",
-                  borderRadius: "50px 50px 0 0",
-                  zIndex: 2,
-                  transform: `skewX(${char2Pos.bodySkew}deg)`,
-                  transformOrigin: "bottom center",
-                }}
-              >
-                {/* Eyes */}
+                {/* Sparkler Character - Gold */}
                 <div
-                  className="absolute flex gap-4 transition-all duration-700 ease-in-out"
+                  ref={char2Ref}
+                  className="absolute bottom-0 transition-all duration-700 ease-in-out"
                   style={{
-                    left: `${25 + char2Pos.faceX}px`,
-                    top: `${35 + char2Pos.faceY}px`,
+                    left: "200px",
+                    width: "100px",
+                    height: "280px",
+                    background:
+                      "linear-gradient(to top, hsl(var(--primary)), #FFF700)",
+                    borderRadius: "50px 50px 0 0",
+                    zIndex: 2,
+                    transform: `skewX(${char2Pos.bodySkew}deg)`,
+                    transformOrigin: "bottom center",
                   }}
                 >
-                  <EyeBall
-                    size={14}
-                    pupilSize={5}
-                    maxDistance={3}
-                    eyeColor="white"
-                    pupilColor="#2D2D2D"
-                    isBlinking={isBlinking2}
-                    forceLookX={showPassword ? -3 : undefined}
-                    forceLookY={showPassword ? 2 : undefined}
-                  />
-                  <EyeBall
-                    size={14}
-                    pupilSize={5}
-                    maxDistance={3}
-                    eyeColor="white"
-                    pupilColor="#2D2D2D"
-                    isBlinking={isBlinking2}
-                    forceLookX={showPassword ? -3 : undefined}
-                    forceLookY={showPassword ? 2 : undefined}
-                  />
+                  {/* Eyes */}
+                  <div
+                    className="absolute flex gap-4 transition-all duration-700 ease-in-out"
+                    style={{
+                      left: `${25 + char2Pos.faceX}px`,
+                      top: `${35 + char2Pos.faceY}px`,
+                    }}
+                  >
+                    <EyeBall
+                      size={14}
+                      pupilSize={5}
+                      maxDistance={3}
+                      eyeColor="white"
+                      pupilColor="#2D2D2D"
+                      isBlinking={isBlinking2}
+                      forceLookX={showPassword ? -3 : undefined}
+                      forceLookY={showPassword ? 2 : undefined}
+                    />
+                    <EyeBall
+                      size={14}
+                      pupilSize={5}
+                      maxDistance={3}
+                      eyeColor="white"
+                      pupilColor="#2D2D2D"
+                      isBlinking={isBlinking2}
+                      forceLookX={showPassword ? -3 : undefined}
+                      forceLookY={showPassword ? 2 : undefined}
+                    />
+                  </div>
+                  {/* Sparkles */}
+                  <div className="absolute -top-1 -left-2">
+                    <div className="w-2 h-2 bg-white rounded-full animate-ping"></div>
+                  </div>
+                  <div className="absolute -top-3 -right-1">
+                    <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                  </div>
                 </div>
-                {/* Sparkles */}
-                <div className="absolute -top-1 -left-2">
-                  <div className="w-2 h-2 bg-white rounded-full animate-ping"></div>
-                </div>
-                <div className="absolute -top-3 -right-1">
-                  <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
-                </div>
-              </div>
 
-              {/* Flower Pot Character - Purple */}
-              <div
-                ref={char3Ref}
-                className="absolute bottom-0 transition-all duration-700 ease-in-out"
-                style={{
-                  left: "330px",
-                  width: "140px",
-                  height: "320px",
-                  background: "linear-gradient(to top, #6C3FF5, #8B5CF6)",
-                  borderRadius: "70px 70px 0 0",
-                  zIndex: 3,
-                  transform: `skewX(${char3Pos.bodySkew}deg)`,
-                  transformOrigin: "bottom center",
-                }}
-              >
-                {/* Eyes */}
+                {/* Flower Pot Character - Purple */}
                 <div
-                  className="absolute flex gap-5 transition-all duration-700 ease-in-out"
+                  ref={char3Ref}
+                  className="absolute bottom-0 transition-all duration-700 ease-in-out"
                   style={{
-                    left: `${40 + char3Pos.faceX}px`,
-                    top: `${45 + char3Pos.faceY}px`,
+                    left: "330px",
+                    width: "140px",
+                    height: "320px",
+                    background: "linear-gradient(to top, #6C3FF5, #8B5CF6)",
+                    borderRadius: "70px 70px 0 0",
+                    zIndex: 3,
+                    transform: `skewX(${char3Pos.bodySkew}deg)`,
+                    transformOrigin: "bottom center",
                   }}
                 >
-                  <EyeBall
-                    size={18}
-                    pupilSize={7}
-                    maxDistance={5}
-                    eyeColor="white"
-                    pupilColor="#2D2D2D"
-                    isBlinking={isBlinking3}
-                  />
-                  <EyeBall
-                    size={18}
-                    pupilSize={7}
-                    maxDistance={5}
-                    eyeColor="white"
-                    pupilColor="#2D2D2D"
-                    isBlinking={isBlinking3}
-                  />
-                </div>
-                {/* Fountain effect */}
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex gap-1">
-                  <div className="w-1 h-6 bg-primary rounded-full animate-bounce"></div>
-                  <div className="w-1 h-4 bg-secondary rounded-full animate-bounce delay-100"></div>
-                  <div className="w-1 h-5 bg-primary rounded-full animate-bounce delay-200"></div>
+                  {/* Eyes */}
+                  <div
+                    className="absolute flex gap-5 transition-all duration-700 ease-in-out"
+                    style={{
+                      left: `${40 + char3Pos.faceX}px`,
+                      top: `${45 + char3Pos.faceY}px`,
+                    }}
+                  >
+                    <EyeBall
+                      size={18}
+                      pupilSize={7}
+                      maxDistance={5}
+                      eyeColor="white"
+                      pupilColor="#2D2D2D"
+                      isBlinking={isBlinking3}
+                    />
+                    <EyeBall
+                      size={18}
+                      pupilSize={7}
+                      maxDistance={5}
+                      eyeColor="white"
+                      pupilColor="#2D2D2D"
+                      isBlinking={isBlinking3}
+                    />
+                  </div>
+                  {/* Fountain effect */}
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex gap-1">
+                    <div className="w-1 h-6 bg-primary rounded-full animate-bounce"></div>
+                    <div className="w-1 h-4 bg-secondary rounded-full animate-bounce delay-100"></div>
+                    <div className="w-1 h-5 bg-primary rounded-full animate-bounce delay-200"></div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Footer Links */}
-          <div className="relative z-20 flex items-center gap-8 text-sm text-muted-foreground">
-            <Link
-              href="/privacy"
-              className="hover:text-primary transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="hover:text-primary transition-colors"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="/contact"
-              className="hover:text-primary transition-colors"
-            >
-              Contact
-            </Link>
+            <h2 className="text-4xl font-bold text-white mb-4 tracking-tight drop-shadow-lg">
+              Experience the <span className="text-primary italic">Magic</span>{" "}
+              of Celebration
+            </h2>
+            <p className="text-white/80 text-lg max-w-md drop-shadow-md">
+              Premium fireworks for your most memorable moments.
+            </p>
           </div>
-
-          {/* Background Effects */}
-          <div className="absolute inset-0 bg-[url('/assets/images/hero_fireworks.png')] bg-cover bg-center opacity-5"></div>
-          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
         </div>
 
         {/* Right Login Section */}
@@ -464,10 +430,12 @@ export default function LoginPage() {
 
             {/* Header */}
             <div className="text-center mb-10">
-              <h1 className="text-3xl font-bold tracking-tight mb-2 text-white">
+              <h1 className="text-3xl font-bold tracking-tight mb-2 text-foreground">
                 Welcome back!
               </h1>
-              <p className="text-gray-400 text-sm">Light up your celebration</p>
+              <p className="text-muted-foreground text-sm">
+                Light up your celebration
+              </p>
             </div>
 
             {/* Login Form */}
@@ -493,7 +461,7 @@ export default function LoginPage() {
                     onFocus={() => setIsTyping(true)}
                     onBlur={() => setIsTyping(false)}
                     required
-                    className="w-full h-12 pl-10 pr-4 bg-muted border border-white/10 rounded text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    className="w-full h-12 pl-10 pr-4 bg-muted border border-border rounded text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                   />
                 </div>
               </div>
@@ -517,7 +485,7 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full h-12 pl-10 pr-12 bg-muted border border-white/10 rounded text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    className="w-full h-12 pl-10 pr-12 bg-muted border border-border rounded text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                   />
                   <button
                     type="button"
@@ -537,7 +505,7 @@ export default function LoginPage() {
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input
                     type="checkbox"
-                    className="w-4 h-4 rounded border-white/10 bg-muted text-primary focus:ring-primary"
+                    className="w-4 h-4 rounded border-border bg-muted text-primary focus:ring-primary"
                   />
                   <span className="text-sm text-muted-foreground">
                     Remember me
@@ -559,7 +527,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="w-full h-12 bg-primary text-black font-bold rounded hover:bg-white transition-colors disabled:opacity-50"
+                className="w-full h-12 bg-primary text-primary-foreground font-bold rounded hover:bg-primary/90 transition-colors disabled:opacity-50"
                 disabled={isLoading}
               >
                 {isLoading ? "Signing in..." : "Sign In"}
@@ -568,11 +536,11 @@ export default function LoginPage() {
 
             {/* Divider */}
             <div className="flex items-center my-6">
-              <div className="flex-1 h-px bg-white/10"></div>
+              <div className="flex-1 h-px bg-border"></div>
               <span className="px-4 text-xs text-muted-foreground uppercase tracking-wider">
                 Or
               </span>
-              <div className="flex-1 h-px bg-white/10"></div>
+              <div className="flex-1 h-px bg-border"></div>
             </div>
 
             {/* Social Login */}
@@ -581,7 +549,7 @@ export default function LoginPage() {
               onClick={() => {
                 window.location.href = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api"}/auth/google`;
               }}
-              className="w-full h-12 bg-muted border border-white/10 text-white rounded hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+              className="w-full h-12 bg-card border border-border text-foreground rounded hover:bg-muted transition-colors flex items-center justify-center gap-2"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path

@@ -12,7 +12,7 @@ import {
 
 export default function Footer01() {
   return (
-    <footer className="bg-background text-white pt-16 sm:pt-20 pb-10 border-t border-white/5 relative overflow-hidden">
+    <footer className="bg-background text-foreground pt-16 sm:pt-20 pb-10 border-t border-border relative overflow-hidden">
       {/* Watermark Logo */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] opacity-[0.02] pointer-events-none translate-x-1/3 -translate-y-1/4">
         <Image
@@ -25,12 +25,12 @@ export default function Footer01() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Newsletter Section */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-16 border-b border-white/5">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-16 border-b border-border">
           <div className="max-w-xl">
             <h3 className="text-3xl font-bold mb-2 tracking-tight">
               Join the <span className="text-primary">SkySpark Club</span>
             </h3>
-            <p className="text-gray-400">
+            <p className="text-muted-foreground">
               Get 10% off your first order and exclusive access to new arrivals.
             </p>
           </div>
@@ -43,9 +43,9 @@ export default function Footer01() {
               <input
                 type="email"
                 placeholder="Enter your email address"
-                className="w-full bg-background border border-white/10 rounded-sm py-4 pl-12 pr-4 text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                className="w-full bg-background border border-border rounded-sm py-4 pl-12 pr-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
               />
-              <button className="bg-primary text-black px-8 font-bold uppercase tracking-wider hover:bg-white transition-colors">
+              <button className="bg-primary text-primary-foreground px-8 font-bold uppercase tracking-wider hover:bg-foreground hover:text-background transition-colors">
                 Join
               </button>
             </div>
@@ -66,11 +66,11 @@ export default function Footer01() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="text-2xl font-bold text-white tracking-tight">
+              <span className="text-2xl font-bold text-foreground tracking-tight">
                 SkySpark
               </span>
             </Link>
-            <p className="text-gray-400 leading-relaxed text-sm max-w-sm">
+            <p className="text-muted-foreground leading-relaxed text-sm max-w-sm">
               India&apos;s premier destination for premium fireworks. Bringing
               Sivakasi magic to your celebrations.
             </p>
@@ -100,11 +100,11 @@ export default function Footer01() {
             <h4 className="text-primary font-bold text-sm uppercase tracking-wider mb-6">
               Categories
             </h4>
-            <ul className="space-y-3 text-sm text-gray-400">
+            <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
                 <Link
                   href="/product?category=ground-chakkars"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Ground Chakkars
                 </Link>
@@ -112,7 +112,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/product?category=flower-pots"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Flower Pots
                 </Link>
@@ -120,7 +120,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/product?category=sparklers"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Sparklers
                 </Link>
@@ -128,7 +128,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/product?category=aerial-shots"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Aerial Shots
                 </Link>
@@ -136,7 +136,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/product?category=rockets"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Rockets
                 </Link>
@@ -144,7 +144,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/product?category=kids-special"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Kids Special
                 </Link>
@@ -152,7 +152,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/product"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Shop All
                 </Link>
@@ -165,11 +165,11 @@ export default function Footer01() {
             <h4 className="text-primary font-bold text-sm uppercase tracking-wider mb-6">
               Account
             </h4>
-            <ul className="space-y-3 text-sm text-gray-400">
+            <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
                 <Link
                   href="/login"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Sign In
                 </Link>
@@ -177,7 +177,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/register"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Create Account
                 </Link>
@@ -185,7 +185,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/cart"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   My Cart
                 </Link>
@@ -193,7 +193,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/order-tracking"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Track Order
                 </Link>
@@ -201,7 +201,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/quick-purchase"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Quick Purchase
                 </Link>
@@ -214,11 +214,11 @@ export default function Footer01() {
             <h4 className="text-primary font-bold text-sm uppercase tracking-wider mb-6">
               Company
             </h4>
-            <ul className="space-y-3 text-sm text-gray-400">
+            <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   About Us
                 </Link>
@@ -226,7 +226,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/contact"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Contact Us
                 </Link>
@@ -234,7 +234,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/faq"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   FAQ
                 </Link>
@@ -242,7 +242,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/shipping"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Shipping Policy
                 </Link>
@@ -250,7 +250,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/returns"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Returns & Refunds
                 </Link>
@@ -258,7 +258,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/privacy"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -266,7 +266,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/terms"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Terms of Service
                 </Link>
@@ -274,7 +274,7 @@ export default function Footer01() {
               <li>
                 <Link
                   href="/cookie"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   Cookie Policy
                 </Link>
@@ -287,20 +287,20 @@ export default function Footer01() {
             <h4 className="text-primary font-bold text-sm uppercase tracking-wider mb-6">
               Contact
             </h4>
-            <ul className="space-y-4 text-sm text-gray-400">
+            <ul className="space-y-4 text-sm text-muted-foreground">
               <li>
-                <span className="block text-xs text-gray-500 uppercase tracking-wider mb-1">
+                <span className="block text-xs text-muted-foreground uppercase tracking-wider mb-1">
                   Phone
                 </span>
                 <a
                   href="tel:+918148559768"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-foreground transition-colors"
                 >
                   +91 8148559768
                 </a>
               </li>
               <li>
-                <span className="block text-xs text-gray-500 uppercase tracking-wider mb-1">
+                <span className="block text-xs text-muted-foreground uppercase tracking-wider mb-1">
                   Address
                 </span>
                 <span className="block leading-relaxed">

@@ -10,7 +10,7 @@ export default function DealsSection() {
       <div className="container mx-auto px-3 sm:px-4">
         {/* Explore Categories */}
         <div>
-          <h2 className="text-2xl font-bold text-white mb-6 tracking-tight">
+          <h2 className="text-2xl font-bold text-foreground mb-6 tracking-tight">
             Explore Categories
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
