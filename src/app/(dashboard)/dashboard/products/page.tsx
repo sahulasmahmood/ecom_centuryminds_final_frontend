@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,59 +14,67 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { productService } from "@/services/productService";
 
-// Mock data for products
-const mockProducts = [
-  {
-    id: "1",
-    name: "Flower Pots (10 pieces)",
-    category: "Ground Crackers",
-    price: 250,
-    stock: 45,
-    status: "active",
-    image: "/assets/images/flower_pots.png",
-  },
-  {
-    id: "2",
-    name: "Sparklers Box",
-    category: "Sparklers",
-    price: 180,
-    stock: 32,
-    status: "active",
-    image: "/assets/images/sparklers_box.png",
-  },
-  {
-    id: "3",
-    name: "Crackling Soda",
-    category: "Sound Crackers",
-    price: 120,
-    stock: 8,
-    status: "low_stock",
-    image: "/assets/images/Crackling-Soda-Crackers.jpg",
-  },
-  {
-    id: "4",
-    name: "Twin Star",
-    category: "Aerial Crackers",
-    price: 350,
-    stock: 0,
-    status: "out_of_stock",
-    image: "/assets/images/1.5 twin star.jpg",
-  },
-  {
-    id: "5",
-    name: "Electric Sparklers",
-    category: "Sparklers",
-    price: 200,
-    stock: 25,
-    status: "active",
-    image: "/assets/images/10-Cm-Electric-sparklers-5-Boxes-Crackers .jpg",
-  },
-];
+// Product Interface
+interface Product {
+  id: string;
+  name: string;
+  category: string;
+  categoryId: string;
+  price: number;
+  stock: number;
+  status: string;
+  image: string;
+}
 
 export default function ProductsPage() {
-  const [products] = useState(mockProducts);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState<string | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await productService.getProducts();
+      if (response.success) {
+        setProducts(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEdit = (productId: string) => {
+    router.push(`/dashboard/products/edit/${productId}`);
+  };
+
+  const handleDelete = async (productId: string) => {
+    if (!confirm("Are you sure you want to delete this product? This action cannot be undone.")) {
+      return;
+    }
+
+    setDeleting(productId);
+    try {
+      const response = await productService.deleteProduct(productId);
+      if (response.success) {
+        alert("Product deleted successfully!");
+        // Remove from local state
+        setProducts(products.filter(p => p.id !== productId));
+      }
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      alert("Failed to delete product. Please try again.");
+    } finally {
+      setDeleting(null);
+    }
+  };
 
   const getStatusBadge = (status: string, stock: number) => {
     if (stock === 0) {
@@ -143,60 +151,87 @@ export default function ProductsPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {products.map((product) => (
-                  <TableRow
-                    key={product.id}
-                    className="border-gray-100 hover:bg-gray-50"
-                  >
-                    <TableCell>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200">
-                          <span className="text-xs font-medium text-gray-500">
-                            IMG
-                          </span>
-                        </div>
-                        <div>
-                          <div className="font-medium text-gray-900">
-                            {product.name}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            ID: {product.id}
-                          </div>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-gray-700">
-                      {product.category}
-                    </TableCell>
-                    <TableCell className="font-medium text-gray-900">
-                      ₹{product.price}
-                    </TableCell>
-                    <TableCell className="text-gray-700">
-                      {product.stock}
-                    </TableCell>
-                    <TableCell>
-                      {getStatusBadge(product.status, product.stock)}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center space-x-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="border-gray-300 hover:bg-gray-50"
-                        >
-                          <PencilIcon className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="border-gray-300 hover:bg-gray-50"
-                        >
-                          <TrashIcon className="h-4 w-4" />
-                        </Button>
-                      </div>
+                {loading ? (
+                  <TableRow>
+                    <TableCell
+                      colSpan={6}
+                      className="text-center py-8 text-gray-500"
+                    >
+                      Loading inventory...
                     </TableCell>
                   </TableRow>
-                ))}
+                ) : products.length === 0 ? (
+                  <TableRow>
+                    <TableCell
+                      colSpan={6}
+                      className="text-center py-8 text-gray-500"
+                    >
+                      No products found. Add your first product!
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  products.map((product) => (
+                    <TableRow
+                      key={product.id}
+                      className="border-gray-100 hover:bg-gray-50"
+                    >
+                      <TableCell>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200">
+                            <span className="text-xs font-medium text-gray-500">
+                              IMG
+                            </span>
+                          </div>
+                          <div>
+                            <div className="font-medium text-gray-900">
+                              {product.name}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              ID: {product.id}
+                            </div>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-gray-700">
+                        {product.category || "Uncategorized"}
+                      </TableCell>
+                      <TableCell className="font-medium text-gray-900">
+                        ₹{product.price}
+                      </TableCell>
+                      <TableCell className="text-gray-700">
+                        {product.stock}
+                      </TableCell>
+                      <TableCell>
+                        {getStatusBadge(product.status, product.stock)}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center space-x-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="border-gray-300 hover:bg-gray-50"
+                            onClick={() => handleEdit(product.id)}
+                          >
+                            <PencilIcon className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="border-red-300 hover:bg-red-50 text-red-600"
+                            onClick={() => handleDelete(product.id)}
+                            disabled={deleting === product.id}
+                          >
+                            {deleting === product.id ? (
+                              <span className="text-xs">...</span>
+                            ) : (
+                              <TrashIcon className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </CardContent>

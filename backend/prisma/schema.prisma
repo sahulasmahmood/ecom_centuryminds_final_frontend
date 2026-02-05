@@ -107,3 +107,43 @@ model Address {
 
   @@map("addresses")
 }
+
+
+model Product {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  brand       String?
+  
+  category    String    // Changed from Relation to String to match frontend hardcoded values
+  
+  price       Float?    // Base price / Internal calculation?
+  mrp         Float?    // Maximum Retail Price
+  sellingPrice Float    // Actual selling price
+  purchasePrice Float?  // Cost price
+  
+  gstPercentage Float   @default(18)
+  
+  stock       Int       @default(0)
+  unit        String    @default("Box") // Box, Pkt, Pcs
+  
+  // Crackers Specifics
+  soundLevel  String?   // Low, Medium, High
+  piecesPerPack String? // Frontend sends string "5 Pcs"
+  duration    String?
+  safetyDistance String?
+  effects     String?
+  
+  image       String?
+  imagePublicId String?
+  
+  status      String    @default("active")
+  
+  isFeatured  Boolean   @default(false)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("products")
+}
+

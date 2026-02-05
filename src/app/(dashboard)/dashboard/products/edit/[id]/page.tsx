@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -13,16 +13,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-
 import {
   ArrowLeftIcon,
   SparklesIcon,
   ShieldCheckIcon,
-  SpeakerWaveIcon,
   TagIcon,
   CurrencyRupeeIcon,
   PhotoIcon,
 } from "@heroicons/react/24/outline";
+import { productService } from "@/services/productService";
 
 // Crackers Categories (matching backend validation)
 const crackerCategories = [
@@ -56,21 +55,26 @@ interface ProductFormData {
 
   // Inventory
   stock: string;
-  unit: string; // e.g., Box, Pkt, Pcs
+  unit: string;
 
   // Cracker Specs
   soundLevel: string;
-  piecesPerPack: string; // e.g., "5 Pcs" or "10 Pcs"
-  safetyDistance: string; // e.g., "5 Meters"
-  duration: string; // e.g., "30 Seconds"
-  effects: string; // e.g., "Red and Green Stars"
+  piecesPerPack: string;
+  safetyDistance: string;
+  duration: string;
+  effects: string;
 
   image: File | null;
+  currentImageUrl?: string;
 }
 
-export default function AddProductPage() {
+export default function EditProductPage() {
   const router = useRouter();
+  const params = useParams();
+  const productId = params.id as string;
+  
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
   const [formData, setFormData] = useState<ProductFormData>({
     name: "",
     description: "",
@@ -79,7 +83,7 @@ export default function AddProductPage() {
     purchasePrice: "",
     sellingPrice: "",
     mrp: "",
-    gstPercentage: "18", // Standard for crackers often 18%
+    gstPercentage: "18",
     stock: "",
     unit: "Box",
     soundLevel: "",
@@ -88,7 +92,45 @@ export default function AddProductPage() {
     duration: "",
     effects: "",
     image: null,
+    currentImageUrl: "",
   });
+
+  useEffect(() => {
+    fetchProduct();
+  }, [productId]);
+
+  const fetchProduct = async () => {
+    try {
+      const response = await productService.getProduct(productId);
+      if (response.success) {
+        const product = response.data;
+        setFormData({
+          name: product.name || "",
+          description: product.description || "",
+          category: product.category || "",
+          brand: product.brand || "",
+          purchasePrice: product.purchasePrice?.toString() || "",
+          sellingPrice: product.sellingPrice?.toString() || "",
+          mrp: product.mrp?.toString() || "",
+          gstPercentage: product.gstPercentage?.toString() || "18",
+          stock: product.stock?.toString() || "",
+          unit: product.unit || "Box",
+          soundLevel: product.soundLevel || "",
+          piecesPerPack: product.piecesPerPack || "",
+          safetyDistance: product.safetyDistance || "5 Meters",
+          duration: product.duration || "",
+          effects: product.effects || "",
+          image: null,
+          currentImageUrl: product.image || "",
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching product:", error);
+      alert("Failed to load product details");
+    } finally {
+      setFetching(false);
+    }
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -115,54 +157,53 @@ export default function AddProductPage() {
     setLoading(true);
 
     try {
-      const submitData = new FormData();
+      const updateData: any = {};
 
-      // Append strictly typed text fields
-      Object.entries(formData).forEach(([key, value]) => {
-        if (key !== "image" && value !== "") {
-          submitData.append(key, value as string);
-        }
-      });
-
-      // Append image if exists
-      if (formData.image) {
-        submitData.append("image", formData.image);
-      }
-
-      // Get token from localStorage
-      const token = localStorage.getItem('token');
+      // Add all fields to update data
+      if (formData.name) updateData.name = formData.name;
+      if (formData.description) updateData.description = formData.description;
+      if (formData.category) updateData.category = formData.category;
+      if (formData.brand) updateData.brand = formData.brand;
       
-      if (!token) {
-        throw new Error('You must be logged in to add products');
+      if (formData.sellingPrice) updateData.sellingPrice = parseFloat(formData.sellingPrice);
+      if (formData.purchasePrice) updateData.purchasePrice = parseFloat(formData.purchasePrice);
+      if (formData.mrp) updateData.mrp = parseFloat(formData.mrp);
+      if (formData.gstPercentage) updateData.gstPercentage = parseFloat(formData.gstPercentage);
+      
+      if (formData.stock) updateData.stock = parseInt(formData.stock);
+      if (formData.unit) updateData.unit = formData.unit;
+      
+      if (formData.soundLevel) updateData.soundLevel = formData.soundLevel;
+      if (formData.piecesPerPack) updateData.piecesPerPack = formData.piecesPerPack;
+      if (formData.safetyDistance) updateData.safetyDistance = formData.safetyDistance;
+      if (formData.duration) updateData.duration = formData.duration;
+      if (formData.effects) updateData.effects = formData.effects;
+      
+      if (formData.image) updateData.image = formData.image;
+
+      const response = await productService.updateProduct(productId, updateData);
+
+      if (response.success) {
+        alert("Product updated successfully!");
+        router.push("/dashboard/products");
       }
-
-      const response = await fetch("http://localhost:5000/api/products", {
-        method: "POST",
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: submitData,
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        // Handle validation errors
-        if (data.errors && Array.isArray(data.errors)) {
-          throw new Error(data.errors.join('\n'));
-        }
-        throw new Error(data.error || "Failed to create product");
-      }
-
-      alert("Product added successfully!");
-      router.push("/dashboard/products");
     } catch (error) {
-      console.error("Error adding product:", error);
-      alert(error instanceof Error ? error.message : "Failed to add product");
+      console.error("Error updating product:", error);
+      alert(error instanceof Error ? error.message : "Failed to update product");
     } finally {
       setLoading(false);
     }
   };
+
+  if (fetching) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-lg text-gray-600">Loading product...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50/50 pb-20">
@@ -180,10 +221,10 @@ export default function AddProductPage() {
             </Button>
             <div>
               <h1 className="text-xl font-bold text-gray-900 tracking-tight">
-                Add New Product
+                Edit Product
               </h1>
               <p className="text-xs text-gray-500">
-                Skyspark Inventory Management
+                Update product information
               </p>
             </div>
           </div>
@@ -196,7 +237,7 @@ export default function AddProductPage() {
               disabled={loading}
               className="bg-primary text-primary-foreground hover:bg-primary/90"
             >
-              {loading ? "Saving..." : "Save Product"}
+              {loading ? "Updating..." : "Update Product"}
             </Button>
           </div>
         </div>
@@ -420,7 +461,7 @@ export default function AddProductPage() {
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="stock">Unit *</Label>
+                  <Label htmlFor="unit">Unit *</Label>
                   <select
                     id="unit"
                     name="unit"
@@ -447,6 +488,16 @@ export default function AddProductPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
+                {formData.currentImageUrl && !formData.image && (
+                  <div className="mb-4">
+                    <p className="text-sm text-gray-600 mb-2">Current Image:</p>
+                    <img 
+                      src={formData.currentImageUrl} 
+                      alt="Current product" 
+                      className="w-full h-40 object-cover rounded-lg border border-gray-200"
+                    />
+                  </div>
+                )}
                 <div className="border-2 border-dashed border-gray-200 rounded-lg p-6 flex flex-col items-center text-center hover:bg-gray-50 transition-colors">
                   {formData.image ? (
                     <div className="text-sm">
@@ -470,7 +521,7 @@ export default function AddProductPage() {
                       <PhotoIcon className="h-10 w-10 text-gray-300 mb-2" />
                       <Label htmlFor="image" className="cursor-pointer">
                         <span className="text-primary font-medium hover:underline">
-                          Upload a file
+                          Upload new image
                         </span>
                         <span className="text-gray-500"> or drag and drop</span>
                       </Label>
