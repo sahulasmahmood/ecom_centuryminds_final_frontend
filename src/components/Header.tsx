@@ -243,6 +243,17 @@ export default function Header() {
                             {user.email}
                           </p>
                         </div>
+                        
+                        {/* Dashboard button for admin users */}
+                        {user.role === 'admin' && (
+                          <Link
+                            href="/dashboard"
+                            className="block w-full text-left px-4 py-2 text-xs text-indigo-600 hover:bg-muted transition-colors font-medium uppercase tracking-wide"
+                          >
+                            Dashboard
+                          </Link>
+                        )}
+                        
                         <button
                           onClick={async () => {
                             await logout();

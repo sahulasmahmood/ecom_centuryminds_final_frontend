@@ -7,13 +7,13 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { User } from "@/types/auth";
+import { User, AuthResponse } from "@/types/auth";
 import { authService } from "@/services/authService";
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<AuthResponse>;
   register: (data: {
     email: string;
     password: string;
@@ -33,13 +33,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Fetch current user on mount
   const fetchUser = useCallback(async () => {
     try {
+      // Check if we have user data in localStorage first
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+      
+      // Then fetch fresh data from server
       const response = await authService.getCurrentUser();
       if (response.success) {
         setUser(response.data);
+        localStorage.setItem('user', JSON.stringify(response.data));
       }
     } catch {
       // User not authenticated or token expired
       setUser(null);
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
     } finally {
       setLoading(false);
     }
@@ -53,7 +63,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const response = await authService.login(email, password);
     if (response.success) {
       setUser(response.data.user);
+      // Store user data in localStorage for role checking
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('token', response.data.token);
     }
+    return response;
   }, []);
 
   const register = useCallback(
@@ -76,6 +90,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = useCallback(async () => {
     await authService.logout();
     setUser(null);
+    // Clear localStorage
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   }, []);
 
   const refreshUser = useCallback(async () => {

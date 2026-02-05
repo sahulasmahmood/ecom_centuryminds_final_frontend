@@ -193,8 +193,18 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      await login(email, password);
-      router.push("/");
+      const response = await login(email, password);
+      
+      if (response.success) {
+        // Check if user is admin and redirect accordingly
+        if (response.data.user.role === 'admin') {
+          router.push('/dashboard');
+        } else {
+          router.push('/');
+        }
+      } else {
+        setError("Login failed. Please try again.");
+      }
     } catch (err) {
       // Suppress console error logging for expected authentication failures
       if (err && typeof err === "object" && "response" in err) {
@@ -217,7 +227,7 @@ export default function LoginPage() {
         setError("Invalid email or password. Please try again.");
       }
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
