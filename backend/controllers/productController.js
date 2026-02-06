@@ -8,14 +8,14 @@ const prisma = new PrismaClient();
 // Get all products with pagination and filtering
 exports.getProducts = async (req, res) => {
   try {
-    const { 
-      page = 1, 
-      limit = 10, 
-      category, 
-      status = 'active',
+    const {
+      page = 1,
+      limit = 10,
+      category,
+      status = "active",
       search,
-      sortBy = 'createdAt',
-      sortOrder = 'desc'
+      sortBy = "createdAt",
+      sortOrder = "desc",
     } = req.query;
 
     const skip = (parseInt(page) - 1) * parseInt(limit);
@@ -23,20 +23,20 @@ exports.getProducts = async (req, res) => {
 
     // Build filter conditions
     const where = {};
-    
+
     if (category) {
       where.category = category;
     }
-    
+
     if (status) {
       where.status = status;
     }
-    
+
     if (search) {
       where.OR = [
-        { name: { contains: search, mode: 'insensitive' } },
-        { description: { contains: search, mode: 'insensitive' } },
-        { brand: { contains: search, mode: 'insensitive' } }
+        { name: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+        { brand: { contains: search, mode: "insensitive" } },
       ];
     }
 
@@ -49,26 +49,27 @@ exports.getProducts = async (req, res) => {
       skip,
       take,
       orderBy: {
-        [sortBy]: sortOrder
-      }
+        [sortBy]: sortOrder,
+      },
     });
 
-    res.json({ 
-      success: true, 
+    res.json({
+      success: true,
       data: products,
       pagination: {
         total,
         page: parseInt(page),
         limit: parseInt(limit),
-        totalPages: Math.ceil(total / take)
-      }
+        totalPages: Math.ceil(total / take),
+      },
     });
   } catch (error) {
     console.error("Error fetching products:", error);
-    res.status(500).json({ 
-      success: false, 
+    res.status(500).json({
+      success: false,
       error: "Failed to fetch products",
-      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+      message:
+        process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
 };
@@ -89,10 +90,11 @@ exports.getProduct = async (req, res) => {
     res.json({ success: true, data: product });
   } catch (error) {
     console.error("Error fetching product:", error);
-    res.status(500).json({ 
-      success: false, 
+    res.status(500).json({
+      success: false,
       error: "Failed to fetch product",
-      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+      message:
+        process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
 };
@@ -107,11 +109,13 @@ exports.createProduct = async (req, res) => {
       description,
       brand,
       category,
+      sku,
       purchasePrice,
       sellingPrice,
       mrp,
       gstPercentage,
       stock,
+      lowStockThreshold,
       unit,
       soundLevel,
       piecesPerPack,
@@ -138,7 +142,10 @@ exports.createProduct = async (req, res) => {
         return res.status(500).json({
           success: false,
           error: "Failed to upload image",
-          message: process.env.NODE_ENV === 'development' ? uploadError.message : undefined
+          message:
+            process.env.NODE_ENV === "development"
+              ? uploadError.message
+              : undefined,
         });
       }
     }
@@ -149,6 +156,7 @@ exports.createProduct = async (req, res) => {
       description: description?.trim() || null,
       brand: brand?.trim() || null,
       category,
+      sku: sku?.trim() || null,
 
       // Price fields
       price: mrp ? parseFloat(mrp) : parseFloat(sellingPrice),
@@ -158,6 +166,7 @@ exports.createProduct = async (req, res) => {
       gstPercentage: gstPercentage ? parseFloat(gstPercentage) : 18,
 
       stock: stock ? parseInt(stock) : 0,
+      lowStockThreshold: lowStockThreshold ? parseInt(lowStockThreshold) : 10,
       unit: unit || "Box",
 
       // Cracker-specific fields
@@ -169,7 +178,7 @@ exports.createProduct = async (req, res) => {
 
       status: status || "active",
       isFeatured: isFeatured === "true" || isFeatured === true,
-      
+
       image: imageUrl || null,
       imagePublicId: imagePublicId || null,
     };
@@ -179,14 +188,14 @@ exports.createProduct = async (req, res) => {
       data: productData,
     });
 
-    res.status(201).json({ 
-      success: true, 
+    res.status(201).json({
+      success: true,
       data: product,
-      message: "Product created successfully"
+      message: "Product created successfully",
     });
   } catch (error) {
     console.error("Error creating product:", error);
-    
+
     // Cleanup uploaded image if database operation failed
     if (uploadedImagePublicId) {
       try {
@@ -199,7 +208,8 @@ exports.createProduct = async (req, res) => {
     res.status(500).json({
       success: false,
       error: "Failed to create product",
-      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+      message:
+        process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
 };
@@ -227,6 +237,7 @@ exports.updateProduct = async (req, res) => {
       description,
       brand,
       category,
+      sku,
       purchasePrice,
       sellingPrice,
       mrp,
@@ -246,27 +257,35 @@ exports.updateProduct = async (req, res) => {
     let updateData = {};
 
     if (name !== undefined) updateData.name = name.trim();
-    if (description !== undefined) updateData.description = description?.trim() || null;
+    if (description !== undefined)
+      updateData.description = description?.trim() || null;
     if (brand !== undefined) updateData.brand = brand?.trim() || null;
     if (category !== undefined) updateData.category = category;
+    if (sku !== undefined) updateData.sku = sku?.trim() || null;
 
     // Price updates
     if (mrp !== undefined) {
       updateData.mrp = parseFloat(mrp);
       updateData.price = parseFloat(mrp);
     }
-    if (sellingPrice !== undefined) updateData.sellingPrice = parseFloat(sellingPrice);
-    if (purchasePrice !== undefined) updateData.purchasePrice = parseFloat(purchasePrice);
-    if (gstPercentage !== undefined) updateData.gstPercentage = parseFloat(gstPercentage);
+    if (sellingPrice !== undefined)
+      updateData.sellingPrice = parseFloat(sellingPrice);
+    if (purchasePrice !== undefined)
+      updateData.purchasePrice = parseFloat(purchasePrice);
+    if (gstPercentage !== undefined)
+      updateData.gstPercentage = parseFloat(gstPercentage);
 
     if (stock !== undefined) updateData.stock = parseInt(stock);
+    if (lowStockThreshold !== undefined)
+      updateData.lowStockThreshold = parseInt(lowStockThreshold);
     if (unit !== undefined) updateData.unit = unit;
 
     // Cracker-specific updates
     if (soundLevel !== undefined) updateData.soundLevel = soundLevel;
     if (piecesPerPack !== undefined) updateData.piecesPerPack = piecesPerPack;
     if (duration !== undefined) updateData.duration = duration;
-    if (safetyDistance !== undefined) updateData.safetyDistance = safetyDistance;
+    if (safetyDistance !== undefined)
+      updateData.safetyDistance = safetyDistance;
     if (effects !== undefined) updateData.effects = effects;
 
     if (status !== undefined) updateData.status = status;
@@ -297,7 +316,10 @@ exports.updateProduct = async (req, res) => {
         return res.status(500).json({
           success: false,
           error: "Failed to upload new image",
-          message: process.env.NODE_ENV === 'development' ? uploadError.message : undefined
+          message:
+            process.env.NODE_ENV === "development"
+              ? uploadError.message
+              : undefined,
         });
       }
     }
@@ -308,14 +330,14 @@ exports.updateProduct = async (req, res) => {
       data: updateData,
     });
 
-    res.json({ 
-      success: true, 
+    res.json({
+      success: true,
       data: updatedProduct,
-      message: "Product updated successfully"
+      message: "Product updated successfully",
     });
   } catch (error) {
     console.error("Error updating product:", error);
-    
+
     // Cleanup new image if database operation failed
     if (newImagePublicId) {
       try {
@@ -328,7 +350,8 @@ exports.updateProduct = async (req, res) => {
     res.status(500).json({
       success: false,
       error: "Failed to update product",
-      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+      message:
+        process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
 };
@@ -361,17 +384,18 @@ exports.deleteProduct = async (req, res) => {
       }
     }
 
-    res.json({ 
-      success: true, 
+    res.json({
+      success: true,
       data: {},
-      message: "Product deleted successfully"
+      message: "Product deleted successfully",
     });
   } catch (error) {
     console.error("Error deleting product:", error);
-    res.status(500).json({ 
-      success: false, 
+    res.status(500).json({
+      success: false,
       error: "Failed to delete product",
-      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+      message:
+        process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
 };

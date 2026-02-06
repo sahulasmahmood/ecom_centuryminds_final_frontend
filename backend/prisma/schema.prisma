@@ -116,6 +116,7 @@ model Product {
   brand       String?
   
   category    String    // Changed from Relation to String to match frontend hardcoded values
+  sku         String?   @unique // Stock Keeping Unit - unique product identifier
   
   price       Float?    // Base price / Internal calculation?
   mrp         Float?    // Maximum Retail Price
@@ -125,6 +126,7 @@ model Product {
   gstPercentage Float   @default(18)
   
   stock       Int       @default(0)
+  lowStockThreshold Int?  @default(10) // Alert when stock falls below this number
   unit        String    @default("Box") // Box, Pkt, Pcs
   
   // Crackers Specifics
