@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Table,
   TableBody,
@@ -12,7 +13,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { EyeIcon, UserIcon } from "@heroicons/react/24/outline";
+import {
+  Eye,
+  Users,
+  Crown,
+  UserPlus,
+  UserCheck,
+  RefreshCw,
+} from "lucide-react";
 
 // Mock data for customers
 const mockCustomers = [
@@ -79,16 +87,35 @@ export function CustomerList() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "vip":
-        return <Badge className="bg-purple-100 text-purple-800">VIP</Badge>;
+        return (
+          <Badge className="bg-purple-100 text-purple-800 border-0">VIP</Badge>
+        );
       case "active":
-        return <Badge className="bg-green-100 text-green-800">Active</Badge>;
+        return (
+          <Badge className="bg-green-100 text-green-800 border-0">Active</Badge>
+        );
       case "new":
-        return <Badge className="bg-blue-100 text-blue-800">New</Badge>;
+        return (
+          <Badge className="bg-blue-100 text-blue-800 border-0">New</Badge>
+        );
       case "inactive":
-        return <Badge className="bg-gray-100 text-gray-800">Inactive</Badge>;
+        return (
+          <Badge className="bg-gray-100 text-gray-800 border-0">Inactive</Badge>
+        );
       default:
-        return <Badge className="bg-gray-100 text-gray-800">{status}</Badge>;
+        return (
+          <Badge className="bg-gray-100 text-gray-800 border-0">{status}</Badge>
+        );
     }
+  };
+
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .slice(0, 2)
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
   };
 
   const getCustomerStats = () => {
@@ -102,87 +129,126 @@ export function CustomerList() {
 
   const stats = getCustomerStats();
 
+  const statsCards = [
+    {
+      label: "Total Customers",
+      value: stats.total,
+      icon: Users,
+      color: "text-gray-600",
+      bg: "bg-gray-100",
+    },
+    {
+      label: "Active",
+      value: stats.active,
+      icon: UserCheck,
+      color: "text-green-600",
+      bg: "bg-green-100",
+    },
+    {
+      label: "VIP",
+      value: stats.vip,
+      icon: Crown,
+      color: "text-purple-600",
+      bg: "bg-purple-100",
+    },
+    {
+      label: "New",
+      value: stats.new,
+      icon: UserPlus,
+      color: "text-blue-600",
+      bg: "bg-blue-100",
+    },
+  ];
+
   return (
-    <div className="space-y-6 bg-gray-50 min-h-screen p-6 pb-10">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Customers</h1>
-        <p className="text-muted-foreground">
-          Manage your customer relationships
-        </p>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Customers</h1>
+          <p className="text-gray-600 mt-1">
+            Manage your customer relationships
+          </p>
+        </div>
+        <Button variant="outline" className="border-gray-300">
+          <RefreshCw className="h-4 w-4 mr-2" />
+          Refresh
+        </Button>
       </div>
 
       {/* Customer Stats Overview */}
-      <div className="grid gap-4 md:grid-cols-4">
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Customers
-            </CardTitle>
-            <UserIcon className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.total}</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active</CardTitle>
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.active}</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">VIP</CardTitle>
-            <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.vip}</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">New</CardTitle>
-            <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.new}</div>
-          </CardContent>
-        </Card>
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+        {statsCards.map((item) => (
+          <Card
+            key={item.label}
+            className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+          >
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className={`p-2 rounded-lg ${item.bg}`}>
+                  <item.icon className={`h-4 w-4 ${item.color}`} />
+                </div>
+              </div>
+              <p className="text-2xl font-bold text-gray-900">{item.value}</p>
+              <p className="text-xs text-gray-500">{item.label}</p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
-      <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-        <CardHeader>
-          <CardTitle>Customer List</CardTitle>
+      {/* Customers Table */}
+      <Card className="border-0 shadow-lg">
+        <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10 p-4 border-b rounded-t-xl">
+          <CardTitle className="text-gray-900 flex items-center gap-2">
+            <Users className="h-5 w-5 text-primary" />
+            Customer List
+          </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Customer</TableHead>
-                <TableHead>Contact</TableHead>
-                <TableHead>Orders</TableHead>
-                <TableHead>Total Spent</TableHead>
-                <TableHead>Last Order</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Actions</TableHead>
+              <TableRow className="border-gray-100 bg-gray-50/50">
+                <TableHead className="text-gray-600 font-medium">
+                  Customer
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Contact
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Orders
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Total Spent
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Last Order
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Status
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Actions
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {customers.map((customer) => (
-                <TableRow key={customer.id}>
+                <TableRow
+                  key={customer.id}
+                  className="border-gray-100 hover:bg-gray-50 transition-colors"
+                >
                   <TableCell>
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                        <span className="text-sm font-medium">
-                          {customer.name.charAt(0)}
-                        </span>
-                      </div>
+                      <Avatar className="h-8 w-8">
+                        <AvatarFallback className="bg-secondary text-secondary-foreground text-xs font-medium">
+                          {getInitials(customer.name)}
+                        </AvatarFallback>
+                      </Avatar>
                       <div>
-                        <div className="font-medium">{customer.name}</div>
-                        <div className="text-sm text-gray-500">
+                        <div className="font-medium text-gray-900">
+                          {customer.name}
+                        </div>
+                        <div className="text-xs text-gray-500">
                           {customer.city}
                         </div>
                       </div>
@@ -190,23 +256,31 @@ export function CustomerList() {
                   </TableCell>
                   <TableCell>
                     <div>
-                      <div className="text-sm">{customer.email}</div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
+                        {customer.email}
+                      </div>
+                      <div className="text-xs text-gray-500">
                         {customer.phone}
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell>{customer.totalOrders}</TableCell>
-                  <TableCell>₹{customer.totalSpent.toLocaleString()}</TableCell>
-                  <TableCell>{customer.lastOrder}</TableCell>
+                  <TableCell className="text-gray-700">
+                    {customer.totalOrders}
+                  </TableCell>
+                  <TableCell className="font-semibold text-gray-900">
+                    ₹{customer.totalSpent.toLocaleString()}
+                  </TableCell>
+                  <TableCell className="text-gray-500">
+                    {customer.lastOrder}
+                  </TableCell>
                   <TableCell>{getStatusBadge(customer.status)}</TableCell>
                   <TableCell>
                     <Button
                       variant="outline"
-                      size="sm"
-                      className="bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-primary hover:border-primary"
+                      size="icon-sm"
+                      className="hover:bg-primary/10 hover:text-primary hover:border-primary"
                     >
-                      <EyeIcon className="h-4 w-4" />
+                      <Eye className="h-4 w-4" />
                     </Button>
                   </TableCell>
                 </TableRow>

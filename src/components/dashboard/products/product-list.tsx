@@ -13,8 +13,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {
+  Plus,
+  Pencil,
+  Trash2,
+  Package,
+  Loader2,
+  RefreshCw,
+} from "lucide-react";
 import { productService } from "@/services/productService";
+import { useToast } from "@/hooks/use-toast";
 
 // Product Interface
 interface Product {
@@ -32,22 +40,41 @@ export function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
   const router = useRouter();
+  const { toast } = useToast();
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (showRefreshToast = false) => {
     try {
+      if (showRefreshToast) {
+        setRefreshing(true);
+      } else {
+        setLoading(true);
+      }
       const response = await productService.getProducts();
       if (response.success) {
         setProducts(response.data);
+        if (showRefreshToast) {
+          toast({
+            title: "Products Refreshed",
+            description: "Product list has been updated.",
+          });
+        }
       }
     } catch (error) {
       console.error("Error fetching products:", error);
+      toast({
+        title: "Error",
+        description: "Failed to fetch products. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
@@ -68,13 +95,20 @@ export function ProductList() {
     try {
       const response = await productService.deleteProduct(productId);
       if (response.success) {
-        alert("Product deleted successfully!");
+        toast({
+          title: "Product Deleted",
+          description: "Product has been successfully deleted.",
+        });
         // Remove from local state
         setProducts(products.filter((p) => p.id !== productId));
       }
     } catch (error) {
       console.error("Error deleting product:", error);
-      alert("Failed to delete product. Please try again.");
+      toast({
+        title: "Error",
+        description: "Failed to delete product. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setDeleting(null);
     }
@@ -83,164 +117,165 @@ export function ProductList() {
   const getStatusBadge = (status: string, stock: number) => {
     if (stock === 0) {
       return (
-        <Badge className="bg-red-50 text-red-700 border-red-200 border font-medium">
-          Out of Stock
-        </Badge>
+        <Badge className="bg-red-100 text-red-800 border-0">Out of Stock</Badge>
       );
     } else if (stock < 10) {
       return (
-        <Badge className="bg-yellow-50 text-yellow-700 border-yellow-200 border font-medium">
+        <Badge className="bg-yellow-100 text-yellow-800 border-0">
           Low Stock
         </Badge>
       );
     } else {
       return (
-        <Badge className="bg-green-50 text-green-700 border-green-200 border font-medium">
-          In Stock
-        </Badge>
+        <Badge className="bg-green-100 text-green-800 border-0">In Stock</Badge>
       );
     }
   };
 
   return (
-    <div className="space-y-8 bg-gray-50 min-h-screen pb-10">
-      <div className="bg-white border-b border-gray-200 px-6 py-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-              Products
-            </h1>
-            <p className="text-gray-600 mt-2">Manage your crackers inventory</p>
-          </div>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Products</h1>
+          <p className="text-gray-600 mt-1">Manage your crackers inventory</p>
+        </div>
+        <div className="flex gap-3">
           <Button
-            className="flex items-center gap-2"
-            onClick={() => router.push("/dashboard/products/add")}
+            variant="outline"
+            onClick={() => fetchProducts(true)}
+            disabled={refreshing}
+            className="border-gray-300"
           >
-            <PlusIcon className="h-4 w-4" />
+            <RefreshCw
+              className={`h-4 w-4 mr-2 ${refreshing ? "animate-spin" : ""}`}
+            />
+            Refresh
+          </Button>
+          <Button onClick={() => router.push("/dashboard/products/add")}>
+            <Plus className="h-4 w-4 mr-2" />
             Add Product
           </Button>
         </div>
       </div>
 
-      <div className="px-6">
-        <Card className="bg-white border-gray-200 shadow-sm">
-          <CardHeader className="border-b border-gray-100">
-            <CardTitle className="text-gray-900">Product Inventory</CardTitle>
-            <p className="text-sm text-gray-500">
-              Manage your crackers and fireworks products
-            </p>
-          </CardHeader>
-          <CardContent className="p-0">
-            <Table>
-              <TableHeader>
-                <TableRow className="border-gray-100">
-                  <TableHead className="text-gray-600 font-medium">
-                    Product
-                  </TableHead>
-                  <TableHead className="text-gray-600 font-medium">
-                    Category
-                  </TableHead>
-                  <TableHead className="text-gray-600 font-medium">
-                    Price
-                  </TableHead>
-                  <TableHead className="text-gray-600 font-medium">
-                    Stock
-                  </TableHead>
-                  <TableHead className="text-gray-600 font-medium">
-                    Status
-                  </TableHead>
-                  <TableHead className="text-gray-600 font-medium">
-                    Actions
-                  </TableHead>
+      {/* Products Card */}
+      <Card className="border-0 shadow-lg">
+        <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10 p-4 border-b rounded-t-xl">
+          <CardTitle className="text-gray-900 flex items-center gap-2">
+            <Package className="h-5 w-5 text-primary" />
+            Product Inventory
+          </CardTitle>
+          <p className="text-sm text-gray-500">
+            Manage your crackers and fireworks products
+          </p>
+        </CardHeader>
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader>
+              <TableRow className="border-gray-100 bg-gray-50/50">
+                <TableHead className="text-gray-600 font-medium">
+                  Product
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Category
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Price
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Stock
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Status
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Actions
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {loading ? (
+                <TableRow>
+                  <TableCell colSpan={6} className="text-center py-12">
+                    <Loader2 className="h-6 w-6 animate-spin mx-auto mb-2 text-primary" />
+                    <span className="text-gray-500">Loading inventory...</span>
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {loading ? (
-                  <TableRow>
-                    <TableCell
-                      colSpan={6}
-                      className="text-center py-8 text-gray-500"
-                    >
-                      Loading inventory...
-                    </TableCell>
-                  </TableRow>
-                ) : products.length === 0 ? (
-                  <TableRow>
-                    <TableCell
-                      colSpan={6}
-                      className="text-center py-8 text-gray-500"
-                    >
+              ) : products.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={6} className="text-center py-12">
+                    <Package className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+                    <p className="text-gray-500">
                       No products found. Add your first product!
+                    </p>
+                  </TableCell>
+                </TableRow>
+              ) : (
+                products.map((product) => (
+                  <TableRow
+                    key={product.id}
+                    className="border-gray-100 hover:bg-gray-50 transition-colors"
+                  >
+                    <TableCell>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center">
+                          <Package className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-gray-900">
+                            {product.name}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            ID: {product.id.slice(0, 8)}...
+                          </div>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-gray-700">
+                      {product.category || "Uncategorized"}
+                    </TableCell>
+                    <TableCell className="font-semibold text-gray-900">
+                      ₹{product.price.toLocaleString()}
+                    </TableCell>
+                    <TableCell className="text-gray-700">
+                      {product.stock}
+                    </TableCell>
+                    <TableCell>
+                      {getStatusBadge(product.status, product.stock)}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          variant="outline"
+                          size="icon-sm"
+                          className="hover:bg-primary/10 hover:text-primary hover:border-primary"
+                          onClick={() => handleEdit(product.id)}
+                        >
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="icon-sm"
+                          className="hover:bg-red-50 hover:text-red-600 hover:border-red-300"
+                          onClick={() => handleDelete(product.id)}
+                          disabled={deleting === product.id}
+                        >
+                          {deleting === product.id ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <Trash2 className="h-4 w-4" />
+                          )}
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
-                ) : (
-                  products.map((product) => (
-                    <TableRow
-                      key={product.id}
-                      className="border-gray-100 hover:bg-gray-50"
-                    >
-                      <TableCell>
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200">
-                            <span className="text-xs font-medium text-gray-500">
-                              IMG
-                            </span>
-                          </div>
-                          <div>
-                            <div className="font-medium text-gray-900">
-                              {product.name}
-                            </div>
-                            <div className="text-sm text-gray-500">
-                              ID: {product.id}
-                            </div>
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-gray-700">
-                        {product.category || "Uncategorized"}
-                      </TableCell>
-                      <TableCell className="font-medium text-gray-900">
-                        ₹{product.price}
-                      </TableCell>
-                      <TableCell className="text-gray-700">
-                        {product.stock}
-                      </TableCell>
-                      <TableCell>
-                        {getStatusBadge(product.status, product.stock)}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center space-x-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="border-gray-300 bg-white text-gray-700 hover:bg-gray-100 hover:text-primary hover:border-primary"
-                            onClick={() => handleEdit(product.id)}
-                          >
-                            <PencilIcon className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="border-red-300 bg-white text-red-600 hover:bg-red-50 hover:border-red-400"
-                            onClick={() => handleDelete(product.id)}
-                            disabled={deleting === product.id}
-                          >
-                            {deleting === product.id ? (
-                              <span className="text-xs">...</span>
-                            ) : (
-                              <TrashIcon className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      </div>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
   );
 }

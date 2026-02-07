@@ -1,197 +1,192 @@
 "use client";
 
-import { Fragment } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  HomeIcon,
-  ShoppingBagIcon,
-  TagIcon,
-  ChartBarIcon,
-  UsersIcon,
-  CogIcon,
-} from "@heroicons/react/24/outline";
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  LayoutDashboard,
+  ShoppingBag,
+  Package,
+  Users,
+  Settings,
+  LogOut,
+  ChevronDown,
+  ShoppingCart,
+  Tag,
+  MessageSquare,
+  UserCircle,
+  Store,
+} from "lucide-react";
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
-  { name: "Products", href: "/dashboard/products", icon: ShoppingBagIcon },
-  { name: "Leads", href: "/dashboard/leads", icon: UsersIcon },
-  { name: "POS", href: "/dashboard/pos", icon: ShoppingBagIcon },
-  { name: "Categories", href: "/dashboard/categories", icon: TagIcon },
-  { name: "Orders", href: "/dashboard/orders", icon: ChartBarIcon },
-  { name: "Customers", href: "/dashboard/customers", icon: UsersIcon },
-  { name: "Settings", href: "/dashboard/settings", icon: CogIcon },
+  {
+    name: "Dashboard",
+    href: "/dashboard",
+    icon: LayoutDashboard,
+    color: "text-primary",
+  },
+  {
+    name: "Products",
+    href: "/dashboard/products",
+    icon: ShoppingBag,
+    color: "text-secondary",
+  },
+  {
+    name: "Categories",
+    href: "/dashboard/categories",
+    icon: Tag,
+    color: "text-primary",
+  },
+  {
+    name: "Orders",
+    href: "/dashboard/orders",
+    icon: Package,
+    color: "text-secondary",
+  },
+  {
+    name: "Customers",
+    href: "/dashboard/customers",
+    icon: Users,
+    color: "text-primary",
+  },
+  {
+    name: "Leads",
+    href: "/dashboard/leads",
+    icon: MessageSquare,
+    color: "text-secondary",
+  },
+  { name: "POS", href: "/dashboard/pos", icon: Store, color: "text-primary" },
+  {
+    name: "Settings",
+    href: "/dashboard/settings",
+    icon: Settings,
+    color: "text-secondary",
+  },
 ];
 
 interface DashboardSidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
+  toggleSidebar: () => void;
 }
 
 export function DashboardSidebar({
   sidebarOpen,
   setSidebarOpen,
+  toggleSidebar,
 }: DashboardSidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/login");
+  };
+
+  const getInitials = (name: string | undefined) => {
+    if (!name) return "A";
+    const parts = name.split(" ");
+    if (parts.length >= 2) {
+      return `${parts[0].charAt(0)}${parts[1].charAt(0)}`.toUpperCase();
+    }
+    return name.charAt(0).toUpperCase();
+  };
 
   return (
     <>
-      {/* Mobile sidebar */}
-      <Transition.Root show={sidebarOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative z-50 lg:hidden"
-          onClose={setSidebarOpen}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="transition-opacity ease-linear duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity ease-linear duration-300"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-gray-900/80" />
-          </Transition.Child>
+      {/* Fixed sidebar */}
+      <div
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transform transition-all duration-300 ease-in-out ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } border-r border-gray-200 flex flex-col h-screen overflow-hidden`}
+      >
+        {/* Logo */}
+        <div className="flex items-center justify-start h-16 px-6 border-b border-gray-200 flex-shrink-0">
+          <Image
+            className="h-8 w-auto"
+            src="/logo.jpeg"
+            alt="Crackers Store"
+            width={32}
+            height={32}
+          />
+          <span className="ml-2 text-xl font-bold text-gray-900">
+            Admin Panel
+          </span>
+        </div>
 
-          <div className="fixed inset-0 flex">
-            <Transition.Child
-              as={Fragment}
-              enter="transition ease-in-out duration-300 transform"
-              enterFrom="-translate-x-full"
-              enterTo="translate-x-0"
-              leave="transition ease-in-out duration-300 transform"
-              leaveFrom="translate-x-0"
-              leaveTo="-translate-x-full"
-            >
-              <Dialog.Panel className="relative mr-16 flex w-full max-w-xs flex-1">
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-in-out duration-300"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-100"
-                  leave="ease-in-out duration-300"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
+        {/* Navigation */}
+        <nav className="flex-1 px-4 py-6 overflow-y-auto">
+          <div className="space-y-1">
+            {navigation.map((item) => {
+              const isActive =
+                pathname === item.href ||
+                (item.href !== "/dashboard" && pathname.startsWith(item.href));
+
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={cn(
+                    "flex items-center px-4 py-3 text-gray-700 hover:bg-primary/10 transition-all duration-200 rounded-lg group",
+                    isActive &&
+                      "bg-primary/10 text-primary border-r-2 border-primary",
+                  )}
+                  onClick={() => {
+                    if (window.innerWidth < 1024) {
+                      setSidebarOpen(false);
+                    }
+                  }}
                 >
-                  <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
-                    <button
-                      type="button"
-                      className="-m-2.5 p-2.5"
-                      onClick={() => setSidebarOpen(false)}
-                    >
-                      <span className="sr-only">Close sidebar</span>
-                      <XMarkIcon
-                        className="h-6 w-6 text-white"
-                        aria-hidden="true"
-                      />
-                    </button>
+                  <div
+                    className={cn(
+                      "group-hover:scale-110 transition-transform duration-200",
+                      isActive ? "text-primary" : item.color,
+                    )}
+                  >
+                    <item.icon className="h-5 w-5" />
                   </div>
-                </Transition.Child>
-                <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
-                  <div className="flex h-16 shrink-0 items-center">
-                    <Image
-                      className="h-8 w-auto"
-                      src="/logo.jpeg"
-                      alt="Crackers Store"
-                      width={32}
-                      height={32}
-                    />
-                    <span className="ml-2 text-xl font-bold text-gray-900">
-                      Admin Panel
-                    </span>
-                  </div>
-                  <nav className="flex flex-1 flex-col">
-                    <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                      <li>
-                        <ul role="list" className="-mx-2 space-y-1">
-                          {navigation.map((item) => (
-                            <li key={item.name}>
-                              <Link
-                                href={item.href}
-                                className={cn(
-                                  pathname === item.href
-                                    ? "bg-gray-50 text-indigo-600"
-                                    : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
-                                  "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
-                                )}
-                              >
-                                <item.icon
-                                  className={cn(
-                                    pathname === item.href
-                                      ? "text-indigo-600"
-                                      : "text-gray-400 group-hover:text-indigo-600",
-                                    "h-6 w-6 shrink-0",
-                                  )}
-                                  aria-hidden="true"
-                                />
-                                {item.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </Dialog.Panel>
-            </Transition.Child>
+                  <span className="ml-3 font-medium">{item.name}</span>
+                </Link>
+              );
+            })}
           </div>
-        </Dialog>
-      </Transition.Root>
+        </nav>
 
-      {/* Static sidebar for desktop */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
-          <div className="flex h-16 shrink-0 items-center">
-            <Image
-              className="h-8 w-auto"
-              src="/logo.jpeg"
-              alt="Crackers Store"
-              width={32}
-              height={32}
-            />
-            <span className="ml-2 text-xl font-bold text-gray-900">
-              Admin Panel
-            </span>
+        {/* User profile section */}
+        <div className="p-6 border-t border-gray-200 flex-shrink-0">
+          <div className="flex items-center mb-4 p-3 bg-primary/10 rounded-lg">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src="" alt="Admin" />
+              <AvatarFallback className="bg-primary text-primary-foreground font-semibold text-sm">
+                {getInitials(user?.name)}
+              </AvatarFallback>
+            </Avatar>
+            <div className="ml-3">
+              <div className="font-semibold text-gray-900 text-sm">
+                {user?.name || "Admin User"}
+              </div>
+              <div className="text-xs text-gray-500">Administrator</div>
+            </div>
           </div>
-          <nav className="flex flex-1 flex-col">
-            <ul role="list" className="flex flex-1 flex-col gap-y-7">
-              <li>
-                <ul role="list" className="-mx-2 space-y-1">
-                  {navigation.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          pathname === item.href
-                            ? "bg-gray-50 text-indigo-600"
-                            : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
-                          "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
-                        )}
-                      >
-                        <item.icon
-                          className={cn(
-                            pathname === item.href
-                              ? "text-indigo-600"
-                              : "text-gray-400 group-hover:text-indigo-600",
-                            "h-6 w-6 shrink-0",
-                          )}
-                          aria-hidden="true"
-                        />
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            </ul>
-          </nav>
+          <Button
+            onClick={handleLogout}
+            variant="outline"
+            className="w-full flex items-center justify-center hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition-colors"
+          >
+            <LogOut className="h-4 w-4 mr-2" />
+            Logout
+          </Button>
         </div>
       </div>
     </>

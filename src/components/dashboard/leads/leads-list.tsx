@@ -2,23 +2,24 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
-  MagnifyingGlassIcon,
-  FunnelIcon,
-  PhoneIcon,
-  EyeIcon,
-  CheckCircleIcon,
-} from "@heroicons/react/24/outline";
+  Search,
+  Filter,
+  Phone,
+  Eye,
+  MessageSquare,
+  Plus,
+  TrendingUp,
+  Clock,
+  CheckCircle,
+  DollarSign,
+  RefreshCw,
+} from "lucide-react";
 
 // Mock Data for Leads
 const mockLeads = [
@@ -61,83 +62,109 @@ const mockLeads = [
 ];
 
 const statusColors: Record<string, string> = {
-  new: "bg-blue-100 text-blue-700 border-blue-200",
-  contacted: "bg-yellow-100 text-yellow-700 border-yellow-200",
-  converted: "bg-green-100 text-green-700 border-green-200",
-  lost: "bg-gray-100 text-gray-700 border-gray-200",
+  new: "bg-blue-100 text-blue-800 border-0",
+  contacted: "bg-yellow-100 text-yellow-800 border-0",
+  converted: "bg-green-100 text-green-800 border-0",
+  lost: "bg-gray-100 text-gray-800 border-0",
 };
 
 export function LeadsList() {
   const [searchTerm, setSearchTerm] = useState("");
 
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .slice(0, 2)
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
+  };
+
+  const statsCards = [
+    {
+      label: "New Leads",
+      value: "12",
+      icon: TrendingUp,
+      color: "text-blue-600",
+      bg: "bg-blue-100",
+    },
+    {
+      label: "Pending Follow-up",
+      value: "5",
+      icon: Clock,
+      color: "text-yellow-600",
+      bg: "bg-yellow-100",
+    },
+    {
+      label: "Converted Today",
+      value: "3",
+      icon: CheckCircle,
+      color: "text-green-600",
+      bg: "bg-green-100",
+    },
+    {
+      label: "Total Revenue (Exp)",
+      value: "₹24.5k",
+      icon: DollarSign,
+      color: "text-primary",
+      bg: "bg-primary/10",
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50/50 p-6 space-y-6 pb-10">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
+          <h1 className="text-3xl font-bold text-gray-900">
             Leads & Inquiries
           </h1>
-          <p className="text-sm text-gray-500">
-            Manage incoming orders and customer inquiries for Skyspark.
+          <p className="text-gray-600 mt-1">
+            Manage incoming orders and customer inquiries
           </p>
         </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            className="gap-2 bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-primary hover:border-primary"
-          >
-            <FunnelIcon className="h-4 w-4" /> Filter
+        <div className="flex gap-3">
+          <Button variant="outline" className="border-gray-300">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Refresh
           </Button>
-          <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-            + Manual Lead
+          <Button>
+            <Plus className="h-4 w-4 mr-2" />
+            Manual Lead
           </Button>
         </div>
       </div>
 
-      {/* Stats Cards (Optional but good for 'Professional' look) */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardContent className="p-4 flex flex-col">
-            <span className="text-xs text-muted-foreground uppercase font-bold">
-              New Leads
-            </span>
-            <span className="text-2xl font-bold text-blue-600">12</span>
-          </CardContent>
-        </Card>
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardContent className="p-4 flex flex-col">
-            <span className="text-xs text-muted-foreground uppercase font-bold">
-              Pending Follow-up
-            </span>
-            <span className="text-2xl font-bold text-yellow-600">5</span>
-          </CardContent>
-        </Card>
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardContent className="p-4 flex flex-col">
-            <span className="text-xs text-muted-foreground uppercase font-bold">
-              Converted Today
-            </span>
-            <span className="text-2xl font-bold text-green-600">3</span>
-          </CardContent>
-        </Card>
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardContent className="p-4 flex flex-col">
-            <span className="text-xs text-muted-foreground uppercase font-bold">
-              Total Revenue (Exp)
-            </span>
-            <span className="text-2xl font-bold text-gray-900">₹24.5k</span>
-          </CardContent>
-        </Card>
+      {/* Stats Cards */}
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+        {statsCards.map((item) => (
+          <Card
+            key={item.label}
+            className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+          >
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className={`p-2 rounded-lg ${item.bg}`}>
+                  <item.icon className={`h-4 w-4 ${item.color}`} />
+                </div>
+              </div>
+              <p className="text-2xl font-bold text-gray-900">{item.value}</p>
+              <p className="text-xs text-gray-500">{item.label}</p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       {/* Leads Table */}
-      <Card>
-        <CardHeader className="pb-3 border-b">
-          <div className="flex items-center justify-between">
-            <CardTitle>Recent Inquiries</CardTitle>
-            <div className="relative w-64">
-              <MagnifyingGlassIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+      <Card className="border-0 shadow-lg">
+        <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10 p-4 border-b rounded-t-xl">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <CardTitle className="text-gray-900 flex items-center gap-2">
+              <MessageSquare className="h-5 w-5 text-primary" />
+              Recent Inquiries
+            </CardTitle>
+            <div className="relative w-full sm:w-64">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
                 placeholder="Search name or phone..."
                 className="pl-9 bg-white text-gray-900 border-gray-300"
@@ -148,77 +175,65 @@ export function LeadsList() {
           </div>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left">
-              <thead className="text-xs text-gray-500 uppercase bg-gray-50 border-b">
-                <tr>
-                  <th className="px-6 py-3 font-medium">Lead ID</th>
-                  <th className="px-6 py-3 font-medium">Customer</th>
-                  <th className="px-6 py-3 font-medium">Items Summary</th>
-                  <th className="px-6 py-3 font-medium">Total (Est)</th>
-                  <th className="px-6 py-3 font-medium">Status</th>
-                  <th className="px-6 py-3 font-medium">Date</th>
-                  <th className="px-6 py-3 font-medium text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {mockLeads.map((lead) => (
-                  <tr
-                    key={lead.id}
-                    className="bg-white border-b hover:bg-gray-50/50 transition-colors"
+          <div className="divide-y divide-gray-100">
+            {mockLeads.map((lead) => (
+              <div
+                key={lead.id}
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 hover:bg-gray-50 transition-colors gap-4"
+              >
+                <div className="flex items-center gap-4">
+                  <Avatar className="h-10 w-10">
+                    <AvatarFallback className="bg-secondary text-secondary-foreground font-medium text-sm">
+                      {getInitials(lead.name)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <div className="font-semibold text-gray-900">
+                      {lead.name}
+                    </div>
+                    <div className="text-xs text-gray-500 flex items-center gap-1">
+                      <Phone className="h-3 w-3" />
+                      {lead.phone}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex-1 min-w-0 px-0 sm:px-4">
+                  <p className="text-sm text-gray-600 truncate">{lead.items}</p>
+                  <p className="text-xs text-gray-500">#{lead.id}</p>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="text-right">
+                    <p className="font-bold text-gray-900">{lead.total}</p>
+                    <p className="text-xs text-gray-500">{lead.date}</p>
+                  </div>
+                  <Badge className={statusColors[lead.status]}>
+                    {lead.status.charAt(0).toUpperCase() + lead.status.slice(1)}
+                  </Badge>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
                   >
-                    <td className="px-6 py-4 font-medium text-gray-900">
-                      {lead.id}
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex flex-col">
-                        <span className="font-semibold text-gray-900">
-                          {lead.name}
-                        </span>
-                        <span className="text-xs text-gray-500 flex items-center gap-1">
-                          <PhoneIcon className="h-3 w-3" /> {lead.phone}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-gray-600 truncate max-w-[200px]">
-                      {lead.items}
-                    </td>
-                    <td className="px-6 py-4 font-bold text-gray-900">
-                      {lead.total}
-                    </td>
-                    <td className="px-6 py-4">
-                      <span
-                        className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${statusColors[lead.status]}`}
-                      >
-                        {lead.status.charAt(0).toUpperCase() +
-                          lead.status.slice(1)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-gray-500">{lead.date}</td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                        >
-                          <PhoneIcon className="h-4 w-4" />
-                        </Button>
-                        <Link href={`/dashboard/leads/${lead.id}`}>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-8 gap-1 bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-primary hover:border-primary"
-                          >
-                            View <EyeIcon className="h-3 w-3" />
-                          </Button>
-                        </Link>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    <Phone className="h-4 w-4" />
+                  </Button>
+                  <Link href={`/dashboard/leads/${lead.id}`}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="hover:bg-primary/10 hover:text-primary hover:border-primary"
+                    >
+                      <Eye className="h-4 w-4 mr-1" />
+                      View
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>

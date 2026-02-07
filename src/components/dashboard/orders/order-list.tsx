@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Table,
   TableBody,
@@ -12,7 +13,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { EyeIcon } from "@heroicons/react/24/outline";
+import {
+  Eye,
+  Package,
+  Clock,
+  CheckCircle,
+  Truck,
+  XCircle,
+  RefreshCw,
+} from "lucide-react";
 
 // Mock data for orders
 const mockOrders = [
@@ -74,17 +83,34 @@ export function OrderList() {
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case "pending":
-        return "bg-yellow-100 text-yellow-800";
+        return "bg-yellow-100 text-yellow-800 border-0";
       case "confirmed":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-100 text-blue-800 border-0";
       case "shipped":
-        return "bg-purple-100 text-purple-800";
+        return "bg-purple-100 text-purple-800 border-0";
       case "delivered":
-        return "bg-green-100 text-green-800";
+        return "bg-green-100 text-green-800 border-0";
       case "cancelled":
-        return "bg-red-100 text-red-800";
+        return "bg-red-100 text-red-800 border-0";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-gray-100 text-gray-800 border-0";
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "pending":
+        return <Clock className="h-4 w-4 text-yellow-600" />;
+      case "confirmed":
+        return <CheckCircle className="h-4 w-4 text-blue-600" />;
+      case "shipped":
+        return <Truck className="h-4 w-4 text-purple-600" />;
+      case "delivered":
+        return <CheckCircle className="h-4 w-4 text-green-600" />;
+      case "cancelled":
+        return <XCircle className="h-4 w-4 text-red-600" />;
+      default:
+        return <Clock className="h-4 w-4 text-gray-600" />;
     }
   };
 
@@ -92,113 +118,172 @@ export function OrderList() {
     return orders.filter((order) => order.status === status).length;
   };
 
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .slice(0, 2)
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
+  };
+
+  const statusCards = [
+    {
+      status: "pending",
+      label: "Pending",
+      icon: Clock,
+      color: "text-yellow-600",
+      bg: "bg-yellow-100",
+    },
+    {
+      status: "confirmed",
+      label: "Confirmed",
+      icon: CheckCircle,
+      color: "text-blue-600",
+      bg: "bg-blue-100",
+    },
+    {
+      status: "shipped",
+      label: "Shipped",
+      icon: Truck,
+      color: "text-purple-600",
+      bg: "bg-purple-100",
+    },
+    {
+      status: "delivered",
+      label: "Delivered",
+      icon: CheckCircle,
+      color: "text-green-600",
+      bg: "bg-green-100",
+    },
+    {
+      status: "cancelled",
+      label: "Cancelled",
+      icon: XCircle,
+      color: "text-red-600",
+      bg: "bg-red-100",
+    },
+  ];
+
   return (
-    <div className="space-y-6 bg-gray-50 min-h-screen p-6 pb-10">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Orders</h1>
-        <p className="text-muted-foreground">
-          Manage customer orders and track deliveries
-        </p>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Orders</h1>
+          <p className="text-gray-600 mt-1">
+            Manage customer orders and track deliveries
+          </p>
+        </div>
+        <Button variant="outline" className="border-gray-300">
+          <RefreshCw className="h-4 w-4 mr-2" />
+          Refresh
+        </Button>
       </div>
 
       {/* Order Status Overview */}
-      <div className="grid gap-4 md:grid-cols-5">
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Pending</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {getStatusCount("pending")}
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Confirmed</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {getStatusCount("confirmed")}
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Shipped</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {getStatusCount("shipped")}
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Delivered</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {getStatusCount("delivered")}
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Cancelled</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {getStatusCount("cancelled")}
-            </div>
-          </CardContent>
-        </Card>
+      <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+        {statusCards.map((item) => (
+          <Card
+            key={item.status}
+            className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+          >
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className={`p-2 rounded-lg ${item.bg}`}>
+                  <item.icon className={`h-4 w-4 ${item.color}`} />
+                </div>
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                {getStatusCount(item.status)}
+              </p>
+              <p className="text-xs text-gray-500">{item.label}</p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
-      <Card className="bg-white text-gray-900 border-gray-200 shadow-sm">
-        <CardHeader>
-          <CardTitle>All Orders</CardTitle>
+      {/* Orders Table */}
+      <Card className="border-0 shadow-lg">
+        <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10 p-4 border-b rounded-t-xl">
+          <CardTitle className="text-gray-900 flex items-center gap-2">
+            <Package className="h-5 w-5 text-primary" />
+            All Orders
+          </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Order ID</TableHead>
-                <TableHead>Customer</TableHead>
-                <TableHead>Items</TableHead>
-                <TableHead>Total</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Actions</TableHead>
+              <TableRow className="border-gray-100 bg-gray-50/50">
+                <TableHead className="text-gray-600 font-medium">
+                  Order ID
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Customer
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Items
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Total
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Status
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Date
+                </TableHead>
+                <TableHead className="text-gray-600 font-medium">
+                  Actions
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {orders.map((order) => (
-                <TableRow key={order.id}>
-                  <TableCell className="font-medium">#{order.id}</TableCell>
+                <TableRow
+                  key={order.id}
+                  className="border-gray-100 hover:bg-gray-50 transition-colors"
+                >
+                  <TableCell className="font-medium text-gray-900">
+                    #{order.id}
+                  </TableCell>
                   <TableCell>
-                    <div>
-                      <div className="font-medium">{order.customerName}</div>
-                      <div className="text-sm text-gray-500">
-                        {order.customerEmail}
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-8 w-8">
+                        <AvatarFallback className="bg-secondary text-secondary-foreground text-xs font-medium">
+                          {getInitials(order.customerName)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-medium text-gray-900">
+                          {order.customerName}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {order.customerEmail}
+                        </div>
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell>{order.items} items</TableCell>
-                  <TableCell>₹{order.total.toLocaleString()}</TableCell>
+                  <TableCell className="text-gray-700">
+                    {order.items} items
+                  </TableCell>
+                  <TableCell className="font-semibold text-gray-900">
+                    ₹{order.total.toLocaleString()}
+                  </TableCell>
                   <TableCell>
                     <Badge className={getStatusColor(order.status)}>
-                      {order.status}
+                      {order.status.charAt(0).toUpperCase() +
+                        order.status.slice(1)}
                     </Badge>
                   </TableCell>
-                  <TableCell>{order.date}</TableCell>
+                  <TableCell className="text-gray-500">{order.date}</TableCell>
                   <TableCell>
                     <Button
                       variant="outline"
-                      size="sm"
-                      className="bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:text-primary hover:border-primary"
+                      size="icon-sm"
+                      className="hover:bg-primary/10 hover:text-primary hover:border-primary"
                     >
-                      <EyeIcon className="h-4 w-4" />
+                      <Eye className="h-4 w-4" />
                     </Button>
                   </TableCell>
                 </TableRow>

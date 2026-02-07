@@ -185,7 +185,7 @@ export default function CategoriesPage() {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Badge variant="outline">
+                    <Badge className="bg-blue-100 text-blue-800 border-0">
                       {category.productCount} products
                     </Badge>
                   </TableCell>
