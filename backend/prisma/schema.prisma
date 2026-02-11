@@ -130,11 +130,29 @@ model Product {
   unit        String    @default("Box") // Box, Pkt, Pcs
   
   // Crackers Specifics
-  soundLevel  String?   // Low, Medium, High
+  soundLevel  String?   // Silent, Low, Medium, High, Very High
   piecesPerPack String? // Frontend sends string "5 Pcs"
   duration    String?
   safetyDistance String?
   effects     String?
+  
+  // Tamil Nadu Compliance Fields (Supreme Court & TNPCB Directives)
+  isGreenCracker    Boolean   @default(true)  // CSIR-NEERI certified green cracker
+  greenCrackerType  String?   // SWAS, STAR, SAFAL, Other, N/A
+  bariumFree        Boolean   @default(true)  // Free from banned chemicals (Barium, Arsenic, Mercury, Lead)
+  pesoLicenseNo     String?   // PESO (Petroleum and Explosives Safety Organisation) license
+  batchNumber       String?   // Batch number for traceability
+  manufacturingDate DateTime? // Manufacturing date for shelf life tracking
+  contentWeight     String?   // Net Explosive Content (NEC) - e.g., "15g per piece"
+  noiseLevel        String?   // Actual dB measurement - Max 125 dB (SC Order)
+  ageRestriction    Boolean   @default(true)  // 18+ age verification required
+  safetyInstructions String?  // Safety guidelines for customers
+  
+  // POS Specific Fields
+  barcode       String?   // Barcode for scanning
+  display       String    @default("active") // active, inactive - for POS display toggle
+  discountType  String?   // percentage, fixed, none
+  discountValue Float?    // Discount amount or percentage
   
   image       String?
   imagePublicId String?
@@ -149,3 +167,135 @@ model Product {
   @@map("products")
 }
 
+// ============================================
+// POS (Point of Sale) System Models
+// ============================================
+
+model POSOrder {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  orderNumber     String        @unique
+  invoiceNumber   String?       @unique
+  orderType       String        @default("pos") // pos, counter
+  
+  // Customer Information
+  customerId      String?       @db.ObjectId
+  customerName    String?
+  customerEmail   String?
+  customerPhone   String?
+  
+  // Order Items
+  items           POSOrderItem[]
+  
+  // Pricing
+  subtotal        Float
+  tax             Float         @default(0)
+  taxRate         Float         @default(0)
+  discount        Float         @default(0)
+  roundingOff     Float         @default(0)
+  total           Float
+  
+  // Payment
+  paymentMethod   String        // cash, card, upi, online
+  paymentStatus   String        @default("completed") // completed, pending, failed
+  amountReceived  Float?
+  changeGiven     Float         @default(0)
+  
+  // Status
+  orderStatus     String        @default("completed") // completed, cancelled, refunded
+  syncStatus      String        @default("synced") // synced (no Kafka, direct save)
+  syncedAt        DateTime?
+  
+  // Metadata
+  createdBy       String?       // Admin/Cashier ID
+  notes           String?       // Order notes
+  completedAt     DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  
+  @@map("pos_orders")
+}
+
+model POSOrderItem {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  orderId         String    @db.ObjectId
+  order           POSOrder  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  // Product Information
+  productId       String    @db.ObjectId
+  productName     String
+  productSku      String?
+  barcode         String?
+  
+  // Pricing
+  unitPrice       Float
+  quantity        Int
+  discount        Float     @default(0) // percentage
+  subtotal        Float
+  total           Float
+  
+  // GST Information
+  gstPercentage   Float     @default(0)
+  gstAmount       Float     @default(0)
+  priceBeforeGst  Float     @default(0) // Price excluding GST
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("pos_order_items")
+}
+
+// POS Session Model (Track cashier sessions)
+model POSSession {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  sessionNumber   String    @unique
+  cashierId       String    @db.ObjectId // Admin ID
+  cashierName     String
+  
+  // Session Details
+  openingCash     Float     @default(0)
+  closingCash     Float?
+  expectedCash    Float?
+  cashDifference  Float?
+  
+  // Session Stats
+  totalOrders     Int       @default(0)
+  totalSales      Float     @default(0)
+  totalCash       Float     @default(0)
+  totalCard       Float     @default(0)
+  totalUPI        Float     @default(0)
+  
+  // Status
+  status          String    @default("open") // open, closed
+  
+  // Timestamps
+  openedAt        DateTime  @default(now())
+  closedAt        DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@map("pos_sessions")
+}
+
+// Invoice Settings for automatic invoice number generation
+model InvoiceSettings {
+  id                    String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  // Invoice Format
+  invoicePrefix         String   @default("INV") // e.g., "INV", "BILL"
+  invoiceFormat         String   @default("{PREFIX}-{FY}-{SEQ}") // Template
+  invoiceSequenceLength Int      @default(4) // Number of digits for sequence
+  currentSequenceNo     Int      @default(1) // Current sequence number
+  
+  // Financial Year
+  autoFinancialYear     Boolean  @default(true)
+  financialYearStart    DateTime @default(now()) // e.g., April 1st
+  manualFinancialYear   String?  // e.g., "2024-25"
+  
+  // Status
+  isActive              Boolean  @default(true)
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@map("invoice_settings")
+}

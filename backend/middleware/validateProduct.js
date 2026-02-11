@@ -12,7 +12,8 @@ const VALID_CATEGORIES = [
 
 const VALID_SOUND_LEVELS = ['Silent', 'Low', 'Medium', 'High', 'Very High'];
 const VALID_STATUSES = ['active', 'inactive', 'out-of-stock'];
-const VALID_UNITS = ['Box', 'Pkt', 'Pcs'];
+const VALID_UNITS = ['Box', 'Pkt', 'Pcs', 'Set', 'Case'];
+const VALID_GREEN_CRACKER_TYPES = ['SWAS', 'STAR', 'SAFAL', 'Other', 'N/A'];
 
 // Validate create product request
 const validateCreateProduct = (req, res, next) => {
@@ -89,6 +90,25 @@ const validateCreateProduct = (req, res, next) => {
     const purchasePrice = parseFloat(req.body.purchasePrice);
     if (isNaN(purchasePrice) || purchasePrice < 0) {
       errors.push('Purchase price must be a positive number');
+    }
+  }
+
+  // Tamil Nadu Compliance validations
+  if (req.body.greenCrackerType && !VALID_GREEN_CRACKER_TYPES.includes(req.body.greenCrackerType)) {
+    errors.push(`Invalid green cracker type. Must be one of: ${VALID_GREEN_CRACKER_TYPES.join(', ')}`);
+  }
+
+  if (req.body.noiseLevel) {
+    const noise = parseFloat(req.body.noiseLevel);
+    if (!isNaN(noise) && noise > 125) {
+      errors.push('Noise level cannot exceed 125 dB (Supreme Court Order)');
+    }
+  }
+
+  if (req.body.manufacturingDate) {
+    const date = new Date(req.body.manufacturingDate);
+    if (isNaN(date.getTime())) {
+      errors.push('Invalid manufacturing date format');
     }
   }
 
@@ -194,5 +214,6 @@ module.exports = {
   VALID_CATEGORIES,
   VALID_SOUND_LEVELS,
   VALID_STATUSES,
-  VALID_UNITS
+  VALID_UNITS,
+  VALID_GREEN_CRACKER_TYPES
 };

@@ -124,6 +124,17 @@ exports.createProduct = async (req, res) => {
       effects,
       status,
       isFeatured,
+      // Tamil Nadu Compliance Fields
+      isGreenCracker,
+      greenCrackerType,
+      bariumFree,
+      pesoLicenseNo,
+      batchNumber,
+      manufacturingDate,
+      contentWeight,
+      noiseLevel,
+      ageRestriction,
+      safetyInstructions,
     } = req.body;
 
     let imageUrl = "";
@@ -175,6 +186,18 @@ exports.createProduct = async (req, res) => {
       duration: duration || null,
       safetyDistance: safetyDistance || null,
       effects: effects || null,
+
+      // Tamil Nadu Compliance Fields
+      isGreenCracker: isGreenCracker === "true" || isGreenCracker === true || isGreenCracker === undefined ? true : false,
+      greenCrackerType: greenCrackerType || null,
+      bariumFree: bariumFree === "true" || bariumFree === true || bariumFree === undefined ? true : false,
+      pesoLicenseNo: pesoLicenseNo?.trim() || null,
+      batchNumber: batchNumber?.trim() || null,
+      manufacturingDate: manufacturingDate ? new Date(manufacturingDate) : null,
+      contentWeight: contentWeight?.trim() || null,
+      noiseLevel: noiseLevel?.trim() || null,
+      ageRestriction: ageRestriction === "true" || ageRestriction === true || ageRestriction === undefined ? true : false,
+      safetyInstructions: safetyInstructions?.trim() || null,
 
       status: status || "active",
       isFeatured: isFeatured === "true" || isFeatured === true,
@@ -243,6 +266,7 @@ exports.updateProduct = async (req, res) => {
       mrp,
       gstPercentage,
       stock,
+      lowStockThreshold,
       unit,
       soundLevel,
       piecesPerPack,
@@ -251,6 +275,17 @@ exports.updateProduct = async (req, res) => {
       effects,
       status,
       isFeatured,
+      // Tamil Nadu Compliance Fields
+      isGreenCracker,
+      greenCrackerType,
+      bariumFree,
+      pesoLicenseNo,
+      batchNumber,
+      manufacturingDate,
+      contentWeight,
+      noiseLevel,
+      ageRestriction,
+      safetyInstructions,
     } = req.body;
 
     // Prepare update data (only include fields that are provided)
@@ -287,6 +322,26 @@ exports.updateProduct = async (req, res) => {
     if (safetyDistance !== undefined)
       updateData.safetyDistance = safetyDistance;
     if (effects !== undefined) updateData.effects = effects;
+
+    // Tamil Nadu Compliance updates
+    if (isGreenCracker !== undefined) {
+      updateData.isGreenCracker = isGreenCracker === "true" || isGreenCracker === true;
+    }
+    if (greenCrackerType !== undefined) updateData.greenCrackerType = greenCrackerType || null;
+    if (bariumFree !== undefined) {
+      updateData.bariumFree = bariumFree === "true" || bariumFree === true;
+    }
+    if (pesoLicenseNo !== undefined) updateData.pesoLicenseNo = pesoLicenseNo?.trim() || null;
+    if (batchNumber !== undefined) updateData.batchNumber = batchNumber?.trim() || null;
+    if (manufacturingDate !== undefined) {
+      updateData.manufacturingDate = manufacturingDate ? new Date(manufacturingDate) : null;
+    }
+    if (contentWeight !== undefined) updateData.contentWeight = contentWeight?.trim() || null;
+    if (noiseLevel !== undefined) updateData.noiseLevel = noiseLevel?.trim() || null;
+    if (ageRestriction !== undefined) {
+      updateData.ageRestriction = ageRestriction === "true" || ageRestriction === true;
+    }
+    if (safetyInstructions !== undefined) updateData.safetyInstructions = safetyInstructions?.trim() || null;
 
     if (status !== undefined) updateData.status = status;
     if (isFeatured !== undefined) {
